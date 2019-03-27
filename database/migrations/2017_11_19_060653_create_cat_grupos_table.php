@@ -15,7 +15,7 @@ class CreateCatGruposTable extends Migration
     {
         Schema::create('cat_grupos', function (Blueprint $table) {
             $table->increments('id_grupo');
-            $table->string('nombre');
+            $table->string('grupo');
             $table->integer('capacidad');
             $table->timestamps();
         });

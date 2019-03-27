@@ -23,7 +23,6 @@ class CreateAnexosTable extends Migration
                   ->onUpdate('cascade');
             $table->string('archivo');
             $table->smallInteger('numero_copias');
-            $table->date('fecha_entrega');
             $table->date('fecha_de_uso');
             $table->timestamps();
         });

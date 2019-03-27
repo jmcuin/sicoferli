@@ -47,6 +47,7 @@ class CreateNotificacionesTable extends Migration
                   ->onUpdate('cascade');  
             $table->text('mensaje')->nullable();
             $table->date('caducidad');
+            $table->tinyInteger('publicar')->nullable();
             $table->timestamps();
         });
     }

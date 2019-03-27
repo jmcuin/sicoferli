@@ -20,6 +20,7 @@ class CreateInformesTable extends Migration
             $table->string('telefono')->nullable();
             $table->string('asunto');
             $table->text('mensaje');
+            $table->string('enterado_a_traves_de')->nullable();
             $table->tinyInteger('atendido')->default(0);
             $table->timestamps();
         });

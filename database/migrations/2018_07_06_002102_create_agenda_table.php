@@ -30,6 +30,8 @@ class CreateAgendaTable extends Migration
             $table->string('evento')->nullable();
             $table->string('descripcion')->nullable();
             $table->date('fecha_evento')->nullable();
+            $table->time('hora_inicio')->nullable();
+            $table->time('hora_fin')->nullable();
             $table->timestamps();
         });
     }

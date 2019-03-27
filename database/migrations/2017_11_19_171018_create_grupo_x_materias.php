@@ -21,21 +21,11 @@ class CreateGrupoXMaterias extends Migration
                   ->on('cat_grupos')
                   ->onDelete('set null')
                   ->onUpdate('cascade');
-            $table->foreign('id_grupo')
-                  ->references('id_grupo')
-                  ->on('inscripciones')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
             $table->integer('id_materia')->nullable()->unsigned();
             $table->foreign('id_materia')
                   ->references('id_materia')
                   ->on('cat_materias')
                   ->onDelete('set null')
-                  ->onUpdate('cascade');
-            $table->foreign('id_materia')
-                  ->references('id_materia')
-                  ->on('inscripciones')
-                  ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->integer('id_trabajador')->nullable()->unsigned();
             $table->foreign('id_trabajador')

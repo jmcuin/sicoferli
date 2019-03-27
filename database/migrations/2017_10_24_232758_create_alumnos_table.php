@@ -32,6 +32,7 @@ class CreateAlumnosTable extends Migration
             $table->string('colonia')->nullable();
             $table->mediumInteger('cp')->nullable();
             $table->string('telefono')->nullable();
+            $table->string('email')->nullable();
             $table->integer('id_religion')->unsigned();
             $table->foreign('id_religion')
                   ->references('id_religion')
@@ -39,6 +40,7 @@ class CreateAlumnosTable extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->string('tipo_sangre')->nullable();
+            $table->string('foto')->default('default.jpg');
             $table->timestamps();
         });
     }

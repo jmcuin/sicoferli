@@ -19,6 +19,8 @@ class CreatePeriodosTable extends Migration
             $table->smallInteger('trimestre_preescolar')->nullable()->default(0);
             $table->smallInteger('bimestre_primaria')->nullable()->default(0);
             $table->smallInteger('bimestre_secundaria')->nullable()->default(0);
+            $table->date('inicio')->nullable();
+            $table->date('termino')->nullable();
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('clave_preescolar');
+            $table->string('clave_primaria');
+            $table->string('clave_secundaria');
             $table->string('zona_escolar');
             $table->string('rfc_colegio');
             $table->string('razon_social');

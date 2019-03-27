@@ -21,6 +21,7 @@ class CreatePaginaOfertaTable extends Migration
                   ->on('pagina')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
+            $table->string('oferta_imagen')->nullable();
             $table->string('oferta_titulo')->nullable();
             $table->string('oferta_texto')->nullable();
             $table->timestamps();

@@ -24,6 +24,7 @@ class CreatePadecimientosTable extends Migration
             $table->string('ref1_tel')->nullable();
             $table->string('ref2_nombre')->nullable();
             $table->string('ref2_tel')->nullable();
+            $table->string('cirugia')->nullable();
             $table->timestamps();
         });
     }

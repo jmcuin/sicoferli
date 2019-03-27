@@ -21,8 +21,14 @@ class CreatePlaneacionesTable extends Migration
                   ->on('trabajadors')
                   ->onDelete('set null')
                   ->onUpdate('cascade');
+            $table->string('comentarios')->nullable();
+            $table->tinyInteger('enviar')->nullable();
+            $table->dateTime('enviado_el')->nullable();
+            $table->date('semana'); 
+            $table->string('semaforo')->nullable();
+            $table->tinyInteger('nuevo')->nullable()->default('1');
             $table->string('archivo');
-            $table->date('fecha_entrega');
+            $table->tinyInteger('anual')->nullable();
             $table->timestamps();
         });
     }
