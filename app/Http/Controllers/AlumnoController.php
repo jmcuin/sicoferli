@@ -570,7 +570,7 @@ class AlumnoController extends Controller
         $user = new User;
         $alumno = Alumno::find(DB::table('alumnos')->max('id_alumno'));
         $user -> id_alumno = $alumno -> id_alumno;
-        $user -> folio = 'usuario'.$id;
+        $user -> matricula = 'usuario'.$id;
         $user -> name = $request -> nombre.' '.$request -> a_paterno.' '.$request -> a_materno;
         $user -> email = $request -> email;
         $user -> password = bcrypt(substr($request -> curp, 0, 6));
