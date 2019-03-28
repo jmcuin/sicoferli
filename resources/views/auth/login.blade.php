@@ -12,13 +12,13 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('folio') ? ' has-error' : '' }}">
-                            <label for="folio" class="col-md-4 control-label">Folio: </label>
+                            <label for="folio" class="col-md-4 control-label">Matrícula: </label>
 
                             <div class="col-md-6">
-                                <input id="folio" type="text" class="form-control" name="folio" value="{{ old('folio') }}" required autofocus>
-                                @if ($errors->has('folio'))
+                                <input id="matricula" type="text" class="form-control" name="matricula" value="{{ old('matricula') }}" required autofocus>
+                                @if ($errors->has('matricula'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('folio') }}</strong>
+                                        <strong>{{ $errors->first('matricula') }}</strong>
                                     </span>
                                 @endif
                             </div>

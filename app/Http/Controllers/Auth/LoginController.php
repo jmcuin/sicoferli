@@ -43,7 +43,7 @@ class LoginController extends Controller
     {
         $field = '';
 
-        $field = 'folio';
+        $field = 'matricula';
         
         return [
             $field => $request->get($this->username()),
@@ -53,6 +53,6 @@ class LoginController extends Controller
 
     public function username()
     {
-        return 'folio'; //or whatever field
+        return 'matricula'; //or whatever field
     }
 }
