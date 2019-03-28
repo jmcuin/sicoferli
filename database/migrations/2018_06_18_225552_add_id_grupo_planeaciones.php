@@ -21,7 +21,6 @@ class AddIdGrupoPlaneaciones extends Migration
                   ->on('cat_grupos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->date('semana')->nullable()->after('id_grupo');
         });
     }
 
