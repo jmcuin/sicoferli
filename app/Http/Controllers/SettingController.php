@@ -11,7 +11,7 @@ class SettingController extends Controller
 {
     //
     function __construct(){
-        $this -> middleware(['auth', 'roles:dir_general']);
+        $this -> middleware(['auth', 'roles:administracion_sitio,dir_general']);
     }
 
     public function index()

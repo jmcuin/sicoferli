@@ -59,186 +59,58 @@
                 @else 
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }}  <img width="20px" height="20px" src="{{ Storage::url(Auth::user()->photo) }}"> 
-                                </a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Salir
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{ Auth::user()->name }}  <img width="20px" height="20px" src="{{ Storage::url(Auth::user()->photo) }}"> 
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();       document.getElementById('logout-form').submit();">Salir</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
                             </li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="active"><a href="{{route('Panel.index')}}">Inicio</a></li>
-                    <!--<li><a href="#">About Us</a></li>
-                    <li class="dropdown megamenu-fw">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Megamenu</a>
-                        <ul class="dropdown-menu megamenu-content" role="menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu One</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- end col-3 -->
-                                    <!--<div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu Two</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- end col-3 -->
-                                    <!--<div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu Three</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>    
-                                    <div class="col-menu col-md-3">
-                                        <h6 class="title">Title Menu Four</h6>
-                                        <div class="content">
-                                            <ul class="menu-col">
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                                <li><a href="#">Custom Menu</a></li>
-                                            </ul>
-                                        </div>
-                                    </div><!-- end col-3 -->
-                                <!--</div><!-- end row -->
-                            <!--</li>
-                        </ul>
-                    </li>-->
-                    @if( auth() -> user() -> hasRoles(['dir_general']) )
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Catálogos</a>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Académico</a>
-                                <ul class="dropdown-menu">
-                                    @if( auth() -> user() -> hasRoles(['dir_general']) )
-                                        <li><a href="{{ route('Escolaridad.index') }}">Escolaridades</a></li>
-                                    @endif
-                                    @if( auth() -> user() -> hasRoles(['dir_general','director']) )
-                                        <li><a href="{{ route('Grupo.index') }}">Grupos</a></li>
-                                        <li><a href="{{ route('Materia.index') }}">Materias</a></li>
-                                        <li><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
-                                    @endif
-                                    @if( auth() -> user() -> hasRoles(['dir_general']) )
-                                        <li><a href="{{ route('Periodo.index') }}">Periodos</a></li>
-                                    @endif    
-                                    <!--<li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Custom Menu</a></li>-->
-                                </ul>
-                            </li>
-                            @if( auth() -> user() -> hasRoles(['dir_general']) )
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Administrativo</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('Rol.index') }}">Roles</a></li>
-                                    <!--<li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Custom Menu</a></li>-->
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Geográfico</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('Estado.index') }}">Estados</a></li>
-                                    <li><a href="{{ route('Municipio.index') }}">Municipios</a></li>
-                                    <li><a href="{{route('paginaEstadistica')}}">Estadísticas</a></li>
-                                    <!--<li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Sub Menu</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Custom Menu</a></li>-->
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Otros</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('EstadoCivil.index') }}">Estados Civiles</a></li>
-                                    <li><a href="{{ route('PrepAcademica.index') }}">Grados Académicos</a></li>
-                                    <li><a href="{{ route('Parentesco.index') }}">Parentescos</a></li>
-                                    <li><a href="{{ route('Religion.index') }}">Religiones</a></li>
-                                    <li class="active"><a href="">Página</a></li>
-                                    <li class="active"><a href="{{ route('Notificacion.index') }}">Notificaciones</a></li>
-                                    <li class="active"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Página</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{{ route('Pagina.index') }}">Configuración</a></li>
-                                            <li><a href="{{route('paginaEstadistica')}}">Estadísticas</a></li>
-                                            <!--<li><a href="#">Custom Menu</a></li>
-                                            <li><a href="#">Custom Menu</a></li>-->
-                                        </ul>
-                                    </li>
-                                    <!--<li><a href="#">Custom Menu</a></li>-->
-                                </ul>
-                            </li>
-                            @endif
-                        </ul>
-                    </li>
-                    @endif
-                    
-                    @if( auth() -> user() -> hasRoles(['dir_general','director']) )
+                    @if( auth() -> user() -> hasRoles(['administracion_sitio','direccion_general','director']) )
                         <li class="active"><a href="{{ route('Alumno.index') }}">Alumnos</a></li>
                         <li class="active"><a href="{{ route('Trabajador.index') }}">Trabajadores</a></li>
                         <li class="active"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>
                         <li class="active"><a href="{{ route('Informe.index') }}">Informes - {{ Auth::user()->roles->count() }}</a></li>
-                        <li class="active"><a href="{{ route('Agenda.index') }}">Calendario</a></li>
+                        <li class="active"><a href="{{ route('Agenda.index') }}">Agenda</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('Escolaridad.index') }}">Escolaridades</a></li>
+                                <li><a href="{{ route('EstadoCivil.index') }}">Estados Civiles</a></li>
+                                <li><a href="{{ route('Estado.index') }}">Estados</a></li>
+                                <li><a href="{{ route('PrepAcademica.index') }}">Grados Académicos</a></li>
+                                <li><a href="{{ route('Municipio.index') }}">Municipios</a></li>
+                                <li><a href="{{ route('Parentesco.index') }}">Parentescos</a></li>
+                                <li><a href="{{ route('Religion.index') }}">Religiones</a></li>
+                                <li><a href="{{ route('Rol.index') }}">Roles</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Académico</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('Grupo.index') }}">Grupos</a></li>
+                                <li><a href="{{ route('Materia.index') }}">Materias</a></li>
+                                <li><a href="{{ route('Periodo.index') }}">Periodos</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Página</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('Pagina.index') }}">Configuración</a></li>
+                                <li><a href="{{ route('paginaEstadistica') }}">Estadísticas</a></li>
+                                <li class="active"><a href="{{ route('Notificacion.index') }}">Notificaciones</a></li>
+                            </ul>
+                        </li>
+                        <li class="active"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
+                        <li class="active"><a href="{{ route('Setting.index') }}">Configuración</a></li>
                     @endif
                     @if( auth() -> user() -> hasRoles(['profesor']) )
                         <li class="active"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>

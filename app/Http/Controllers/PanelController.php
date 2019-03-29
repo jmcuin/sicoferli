@@ -17,7 +17,7 @@ class PanelController extends Controller
      */
 
     function __construct(){
-        $this -> middleware(['auth', 'roles:administracion_sitio,dir_general,director,profesor,administrativo,alumno']);
+        $this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
     }
     
     public function index()
@@ -86,7 +86,10 @@ class PanelController extends Controller
                                 ->get();
         }
 
-        if(Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' || Auth::user() -> roles[0] -> rol_key == 'director' || Auth::user() -> roles[0] -> rol_key == 'dir_general'){
+        if(Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' ||
+            Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' ||
+            Auth::user() -> roles[0] -> rol_key == 'direccion_general' || 
+            Auth::user() -> roles[0] -> rol_key == 'direccion_nivel'){
             $colaboradores = DB::table('trabajadors')
                             ->select(DB::raw('count(id_trabajador) as trabajadores')) 
                             ->first(); 

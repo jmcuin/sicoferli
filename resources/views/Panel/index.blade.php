@@ -10,7 +10,7 @@
             </div>
             <div class="panel-body">
               	<div class="row">
-                  @if( count($mensajes_roles) > 0 || count($mensajes_individuales) > 0 )
+                  @if( ($mensajes_roles != null) || ($mensajes_individuales != null) )
                    <h2 class="panel-title" align="center">Avisos Vigentes</h2>
                   @endif
                   @if($mensajes_roles != null) 

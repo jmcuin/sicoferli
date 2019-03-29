@@ -18,7 +18,7 @@
                   @endif
               	</div>
               	<div class="row">
-                  @if( count($mensajes_grupales) > 0 || count($mensajes_individuales) > 0 || count($mensajes_alumnos) > 0 )
+                  @if( ($mensajes_roles != null) || ($mensajes_individuales != null) || ($mensajes_alumnos != null) )
                 	 <h2 class="panel-title" align="center">Avisos Vigentes</h2>
                   @endif
                   @if($mensajes_grupales != null)

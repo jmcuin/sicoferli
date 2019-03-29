@@ -166,6 +166,22 @@
                         <td>Tel. Médico Tratante:</td>
                         <td>{{ $padecimiento -> tel_medico }}</td>
                       </tr>
+                      <tr>
+                        <td>Referencia Uno:</td>
+                        <td>{{ $padecimiento -> ref1_nombre }}</td>
+                      </tr>
+                      <tr>
+                        <td>Tel. Referencia Uno:</td>
+                        <td>{{ $padecimiento -> ref1_tel }}</td>
+                      </tr>
+                      <tr>
+                        <td>Referencia Dos:</td>
+                        <td>{{ $padecimiento -> ref2_nombre }}</td>
+                      </tr>
+                      <tr>
+                        <td>Tel. Referencia Dos:</td>
+                        <td>{{ $padecimiento -> ref2_tel }}</td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

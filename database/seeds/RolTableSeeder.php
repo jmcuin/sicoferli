@@ -46,5 +46,10 @@ class RolTableSeeder extends Seeder
         	'rol' => 'Asistente administrativo(a)',
         	'descripcion' => 'Asistente administrativo(a) de la Institución.'
         ]);
+        Rol::create([
+            'rol_key' => 'alumno',
+            'rol' => 'Alumno(a)',
+            'descripcion' => 'Alumno(a) de la Institución.'
+        ]);
     }
 }

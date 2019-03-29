@@ -80,7 +80,6 @@
 						<td colspan="16" align="center">No hay datos para mostrar.</td>
 					</tr>
 				@else
-					
 						<tr>
 							<td>
 								{{ $setting -> clave_preescolar }}
@@ -113,6 +112,8 @@
 								<td>
 									{{ $setting -> periodo -> periodo }}
 								</td>
+							@else
+								<td>Por definir</td>
 							@endif
 							<td>
 								{{ $setting -> direccion_general }}
