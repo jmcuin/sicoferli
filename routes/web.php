@@ -54,6 +54,8 @@ Route::get('AlumnoCalifs', ['as' => 'AlumnoCalifs', 'uses' =>'AlumnoController@c
 
 Route::resource('Calificacion', 'CalificacionController');
 
+Route::resource('CriterioDesempenio', 'CriterioDesempenioController');
+
 Route::resource('Escolaridad', 'EscolaridadController');
 
 Route::resource('Estado', 'EstadoController');

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-	<div class="col-sm-8" style="overflow: auto;"> 
+	<div class="col-sm-12" style="overflow: auto;"> 
 		<h1>
 			Catálogo de Grupos
 			<a href="{{ route('Grupo.create') }}" class="btn btn-primary pull-right">Nuevo</a>

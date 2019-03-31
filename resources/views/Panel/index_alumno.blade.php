@@ -18,7 +18,7 @@
                   @endif
               	</div>
               	<div class="row">
-                	@if( ($mensajes_roles != null) || ($mensajes_individuales != null) )
+                	@if( ($mensajes_grupales != null) || ($mensajes_individuales != null) )
                    <h2 class="panel-title" align="center">Avisos Vigentes</h2>
                   @endif
                   @if($mensajes_grupales != null)

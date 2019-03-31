@@ -11,12 +11,12 @@
 				<div class="row" align="center">
 					<label for="escolaridad">
 						Escolaridad
-						<input type="text" name="escolaridad" value="{{$escolaridad -> escolaridad}}" class="form-control" placeholder="prescolar, primaria, etc...">
+						<input type="text" name="escolaridad" value="{{$escolaridad -> escolaridad}}" class="form-control" placeholder="Preescolar, primaria, etc...">
 						{{ $errors -> first('escolaridad') }}
 					</label>
 					<label for="nomenclatura_grupos">
 						Nomenclatura
-						<input type="text" name="nomenclatura_grupos" value="{{$escolaridad -> nomenclatura_grupos}}" class="form-control" placeholder="Presco, Prim, Sec, etc...">
+						<input type="text" name="nomenclatura_grupos" value="{{$escolaridad -> nomenclatura_grupos}}" class="form-control" placeholder="Preesco, Prim, Sec, etc...">
 						{{ $errors -> first('nomenclatura_grupos') }}
 					</label>
 					<label for="horario">

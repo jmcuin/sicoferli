@@ -29,11 +29,13 @@
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="trimestre_preescolar">
-							Trimestre Preescolar<br>
+							Bimestre Preescolar<br>
 							<select name="trimestre_preescolar" id="trimestre_preescolar">
-								<option value="1" @if(old('trimestre_preescolar') == 1 ) selected @endif>1er Trimestre</option>
-								<option value="2" @if(old('trimestre_preescolar') == 2 ) selected @endif>2do Trimestre</option>
-								<option value="3" @if(old('trimestre_preescolar') == 3 ) selected @endif>3er Trimestre</option>
+								<option value="1" @if(old('trimestre_preescolar') == 1 ) selected @endif>1er Bimestre</option>
+								<option value="2" @if(old('trimestre_preescolar') == 2 ) selected @endif>2do Bimestre</option>
+								<option value="3" @if(old('trimestre_preescolar') == 3 ) selected @endif>3er Bimestre</option>
+								<option value="4" @if(old('trimestre_preescolar') == 3 ) selected @endif>4to Bimestre</option>
+								<option value="3" @if(old('trimestre_preescolar') == 3 ) selected @endif>5t0 Bimestre</option>
 							</select>
 							{{ $errors -> first('trimestre_preescolar') }}
 						</label>

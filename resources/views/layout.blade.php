@@ -96,6 +96,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Académico</a>
                             <ul class="dropdown-menu">
+                                <li><a href="{{ route('CriterioDesempenio.index') }}">Criterios de Desempeño</a></li>
                                 <li><a href="{{ route('Grupo.index') }}">Grupos</a></li>
                                 <li><a href="{{ route('Materia.index') }}">Materias</a></li>
                                 <li><a href="{{ route('Periodo.index') }}">Periodos</a></li>

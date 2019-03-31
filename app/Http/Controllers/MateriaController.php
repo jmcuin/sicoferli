@@ -14,7 +14,7 @@ class MateriaController extends Controller
      * @return \Illuminate\Http\Response
      */
     function __construct(){
-        $this -> middleware(['auth', 'roles:dir_general,director']);
+        $this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
     }
     
     public function index()

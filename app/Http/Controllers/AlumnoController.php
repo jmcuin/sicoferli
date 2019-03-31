@@ -23,6 +23,7 @@ use App\padres_x_alumno;
 use App\Expediente_alumno;
 use App\Setting;
 use App\User;
+use App\Rol;
 use DB;
 
 class AlumnoController extends Controller
@@ -34,8 +35,9 @@ class AlumnoController extends Controller
      */
 
     function __construct(){
-        $this -> middleware('auth', ['except' => ['checkScores']]);
-        $this -> middleware('roles:dir_general,director,profesor', ['except' => ['checkScores']]);
+        //$this -> middleware('auth', ['except' => ['checkScores']]);
+        //$this -> middleware('roles:dir_general,director,profesor', ['except' => ['checkScores']]);
+        $this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
     }
 
     public function index()
@@ -570,14 +572,13 @@ class AlumnoController extends Controller
         $user = new User;
         $alumno = Alumno::find(DB::table('alumnos')->max('id_alumno'));
         $user -> id_alumno = $alumno -> id_alumno;
-        $user -> matricula = 'usuario'.$id;
+        $user -> matricula = 'FELI'.$alumno -> id_alumno;
         $user -> name = $request -> nombre.' '.$request -> a_paterno.' '.$request -> a_materno;
         $user -> email = $request -> email;
         $user -> password = bcrypt(substr($request -> curp, 0, 6));
         $user -> photo = $alumno -> foto;
         $user -> save();
-        $user -> roles() -> attach('7');
-        //$user -> roles() -> attach($request -> id_rol);
+        $user -> roles() -> attach(Rol::where('rol_key', 'like', 'alumno%')->select('id_rol')->first());
     }
 
     public function updateUser($id){
@@ -587,7 +588,6 @@ class AlumnoController extends Controller
         $user -> email = $alumno -> email;
         $user -> photo = $alumno -> foto;
         $user -> save();
-        //$user -> roles() -> attach($request -> id_rol);
     }
 
     public function checkScores(){

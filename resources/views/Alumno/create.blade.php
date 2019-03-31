@@ -94,7 +94,7 @@
 				<div class="col-sm-4 form-group">
 					<div class="input-group">
 						<span class="input-group-addon">Calle</span>	
-						<input type="text" name="calle" value="{{old('calle')}}" class="form-control" placeholder="Domicilio del Alumno">
+						<input type="text" name="calle" value="{{old('calle')}}" class="form-control" placeholder="Calle del Alumno">
 					</div>
 					{{ $errors -> first('calle') }}
 				</div>
@@ -116,8 +116,8 @@
 			<div class="row">
 				<div class="col-sm-4 form-group">		
 					<div class="input-group">
-						<span class="input-group-addon"># Exterior</span>
-						<input type="text" name="colonia" value="{{old('colonia')}}" class="form-control" placeholder="Domicilio del Alumno">
+						<span class="input-group-addon">Colonia</span>
+						<input type="text" name="colonia" value="{{old('colonia')}}" class="form-control" placeholder="Colonia del Alumno">
 					</div>
 					{{ $errors -> first('colonia') }}
 				</div>
@@ -469,7 +469,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="col-lg-12 well">
 		<h3 align="center">
 			Expediente
@@ -478,7 +477,7 @@
 			<div class="col-sm-6 form-group">
 				<label for="acta_nacimiento">
 					Acta de Nacimiento<br>
-						</label><input type="radio" name="acta_nacimiento" value="1" @if(old('acta_nacimiento') == 1 ) checked @endif>Entregó<br>
+						<input type="radio" name="acta_nacimiento" value="1" @if(old('acta_nacimiento') == 1 ) checked @endif>Entregó<br>
 						<input type="radio" name="acta_nacimiento" value="2" @if(old('acta_nacimiento') == 2 ) checked @endif>Pendiente<br>
 						<input type="radio" name="acta_nacimiento" value="3" @if(old('acta_nacimiento') == 3 ) checked @endif>No Aplica	
 				</label>
