@@ -210,7 +210,7 @@ class GrupoController extends Controller
     
         $this -> actualizarAlumnos($request -> id_grupo);
 
-        return redirect()->route('Grupo.index')->with('materias_asociadas','Materias asociadas con éxito.');
+        return redirect()->route('Grupo.index')->with('materias_asociadas','Asociación de materias realizada con éxito.');
     }
 
     public function actualizarAlumnos($id)
@@ -231,13 +231,13 @@ class GrupoController extends Controller
 
         $bimestre_o_trimestre = 0;
         $grupo = Grupo::findOrFail($id);
-        if(substr( $grupo -> escolaridad -> escolaridad , 0, 4 ) === "Pres")
+        if(substr( $grupo -> escolaridad -> escolaridad , 0, 4 ) === "Prees")
             $bimestre_o_trimestre = 4;
         else
             $bimestre_o_trimestre = 6;
 
         if(!empty($materias)){
-            for($i = 0; $i < count($materias[0]); $i ++){
+            for($i = 0; $i < count($materias); $i ++){
                 for($j = 0; $j < count($alumnos); $j++){
                     for($k = 1; $k < $bimestre_o_trimestre; $k++){
                         $inscripcion = new Inscripcion;

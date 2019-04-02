@@ -29,4 +29,9 @@ class Inscripcion extends Model
     {
         return $this->belongsTo(Materia::class,'id_materia');
     }
+
+    public function criterioDesempenio()
+    {
+        return $this->belongsTo(CriterioDesempenio::class,'id_criterio_desempenio');
+    }
 }

@@ -27,7 +27,8 @@ class InscripcionController extends Controller
     {
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI  
 
-        if(substr(auth()->user()->roles[0]->rol_key,0,3) === "dir"){
+        if(substr(auth()->user()->roles[0]->rol_key,0,3) === "dir" 
+            || auth()->user()->roles[0]->rol_key === 'administracion_sitio'){
             $grupos = DB::table('cat_grupos')
                     ->join('settings', 'cat_grupos.id_periodo', '=', 'settings.id_periodo')
                     ->where('id_grupo', $criterio)
@@ -39,7 +40,7 @@ class InscripcionController extends Controller
                     ->join('settings', 'cat_grupos.id_periodo', '=', 'settings.id_periodo')
                     ->join('materia_x_grupos', function ($join) {
                         $join->on('materia_x_grupos.id_grupo', '=', 'cat_grupos.id_grupo')
-                         ->where('materia_x_grupos.id_trabajador', '=',auth()->user()->id_user);
+                         ->where('materia_x_grupos.id_trabajador', '=',auth()->user()->id_trabajador);
                     })
                     ->where('cat_grupos.id_grupo', $criterio)
                     ->orwhere('grupo','like', '%'.$criterio.'%')

@@ -32,7 +32,7 @@
     	@endif
     	@if (session('error_materias'))
     		<strong>
-    			<div class="alert alert-success alert-dismissable fade in">
+    			<div class="alert alert-warning alert-dismissable fade in">
         			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         			{{ session('error_materias') }}
     			</div>

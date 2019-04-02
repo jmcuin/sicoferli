@@ -22,7 +22,7 @@
 							<option value="0">Seleccione una opción</option>
 							@foreach($inscripciones as $inscripcion)
 								@if($contador_materias < $numero_de_materias)
-									<option value="{{$inscripcion -> materia -> id_materia }}">{{ $inscripcion -> materia -> materia }}</option>
+									<option value="{{ $inscripcion -> materia -> id_materia }}">{{ $inscripcion -> materia -> materia }}</option>
 								@endif
 								<?php $contador_materias++; ?>
 							@endforeach
@@ -31,7 +31,7 @@
 							<tr>
 								<td align="center" rowspan="2" class="materia" style="width: 200px">Alumno</td>
 								<td align="center" rowspan="2" class="materia" style="width: 150px">Materia</td>
-								<td colspan="8" align="center" class="materia">Bimestre {{$bimestre_secundaria}}</td>
+								<td colspan="9" align="center" class="materia">Bimestre {{$bimestre_secundaria}}</td>
 							</tr>
 							<tr>
 								<td class="criterios" style="width: 70px">Examen</td>
@@ -42,6 +42,7 @@
 								<td class="criterios" style="width: 70px">Promedio</td>
 								<td class="criterios" style="width: 70px">Regularizaciones</td>
 								<td class="criterios" style="width: 70px">#Inasistencias</td>
+								<td class="criterios" style="width: 70px">Criterio</td>
 							</tr>
 							<?php $id_alumno = 0;
 							$contador = 0; 
@@ -56,8 +57,8 @@
 									@endif
 								<!--</tr>-->
 								<tr class="tr_{{$inscripcion -> alumno -> id_alumno}} fm-{{ $inscripcion-> materia -> id_materia }} contenedor" hidden="hidden">
-										<td class="alumno" style="width: 180px"><div id="{{$inscripcion -> alumno -> id_alumno}}">{{ $inscripcion-> alumno -> nombre}} {{ $inscripcion -> alumno -> a_paterno}} {{ $inscripcion -> alumno -> a_materno}}</div></td>
-										<td class="materia" style="width: 200px">{{ $inscripcion-> materia -> materia}}</td>
+										<td class="alumno" style="width: 180px"><div id="{{$inscripcion -> alumno -> id_alumno}}">{{ $inscripcion -> alumno -> nombre}} {{ $inscripcion -> alumno -> a_paterno}} {{ $inscripcion -> alumno -> a_materno}}</div></td>
+										<td class="materia" style="width: 200px">{{ $inscripcion -> materia -> materia}}</td>
 										<td align="center"><input type="number" name="examen[]" id="examen_{{$contador}}" class="ponderado" style="width: 4em"
 										value="{{$inscripcion -> examen}}" min="0" max="10" step="0.01"></td>
 										<td align="center"><input type="number" name="tareas[]" id="tareas_{{$contador}}" class="ponderado" style="width: 4em"
@@ -73,6 +74,26 @@
 										value="{{$inscripcion -> examen_extra}}" min="0" max="10" step="0.01"></td>	
 										<td align="center"><input type="number" name="numero_inasistencias[]" id="numero_inasistencias_{{$contador}}" class="ponderado" style="width: 4em"
 										value="{{$inscripcion -> numero_inasistencias}}" min="0" max="10" step="0.01"></td>
+										<td align="center" style="color: #000;">
+											<select name="criteriosdesempenio[]" id="selector_criterio">
+												@foreach($criteriosdesempenio as $criteriodesempenio)
+													<option value="{{ $criteriodesempenio -> id_criterio_desempenio }}" @if($inscripcion -> id_criterio_desempenio == $criteriodesempenio -> id_criterio_desempenio) selected="selected" @endif>{{ $criteriodesempenio -> criterio }}</option>	
+												@endforeach
+											</select>
+											@foreach($criteriosdesempenio as $criteriodesempenio)
+												@if($inscripcion -> id_criterio_desempenio == $criteriodesempenio -> id_criterio_desempenio)
+													<input type="number" name="porcentaje_examen[]" id="porcentaje_examen_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_examen }}" >
+													<input type="number" name="porcentaje_tareas[]" id="porcentaje_tareas_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_tareas }}">
+													<input type="number" name="porcentaje_tomas_clase[]" id="porcentaje_tomas_clase_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_tomas_clase }}">
+													<input type="number" name="porcentaje_participacion[]" id="porcentaje_participacion_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_participacion }}">
+												 @elseif($inscripcion -> id_criterio_desempenio == null)
+												 	<input type="number" name="porcentaje_examen[]" id="porcentaje_examen_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_examen }}" >
+													<input type="number" name="porcentaje_tareas[]" id="porcentaje_tareas_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_tareas }}">
+													<input type="number" name="porcentaje_tomas_clase[]" id="porcentaje_tomas_clase_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_tomas_clase }}">
+													<input type="number" name="porcentaje_participacion[]" id="porcentaje_participacion_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_participacion }}">
+												 @endif
+											@endforeach
+										</td>
 								</tr>	
 									@php 
 										$id_alumno = $inscripcion -> alumno -> id_alumno;
@@ -112,16 +133,24 @@
 			var promedio = 0.0;
 			var registros = parseInt($('#numero_de_registros').val());
 			for(i = 0; i < registros; i ++){
-				if($('#examen_extra_'+i).val() == 0){
-					promedio = (parseFloat($('#examen_'+i).val())*0.4)
-						+ (parseFloat($('#tareas_'+i).val())*0.2)
-						+ (parseFloat($('#trabajos_'+i).val())*0.2)
-						+ (parseFloat($('#asistencias_'+i).val())*0.2)
-						+ (parseFloat($('#puntos_extra_'+i).val()));
+				if(parseFloat($('#examen_extra_'+i).val()) == 0){
+					promedio = (parseFloat($('#examen_'+i).val())*(parseFloat($('#porcentaje_examen_'+i).val())/100)
+						+ parseFloat($('#tareas_'+i).val())*(parseFloat($('#porcentaje_tareas_'+i).val())/100)
+						+ parseFloat($('#trabajos_'+i).val())*(parseFloat($('#porcentaje_tomas_clase_'+i).val())/100)
+						+ parseFloat($('#asistencias_'+i).val())*(parseFloat($('#porcentaje_participacion_'+i).val())/100)
+						+ parseFloat($('#puntos_extra_'+i).val())
+					);
 				}else{
-					promedio = $('#examen_extra_'+i).val();
+					if(parseFloat($('#examen_extra_'+i).val()) > 10)
+						promedio = 10;
+					else
+						promedio = $('#examen_extra_'+i).val();
 				}
-				$('#promedio_'+i).val(promedio);
+				if(promedio > 10){
+					$('#promedio_'+i).val(10);
+				}else{
+					$('#promedio_'+i).val(promedio);
+				}
 				if(promedio<6.0){
 					$('#promedio_'+i).closest('tr').find('.materia').css({"background-color": "#c94c4c"});
 				}else{

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Inscripcion;
 use App\Grupo;
 use App\Alumno;
+use App\CriterioDesempenio;
 use DB;
 
 class CalificacionController extends Controller
@@ -45,9 +46,11 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
+        //dd($request);
         $total = count($request -> inscripcion);
         for ($i = 0; $i < $total; $i++){
             $inscripcion = Inscripcion::findOrFail($request -> inscripcion[$i]);
+            $inscripcion -> id_criterio_desempenio = $request -> criteriosdesempenio[$i];
             $inscripcion -> examen = $request -> examen[$i];
             $inscripcion -> tareas = $request -> tareas[$i];
             $inscripcion -> trabajos = $request -> trabajos[$i];
@@ -73,6 +76,7 @@ class CalificacionController extends Controller
         $inscripciones = null;
         $usuario = null;
         $grupo = Grupo::findOrFail($id);
+        $criteriosdesempenio = CriterioDesempenio::all();
         $materias = array();
 
         $settings = DB::table('cat_grupos')
@@ -87,7 +91,7 @@ class CalificacionController extends Controller
         $bimestre_primaria = $settings[0] -> bimestre_primaria;
         $bimestre_secundaria = $settings[0] -> bimestre_secundaria;
 
-        if(auth() -> user() -> hasRoles(['dir_general', 'director'])){
+        if(auth() -> user() -> hasRoles(['administracion_sitio', 'director'])){
                        
             $usuario = DB::select(DB::raw("select cat_roles.rol_key, materia_x_grupos.id_materia
                         from users
@@ -96,13 +100,12 @@ class CalificacionController extends Controller
                         inner join cat_roles
                         on roles_x_users.id_rol = cat_roles.id_rol
                         inner join materia_x_grupos
-                        on materia_x_grupos.id_trabajador = users.id_user
+                        on materia_x_grupos.id_trabajador = users.id_trabajador
                         where materia_x_grupos.id_grupo = :id_grupo"), 
                                     array('id_grupo' => $id)
                                 );
 
             if(count($usuario) > 0){
-               
                 for($i = 0; $i < count($usuario) ; $i++ ){
                     array_push($materias, $usuario[$i] -> id_materia);
                 }
@@ -111,14 +114,13 @@ class CalificacionController extends Controller
                             -> where('bimestre_trimestre', '=', $bimestre_secundaria)
                             -> orderBy('id_alumno')
                             -> get();
-
             }else{
                 return view('errors.500');
             }
 
 
         }else{
-
+            
             $usuario = DB::select(DB::raw("select cat_roles.rol_key, materia_x_grupos.id_materia
                         from users
                         inner join roles_x_users
@@ -126,7 +128,7 @@ class CalificacionController extends Controller
                         inner join cat_roles
                         on roles_x_users.id_rol = cat_roles.id_rol
                         inner join materia_x_grupos
-                        on materia_x_grupos.id_trabajador = users.id_user
+                        on materia_x_grupos.id_trabajador = users.id_trabajador
                         where users.id_user = :id_user and materia_x_grupos.id_grupo = :id_grupo"), 
                                     array('id_user' => auth() -> user() -> id_user, 'id_grupo' => $id)
                                 );
@@ -150,7 +152,7 @@ class CalificacionController extends Controller
         $numero_de_materias = count($usuario);
         //dd($numero_de_materias);
 
-        return view('Calificacion.show', compact('grupo', 'inscripciones', 'bimestre_secundaria', 'numero_de_materias'));
+        return view('Calificacion.show', compact('grupo', 'inscripciones', 'bimestre_secundaria', 'numero_de_materias', 'criteriosdesempenio'));
     }
 
     /**
