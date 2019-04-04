@@ -22,7 +22,7 @@
     			</div>
     		</strong>
     	@endif
-    	{!! Form::open(['method'=>'GET','url'=>'CriterioDesemepenio','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
+    	{!! Form::open(['method'=>'GET','url'=>'CriterioDesempenio','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
 			<div class="input-group custom-search-form">
 			    <input type="text" class="form-control" name="search" placeholder="Buscar...">
 			    <span class="input-group-btn">

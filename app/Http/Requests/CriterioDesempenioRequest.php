@@ -33,14 +33,22 @@ class CriterioDesempenioRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'criterio' => 'unique:cat_criterios_desempenio|required|min:2'
+                    'criterio' => 'unique:cat_criterios_desempenio|required|min:2',
+                    'porcentaje_examen' => 'required|between:0,100|numeric',
+                    'porcentaje_tareas' => 'required|between:0,100|numeric',
+                    'porcentaje_tomas_clase' => 'required|between:0,100|numeric',
+                    'porcentaje_participacion' => 'required|between:0,100|numeric'
                 ];
             }
             case 'PUT':
             case 'PATCH':
             {
                 return [
-                    'criterio' => 'required|min:2|unique:cat_criterios_desempenio,criterio,'.$this->route('CriterioDesempenio').',id_criterio_desempenio'
+                    'criterio' => 'required|min:2|unique:cat_criterios_desempenio,criterio,'.$this->route('CriterioDesempenio').',id_criterio_desempenio',
+                    'porcentaje_examen' => 'required|between:0,100|numeric',
+                    'porcentaje_tareas' => 'required|between:0,100|numeric',
+                    'porcentaje_tomas_clase' => 'required|between:0,100|numeric',
+                    'porcentaje_participacion' => 'required|between:0,100|numeric'
                 ];
             }
             default:break;

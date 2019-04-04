@@ -17,7 +17,6 @@ class CalificacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     function __construct(){
-        //$this -> middleware(['auth', 'roles:dir_general,director,profesor,padre_familia,alumno']);
         $this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
     }
     
@@ -91,8 +90,7 @@ class CalificacionController extends Controller
         $bimestre_primaria = $settings[0] -> bimestre_primaria;
         $bimestre_secundaria = $settings[0] -> bimestre_secundaria;
 
-        if(auth() -> user() -> hasRoles(['administracion_sitio', 'director'])){
-                       
+        if(auth() -> user() -> hasRoles(['administracion_sitio', 'director'])){                  
             $usuario = DB::select(DB::raw("select cat_roles.rol_key, materia_x_grupos.id_materia
                         from users
                         inner join roles_x_users
@@ -117,7 +115,6 @@ class CalificacionController extends Controller
             }else{
                 return view('errors.500');
             }
-
 
         }else{
             
@@ -150,7 +147,6 @@ class CalificacionController extends Controller
         }
 
         $numero_de_materias = count($usuario);
-        //dd($numero_de_materias);
 
         return view('Calificacion.show', compact('grupo', 'inscripciones', 'bimestre_secundaria', 'numero_de_materias', 'criteriosdesempenio'));
     }

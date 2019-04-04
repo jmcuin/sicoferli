@@ -129,6 +129,12 @@ Route::resource('Setting', 'SettingController');
 
 Route::resource('Trabajador', 'TrabajadorController');
 
+Route::get('/ajax-getCriterio', function(){
+	$criterio = Request::get('id_criterio_desempenio');
+	$criterios = App\CriterioDesempenio::where('id_criterio_desempenio', '=', $criterio) -> get();
+	return Response::json($criterios);
+});
+
 Route::get('/ajax-getMunicipio', function(){
 	$estado = Request::get('id_estado');
 	$municipios = App\Municipio::where('id_estado', '=', $estado) -> get();

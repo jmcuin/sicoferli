@@ -75,22 +75,22 @@
 										<td align="center"><input type="number" name="numero_inasistencias[]" id="numero_inasistencias_{{$contador}}" class="ponderado" style="width: 4em"
 										value="{{$inscripcion -> numero_inasistencias}}" min="0" max="10" step="0.01"></td>
 										<td align="center" style="color: #000;">
-											<select name="criteriosdesempenio[]" id="selector_criterio">
+											<select name="criteriosdesempenio[]" id="selector_criterio_{{$contador}}" class="selector_criterio">
 												@foreach($criteriosdesempenio as $criteriodesempenio)
 													<option value="{{ $criteriodesempenio -> id_criterio_desempenio }}" @if($inscripcion -> id_criterio_desempenio == $criteriodesempenio -> id_criterio_desempenio) selected="selected" @endif>{{ $criteriodesempenio -> criterio }}</option>	
 												@endforeach
 											</select>
 											@foreach($criteriosdesempenio as $criteriodesempenio)
 												@if($inscripcion -> id_criterio_desempenio == $criteriodesempenio -> id_criterio_desempenio)
-													<input type="number" name="porcentaje_examen[]" id="porcentaje_examen_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_examen }}" >
-													<input type="number" name="porcentaje_tareas[]" id="porcentaje_tareas_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_tareas }}">
-													<input type="number" name="porcentaje_tomas_clase[]" id="porcentaje_tomas_clase_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_tomas_clase }}">
-													<input type="number" name="porcentaje_participacion[]" id="porcentaje_participacion_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_participacion }}">
+													<input type="number" name="porcentaje_examen[]" id="porcentaje_examen_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_examen }}" hidden="hidden">
+													<input type="number" name="porcentaje_tareas[]" id="porcentaje_tareas_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_tareas }}" hidden="hidden">
+													<input type="number" name="porcentaje_tomas_clase[]" id="porcentaje_tomas_clase_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_tomas_clase }}" hidden="hidden">
+													<input type="number" name="porcentaje_participacion[]" id="porcentaje_participacion_{{$contador}}" value="{{ $inscripcion -> criterioDesempenio -> porcentaje_participacion }}" hidden="hidden">
 												 @elseif($inscripcion -> id_criterio_desempenio == null)
-												 	<input type="number" name="porcentaje_examen[]" id="porcentaje_examen_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_examen }}" >
-													<input type="number" name="porcentaje_tareas[]" id="porcentaje_tareas_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_tareas }}">
-													<input type="number" name="porcentaje_tomas_clase[]" id="porcentaje_tomas_clase_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_tomas_clase }}">
-													<input type="number" name="porcentaje_participacion[]" id="porcentaje_participacion_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_participacion }}">
+												 	<input type="number" name="porcentaje_examen[]" id="porcentaje_examen_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_examen }}" hidden="hidden">
+													<input type="number" name="porcentaje_tareas[]" id="porcentaje_tareas_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_tareas }}" hidden="hidden">
+													<input type="number" name="porcentaje_tomas_clase[]" id="porcentaje_tomas_clase_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_tomas_clase }}" hidden="hidden">
+													<input type="number" name="porcentaje_participacion[]" id="porcentaje_participacion_{{$contador}}" value="{{ $criteriodesempenio -> porcentaje_participacion }}" hidden="hidden">
 												 @endif
 											@endforeach
 										</td>
@@ -116,6 +116,10 @@
 	</form>
 
 <script type="text/javascript"> 
+	$( document ).ready(function() {
+    	calificar();
+	});
+
 	$('#selector_materia').on('change', function(e){
 		$('.contenedor').hide();
 		$('.'+'fm-'+e.target.value).show();
@@ -124,9 +128,20 @@
 	$('.ponderado').keyup(function() {
 		calificar();
 	});
-	$( document ).ready(function() {
-    	calificar();
-	});
+
+    $('.selector_criterio').on('change', function(e){
+			id = e.target.id;
+			id_ = id.split('_');
+			$.get('/ajax-getCriterio?id_criterio_desempenio='+e.target.value, function(data){
+				$.each(data, function(create, criterio){
+					$('#porcentaje_examen_'+id_[2]).val(criterio.porcentaje_examen);
+					$('#porcentaje_tareas_'+id_[2]).val(criterio.porcentaje_tareas);
+					$('#porcentaje_tomas_clase_'+id_[2]).val(criterio.porcentaje_tomas_clase);
+    				$('#porcentaje_participacion_'+id_[2]).val(criterio.porcentaje_participacion);
+    				calificar();
+				});
+			});
+		});
 
 	function calificar(){
 		$(function(){
@@ -148,6 +163,8 @@
 				}
 				if(promedio > 10){
 					$('#promedio_'+i).val(10);
+				}else if(promedio < 6){
+					$('#promedio_'+i).val(5);
 				}else{
 					$('#promedio_'+i).val(promedio);
 				}
@@ -159,7 +176,6 @@
 			}
 		});
 	}
-
 </script>
 <style type="text/css">
 	.btn-primary{
