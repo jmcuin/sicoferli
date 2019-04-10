@@ -1,6 +1,9 @@
 <?php
 
 use App\User;
+use App\Trabajador;
+use App\Padecimiento;
+use App\AntecedenteLaboral;
 use Illuminate\Database\Seeder;
 
 class UserTableSeeder extends Seeder
@@ -18,7 +21,6 @@ class UserTableSeeder extends Seeder
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $user = User::create([
         	'matricula' => 'coferli',
-        	'name' => 'Administrador(a)',
         	'email' => 'direccion@lizardi.edu.mx',
         	'password' => bcrypt('coferli')
         ]);
@@ -26,6 +28,27 @@ class UserTableSeeder extends Seeder
         DB::table('roles_x_users')->insert([
             'id_user' => $user -> id_user,
             'id_rol' => '1'
+        ]);
+
+        $trabajador = Trabajador::create([
+            'nombre' => 'coferli',
+            'a_paterno' => 'coferli',
+            'curp' => 'XXXX010101MXXXXXXX',
+            'rfc' => 'XXXX010101',
+            'seguro_social' => '11111',
+            'id_estado_civil' => '1',
+            'id_estado_municipio' => '834',
+            'telefono' => 'Administrador(a)',
+            'email' => 'direccion@lizardi.edu.mx',
+            'id_religion' => '9'
+        ]);
+
+        $padecimiento = Padecimiento::create([
+            'id_trabajador' => '1'
+        ]);
+
+        $antecedente_laboral = AntecedenteLaboral::create([
+            'id_trabajador' => '1'
         ]);
     }
 }

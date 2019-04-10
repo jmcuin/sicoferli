@@ -60,7 +60,11 @@
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->name }}  <img width="20px" height="20px" src="{{ Storage::url(Auth::user()->photo) }}"> 
+                        @if(Auth::user() -> id_trabajador == null)
+                            {{ Auth::user()-> alumno -> nombre }} {{ Auth::user()-> alumno -> a_paterno }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> alumno -> foto ) }}"> 
+                        @else
+                            {{ Auth::user()-> trabajador -> nombre }} {{ Auth::user()-> trabajador -> a_paterno }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> trabajador -> foto ) }}">
+                        @endif
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li>

@@ -60,7 +60,8 @@ class CalificacionController extends Controller
             $inscripcion -> save();
         }
 
-        return redirect()->route('Inscripcion.index')->with('info','Calificaciones guardadas con éxito.');
+        return redirect()->back()->with('info','Calificaciones guardadas con éxito.');
+        //return redirect()->route('Inscripcion.index')->with('info','Calificaciones guardadas con éxito.');
     }
 
     /**

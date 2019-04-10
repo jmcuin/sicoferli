@@ -438,10 +438,8 @@ class TrabajadorController extends Controller
         $trabajador = Trabajador::find(DB::table('trabajadors')->max('id_trabajador'));
         $user -> id_trabajador = $trabajador -> id_trabajador;
         $user -> matricula = 'EFELI'.$trabajador -> id_trabajador;
-        $user -> name = $request -> nombre.' '.$request -> a_paterno.' '.$request -> a_materno;
         $user -> email = $request -> email;
         $user -> password = bcrypt(substr($request -> curp, 0, 6));
-        $user -> photo = $trabajador -> foto;
         $user -> save();
         $user -> roles() -> attach($request -> id_rol);
     }

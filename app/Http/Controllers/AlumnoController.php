@@ -573,10 +573,8 @@ class AlumnoController extends Controller
         $alumno = Alumno::find(DB::table('alumnos')->max('id_alumno'));
         $user -> id_alumno = $alumno -> id_alumno;
         $user -> matricula = 'FELI'.$alumno -> id_alumno;
-        $user -> name = $request -> nombre.' '.$request -> a_paterno.' '.$request -> a_materno;
         $user -> email = $request -> email;
         $user -> password = bcrypt(substr($request -> curp, 0, 6));
-        $user -> photo = $alumno -> foto;
         $user -> save();
         $user -> roles() -> attach(Rol::where('rol_key', 'like', 'alumno%')->select('id_rol')->first());
     }
@@ -584,9 +582,7 @@ class AlumnoController extends Controller
     public function updateUser($id){
         $user = User::where('id_alumno', $id) -> first();
         $alumno = Alumno::findOrFail($id);
-        $user -> name = $alumno -> nombre.' '.$alumno -> a_paterno.' '.$alumno -> a_materno;
         $user -> email = $alumno -> email;
-        $user -> photo = $alumno -> foto;
         $user -> save();
     }
 

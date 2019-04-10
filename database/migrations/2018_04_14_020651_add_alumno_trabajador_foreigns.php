@@ -26,7 +26,6 @@ class AddAlumnoTrabajadorForeigns extends Migration
                   ->on('trabajadors')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->string('photo')->default('default.jpg')->after('password');
         });
     }
 
@@ -41,7 +40,6 @@ class AddAlumnoTrabajadorForeigns extends Migration
             //
             $table -> dropColumn('id_alumno');
             $table -> dropColumn('id_trabajador');
-            $table -> dropColumn('photo');
         });
     }
 }

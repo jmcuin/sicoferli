@@ -1,6 +1,14 @@
 @extends('layout')
 
 @section('contenido')
+	@if(session('info'))
+    	<strong>
+    		<div class="alert alert-success alert-dismissable fade in">
+       			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+       			{{ session('info') }}
+    		</div>
+    	</strong>
+    @endif
 	<h3 align="center">
 		Evaluación Grupal<br>
 	</h3>
@@ -130,18 +138,18 @@
 	});
 
     $('.selector_criterio').on('change', function(e){
-			id = e.target.id;
-			id_ = id.split('_');
-			$.get('/ajax-getCriterio?id_criterio_desempenio='+e.target.value, function(data){
-				$.each(data, function(create, criterio){
-					$('#porcentaje_examen_'+id_[2]).val(criterio.porcentaje_examen);
-					$('#porcentaje_tareas_'+id_[2]).val(criterio.porcentaje_tareas);
-					$('#porcentaje_tomas_clase_'+id_[2]).val(criterio.porcentaje_tomas_clase);
-    				$('#porcentaje_participacion_'+id_[2]).val(criterio.porcentaje_participacion);
-    				calificar();
-				});
+		id = e.target.id;
+		id_ = id.split('_');
+		$.get('/ajax-getCriterio?id_criterio_desempenio='+e.target.value, function(data){
+			$.each(data, function(create, criterio){
+				$('#porcentaje_examen_'+id_[2]).val(criterio.porcentaje_examen);
+				$('#porcentaje_tareas_'+id_[2]).val(criterio.porcentaje_tareas);
+				$('#porcentaje_tomas_clase_'+id_[2]).val(criterio.porcentaje_tomas_clase);
+    			$('#porcentaje_participacion_'+id_[2]).val(criterio.porcentaje_participacion);
+    			calificar();
 			});
 		});
+	});
 
 	function calificar(){
 		$(function(){
