@@ -11,7 +11,7 @@
 				<div class="col-sm-4">
 					<label for="criterio">
 						Criterio
-						<input type="text" name="criterio" value="{{ $criterioD -> criterio }}" class="form-control" placeholder="Nombre del criterio">
+						<input type="text" name="criterio" value="{{ $criterioD -> criterio or old('criterio') }}" class="form-control" placeholder="Nombre del criterio">
 						{{ $errors -> first('criterio') }}
 					</label>
 				</div>
@@ -27,14 +27,14 @@
 				<div class="col-sm-6">
 					<label for="porcentaje_examen">
 						Porcentaje de Examen
-						<input type="number" name="porcentaje_examen" id="porcentaje_examen" value="{{ $criterioD -> porcentaje_examen }}" class="form-control criterios" placeholder="Porcentaje de examen" min="0" max="0">
+						<input type="number" name="porcentaje_examen" id="porcentaje_examen" value="{{ $criterioD -> porcentaje_examen }}" class="form-control criterios" placeholder="Porcentaje de examen" min="0" max="100">
 						{{ $errors -> first('porcentaje_examen') }}
 					</label>
 				</div>
 				<div class="col-sm-6">
 					<label for="porcentaje_tareas">
 						Porcentaje de Tareas
-						<input type="number" name="porcentaje_tareas" id="porcentaje_tareas" value="{{ $criterioD -> porcentaje_tareas }}" class="form-control criterios" placeholder="Porcentaje de tareas" min="0" max="0">
+						<input type="number" name="porcentaje_tareas" id="porcentaje_tareas" value="{{ $criterioD -> porcentaje_tareas }}" class="form-control criterios" placeholder="Porcentaje de tareas" min="0" max="100">
 						{{ $errors -> first('porcentaje_tareas') }}
 					</label>
 				</div>
@@ -43,14 +43,14 @@
 				<div class="col-sm-6">
 					<label for="porcentaje_tomas_clase">
 						Porcentaje de Toma de Clase
-						<input type="number" name="porcentaje_tomas_clase" id="porcentaje_tomas_clase" value="{{ $criterioD -> porcentaje_tomas_clase }}" class="form-control criterios" placeholder="Porcentaje de tomas de clase" min="0" max="0">
+						<input type="number" name="porcentaje_tomas_clase" id="porcentaje_tomas_clase" value="{{ $criterioD -> porcentaje_tomas_clase }}" class="form-control criterios" placeholder="Porcentaje de tomas de clase" min="0" max="100">
 						{{ $errors -> first('porcentaje_tomas_clase') }}
 					</label>
 				</div>
 				<div class="col-sm-6">
 					<label for="porcentaje_participacion">
 						Porcentaje de Participaciones
-						<input type="number" name="porcentaje_participacion" id="porcentaje_participacion" value="{{ $criterioD -> porcentaje_participacion }}" class="form-control criterios" placeholder="Porcentaje de participacion" min="0" max="0">
+						<input type="number" name="porcentaje_participacion" id="porcentaje_participacion" value="{{ $criterioD -> porcentaje_participacion }}" class="form-control criterios" placeholder="Porcentaje de participacion" min="0" max="100">
 						{{ $errors -> first('porcentaje_participacion') }}
 					</label>
 				</div>

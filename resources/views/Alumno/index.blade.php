@@ -103,7 +103,7 @@
 								<form method="POST" action="{{ route('Alumno.destroy', $alumno-> id_alumno)}}">
 									{!! method_field('DELETE') !!}
 								 	{!! csrf_field() !!}
-									<button type="submit" class="btn btn-primary">Eliminar</button>
+									<button type="submit" class="btn btn-danger">Eliminar</button>
 								</form>
 							</td>
 						</tr>
