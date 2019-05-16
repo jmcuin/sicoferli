@@ -41,6 +41,8 @@ class LoginController extends Controller
     //habilita login con folio
     protected function credentials(Request $request)
     {
+        $field = '';
+
         $field = 'matricula';
         
         return [

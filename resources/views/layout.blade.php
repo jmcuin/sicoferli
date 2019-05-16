@@ -61,9 +61,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         @if(Auth::user() -> id_trabajador == null)
-                            {{ Auth::user()-> matricula }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> alumno -> foto ) }}"> 
+                            {{ Auth::user()-> alumno -> nombre }} {{ Auth::user()-> alumno -> a_paterno }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> alumno -> foto ) }}"> 
                         @else
-                            {{ Auth::user()-> matricula }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> trabajador -> foto ) }}">
+                            {{ Auth::user()-> trabajador -> nombre }} {{ Auth::user()-> trabajador -> a_paterno }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> trabajador -> foto ) }}">
                         @endif
                         </a>
                         <ul class="dropdown-menu" role="menu">
@@ -73,12 +73,6 @@
                                         {{ csrf_field() }}
                                     </form>
                             </li>
-                            @if(Auth::user() -> id_trabajador != null)
-                                <li>
-                                    <li class="active"><a href="{{ route('Trabajador.edit', Auth::user() -> id_trabajador) }}">Configurar</a></li>
-                                </li>
-                            @endif
-                            
                         </ul>
                     </li>
                 </ul>
