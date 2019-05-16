@@ -13,7 +13,7 @@ class Periodo extends Model
 
     use Sortable;
 
-	public $sortable = ['id_periodo', 'periodo'];
+    public $sortable = ['id_periodo', 'periodo'];
 
     protected $fillable = [
             'periodo',
@@ -29,9 +29,9 @@ class Periodo extends Model
         return $this->hasMany(Grupo::class,'id_grupo');
     }
 
-    public function settings()
+    public function setting()
     {
-        return $this->hasMany(Setting::class,'id_periodo');
+        return $this->hasOne(Setting::class,'id_periodo');
     }
 
 }

@@ -15,7 +15,7 @@
 	<h4 align="center">
 		{{ $grupo -> escolaridad -> escolaridad }}<br>
 		Ciclo Escolar {{ $grupo -> periodo -> periodo }}<br>
-		Grupo:{{ $grupo -> grupo}}<br>
+		Grupo:{{ $grupo -> grupo }}<br>
 	</h4>
 	<form method="POST" action="{{ route('Calificacion.store', $grupo -> id_grupo)}}">
 	 	{!! csrf_field() !!}
@@ -25,21 +25,17 @@
 					<div class="row" align="center">
 						Materias<br>
 						<select name="materias" id='selector_materia'>
-						<?php $contador_materias = 0;
-						?>
 							<option value="0">Seleccione una opción</option>
-							@foreach($inscripciones as $inscripcion)
-								@if($contador_materias < $numero_de_materias)
-									<option value="{{ $inscripcion -> materia -> id_materia }}">{{ $inscripcion -> materia -> materia }}</option>
-								@endif
-								<?php $contador_materias++; ?>
+							@foreach($materias as $materia)
+								<?php $materia_despliegue = explode('-',$materia); ?>
+								<option value="{{ $materia_despliegue[0] }}">{{ $materia_despliegue[1] }}</option>
 							@endforeach
 						</select><br><br>
 						<table border="1" class="encabezados">
 							<tr>
 								<td align="center" rowspan="2" class="materia" style="width: 200px">Alumno</td>
 								<td align="center" rowspan="2" class="materia" style="width: 150px">Materia</td>
-								<td colspan="9" align="center" class="materia">Bimestre {{$bimestre_secundaria}}</td>
+								<td colspan="9" align="center" class="materia">Bimestre {{ $grupo -> periodo -> bimestre_secundaria }} Mes {{ $grupo -> periodo -> setting -> mes_secundaria }}</td>
 							</tr>
 							<tr>
 								<td class="criterios" style="width: 70px">Examen</td>

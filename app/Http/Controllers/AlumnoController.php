@@ -36,7 +36,7 @@ class AlumnoController extends Controller
 
     function __construct(){
         //$this -> middleware('auth', ['except' => ['checkScores']]);
-        //$this -> middleware('roles:dir_general,director,profesor', ['except' => ['checkScores']]);
+        //$this -> middleware('roles:administracion_sitio,direccion_general,profesor', ['except' => ['checkScores']]);
         $this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
     }
 
@@ -245,7 +245,14 @@ class AlumnoController extends Controller
         $padecimiento = Padecimiento::where('id_alumno', '=' ,$alumno -> id_alumno) -> first(); 
         $expediente = Expediente_alumno::where('id_alumno', '=', $alumno -> id_alumno) -> first();
 
-        return view('Alumno.show', compact('alumno', 'padres', 'padres_trabajadores', 'padecimiento', 'expediente'));
+        $historiales = DB::select(DB::raw("select historial_alumno.id_historial_alumno, cat_grupos.grupo, historial_alumno.narrativa
+FROM historial_alumno
+INNER JOIN cat_grupos
+ON cat_grupos.id_grupo=historial_alumno.id_grupo
+AND historial_alumno.id_alumno=:id_alumno"), 
+                                        array('id_alumno' => $id));
+
+        return view('Alumno.show', compact('alumno', 'padres', 'padres_trabajadores', 'padecimiento', 'expediente', 'historiales'));
     }
 
     /**
@@ -555,7 +562,17 @@ class AlumnoController extends Controller
                     $inscripcion -> id_grupo = $request -> id_grupo;
                     $inscripcion -> id_materia = $materia -> id_materia;
                     $inscripcion -> id_alumno = $request -> id_alumno;
+                    $inscripcion -> id_criterio_desempenio = 1;
                     $inscripcion -> bimestre_trimestre = $j;
+                    $inscripcion -> mes = 1;
+                    $inscripcion -> save();
+                    $inscripcion = new Inscripcion;
+                    $inscripcion -> id_grupo = $request -> id_grupo;
+                    $inscripcion -> id_materia = $materia -> id_materia;
+                    $inscripcion -> id_alumno = $request -> id_alumno;
+                    $inscripcion -> id_criterio_desempenio = 1;
+                    $inscripcion -> bimestre_trimestre = $j;
+                    $inscripcion -> mes = 2;
                     $inscripcion -> save();
                 }
                 $i ++;

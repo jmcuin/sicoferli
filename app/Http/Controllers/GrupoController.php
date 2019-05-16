@@ -255,20 +255,20 @@ class GrupoController extends Controller
     public function estadistica($id)
     {
         //
-
         $inscritos = explode('-',$id);
 
         $grupo = Grupo::findOrFail(intval($inscritos[0]));
         $escolaridad = $grupo -> escolaridad -> escolaridad;
+        $id_periodo = $grupo -> periodo -> id_periodo;
 
-        if(substr( $escolaridad, 0, 4 ) === "Pres")
+        if(substr( $escolaridad, 0, 4 ) === "Prees")
             return redirect()->route('Inscripcion.index')->with('info','Funcionalidad por definir para Prescolar.');
 
 $boletas = DB::select(DB::raw("
-select id_materia, materia, count(*) as aprobados from 
+select id_materia, materia, count(*) as reprobados from 
 (select  id_materia, materia, id_alumno, avg(promediobt1+promediobt2+promediobt3+promediobt4+promediobt5) AS promedio
 from
-(select alumnos.nombre as nombre, alumnos.a_paterno as a_paterno, alumnos.a_materno as a_materno, alumnos.curp as curp, inscripciones.id_grupo as id_grupo, cat_grupos.grupo as grupo, cat_periodos.id_periodo as id_periodo, cat_periodos.periodo as periodo, inscripciones.id_materia as id_materia, cat_materias.materia as materia, inscripciones.id_alumno as id_alumno, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt1, SUM(inscripciones.numero_inasistencias) as numero_inasistencias1
+(select alumnos.nombre as nombre, alumnos.a_paterno as a_paterno, alumnos.a_materno as a_materno, alumnos.curp as curp, inscripciones.id_grupo as id_grupo, cat_grupos.grupo as grupo, cat_periodos.id_periodo as id_periodo, cat_periodos.periodo as periodo, inscripciones.id_materia as id_materia, cat_materias.materia as materia, inscripciones.id_alumno as id_alumno, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt1, SUM(inscripciones.numero_inasistencias) as numero_inasistencias1
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -277,16 +277,18 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
 on inscripciones.id_alumno = alumnos.id_alumno
-where cat_grupos.id_periodo = 5 and inscripciones.bimestre_trimestre = 1 and inscripciones.id_grupo=:id_grupo
+where cat_grupos.id_periodo =:id_periodo and inscripciones.bimestre_trimestre = 1 and inscripciones.id_grupo=:id_grupo
 group by inscripciones.id_grupo, inscripciones.id_materia, cat_grupos.grupo, cat_periodos.id_periodo, cat_periodos.periodo, cat_materias.materia, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno, alumnos.curp, inscripciones.bimestre_trimestre) as b1
 
 
 inner join 
-(select alumnos.curp as curp2, inscripciones.id_grupo as id_grupo2, inscripciones.id_materia as id_materia2, inscripciones.id_alumno as id_alumno2, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt2, SUM(inscripciones.numero_inasistencias) as numero_inasistencias2
+(select alumnos.curp as curp2, inscripciones.id_grupo as id_grupo2, inscripciones.id_materia as id_materia2, inscripciones.id_alumno as id_alumno2, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt2, SUM(inscripciones.numero_inasistencias) as numero_inasistencias2
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -295,6 +297,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -305,7 +309,7 @@ on b1.id_grupo = b2.id_grupo2 and b1.id_materia = b2.id_materia2 and b1.id_alumn
 
 
 inner join 
-(select alumnos.curp as curp3, inscripciones.id_grupo as id_grupo3, inscripciones.id_materia as id_materia3, inscripciones.id_alumno as id_alumno3, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt3, SUM(inscripciones.numero_inasistencias) as numero_inasistencias3
+(select alumnos.curp as curp3, inscripciones.id_grupo as id_grupo3, inscripciones.id_materia as id_materia3, inscripciones.id_alumno as id_alumno3, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt3, SUM(inscripciones.numero_inasistencias) as numero_inasistencias3
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -314,6 +318,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -324,7 +330,7 @@ on b1.id_grupo = b3.id_grupo3 and b1.id_materia = b3.id_materia3 and b1.id_alumn
 
 
 inner join 
-(select alumnos.curp as curp4, inscripciones.id_grupo as id_grupo4, inscripciones.id_materia as id_materia4, inscripciones.id_alumno as id_alumno4, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt4, SUM(inscripciones.numero_inasistencias) as numero_inasistencias4
+(select alumnos.curp as curp4, inscripciones.id_grupo as id_grupo4, inscripciones.id_materia as id_materia4, inscripciones.id_alumno as id_alumno4, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt4, SUM(inscripciones.numero_inasistencias) as numero_inasistencias4
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -333,6 +339,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -343,7 +351,7 @@ on b1.id_grupo = b4.id_grupo4 and b1.id_materia = b4.id_materia4 and b1.id_alumn
 
 
 inner join 
-(select alumnos.curp as curp5, inscripciones.id_grupo as id_grupo5, inscripciones.id_materia as id_materia5, inscripciones.id_alumno as id_alumno5, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt5, SUM(inscripciones.numero_inasistencias) as numero_inasistencias5
+(select alumnos.curp as curp5, inscripciones.id_grupo as id_grupo5, inscripciones.id_materia as id_materia5, inscripciones.id_alumno as id_alumno5, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt5, SUM(inscripciones.numero_inasistencias) as numero_inasistencias5
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -352,6 +360,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -360,8 +370,8 @@ where inscripciones.bimestre_trimestre = 5
 group by inscripciones.id_alumno, inscripciones.id_grupo, cat_materias.materia, inscripciones.id_materia, cat_grupos.grupo, cat_periodos.id_periodo, cat_periodos.periodo, cat_periodos.id_periodo, cat_periodos.periodo, cat_materias.materia, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno, alumnos.curp, inscripciones.bimestre_trimestre) as b5
 on b1.id_grupo = b5.id_grupo5 and b1.id_materia = b5.id_materia5 and b1.id_alumno = b5.id_alumno5
 group by id_materia, id_alumno) AS SC 
-WHERE promedio >= 6
-GROUP BY id_materia order by materia"),  array('id_grupo' => $id));
+where promedio<=6
+GROUP BY id_materia order by materia"),  array('id_grupo' => $id,'id_periodo' => $id_periodo));
 
 
         $generos = DB::select(DB::raw("select hombres.id_grupo, coalesce(mujeres.id_grupo,hombres.id_grupo) , count(distinct hombres.id_alumno) as hombres, count(distinct mujeres.id_alumno) as mujeres
@@ -385,8 +395,8 @@ group by hombres.id_grupo, mujeres.id_grupo"),  array('id_grupo' => $id));
         
     $etiquetas = array_column($boletas, 'materia');
 
-    $aprobados = array_column($boletas, 'aprobados');
-    $reprobados = array();
+    $reprobados = array_column($boletas, 'reprobados');
+    $aprobados = array();
 
     $etiquetas_generos = array('Hombres', 'Mujeres');
 
@@ -396,7 +406,7 @@ group by hombres.id_grupo, mujeres.id_grupo"),  array('id_grupo' => $id));
     array_push($hombres_mujeres, $generos[0] -> mujeres);
 
     foreach ($boletas as $boleta) {
-        array_push($reprobados, intval($inscritos[1]) - intval($boleta -> aprobados));
+        array_push($aprobados, intval($inscritos[1]) - intval($boleta -> reprobados));
     }
 
         return view('Grupo.estadistica', compact('evento', 'chart'))

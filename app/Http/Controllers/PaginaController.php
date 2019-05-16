@@ -25,7 +25,7 @@ class PaginaController extends Controller
      */
 
     function __construct(){
-        $this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
+        //$this -> middleware(['auth', 'roles:administracion_sitio,direccion_general,direccion_nivel,profesor,administracion,asistencia_administrativa,alumno']);
     }
 
     public function index()
@@ -138,7 +138,7 @@ class PaginaController extends Controller
         return redirect() -> route('Pagina.index') -> with('info','Página actualizada con éxito.');
     }
 
-    public function storeInforme(InformeRequest $request)
+    public function storeInforme(Request $request)
     {
         //
         $informe = new Informe;
@@ -146,7 +146,7 @@ class PaginaController extends Controller
         $informe -> email = $request -> email;
         $informe -> telefono = $request -> telefono;
         $informe -> asunto = $request -> asunto;
-        $informe -> mensaie = $request -> mensaje;
+        $informe -> mensaje = $request -> mensaje;
         $informe -> id_escolaridad = $request -> id_escolaridad;
         $informe -> enterado_a_traves_de = $request -> enterado;
         $informe -> save();

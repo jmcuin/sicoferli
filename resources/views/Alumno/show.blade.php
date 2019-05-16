@@ -341,11 +341,39 @@
                     </tbody>
                   </table>
                 </div>
+                <h3 class="panel-title" id="titulo-historial" align="center">Historial</h3>
+                <div  id="panel-historial"> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      @if($historiales == null)
+					  <tr>
+					  	<td colspan="2" align="center">No se tiene registro alguno de su historial.</td>
+					  </tr>
+					@else
+                      @foreach($historiales as $historial)
+                      <tr>
+                        <td>Grupo:</td>
+                        <td>{{ $historial -> grupo }}</td>
+                      </tr>
+                      <tr>
+                        <td>Comentario:</td>
+                        <td>{{ $historial -> narrativa }}</td>
+                      </tr>
+                      <tr>
+                      	<td><a href="{{ route('HistorialAlumno.edit', $historial -> id_historial_alumno) }}" class="btn btn-primary">Editar</a>
+                		</td>
+                	  </tr>
+                      @endforeach
+                    @endif
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
             <div class="panel-footer">
                 <table>
                 	<tr>
+                		@if( auth() -> user() -> hasRoles(['administracion_sitio','direccion_general', 'direccion_nivel']) )
                 		<td><a href="{{ route('Alumno.edit', $alumno-> id_alumno) }}" class="btn btn-primary">Editar</a>
                 		</td>
                 		<td><form method="POST" action="{{ route('Alumno.destroy', $alumno -> id_alumno)}}">
@@ -357,6 +385,8 @@
                 		<td>
                 			<div style="width: 285px"></div>
                 		</td>
+                		@endif
+                		
                 		<td>
                 			<span class="pull-right">
                     			<a href="{{ route('Alumno.index') }}" class="btn btn-primary">Regresar</a>
@@ -385,10 +415,12 @@
 		$('#panel-contactos').hide();
 		$('#panel-padecimientos').hide();
 		$('#panel-expediente').hide();
+		$('#panel-historial').hide();
 		$('#titulo-padres').css('cursor', 'pointer');
 		$('#titulo-contactos').css('cursor', 'pointer');
 		$('#titulo-padecimientos').css('cursor', 'pointer');
 		$('#titulo-expediente').css('cursor', 'pointer');
+		$('#titulo-historial').css('cursor', 'pointer');
 		$("#titulo-padres").click(function(){
 			$('#panel-padres').slideToggle( "slow" );
 		});
@@ -400,6 +432,9 @@
 		});
 		$("#titulo-expediente").click(function(){
 			$('#panel-expediente').slideToggle( "slow" );
+		});
+		$("#titulo-historial").click(function(){
+			$('#panel-historial').slideToggle( "slow" );
 		});
 	});
 </script>

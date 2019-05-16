@@ -45,7 +45,7 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
-        //dd($request);
+        //dd($request); 
         $total = count($request -> inscripcion);
         for ($i = 0; $i < $total; $i++){
             $inscripcion = Inscripcion::findOrFail($request -> inscripcion[$i]);
@@ -58,6 +58,7 @@ class CalificacionController extends Controller
             $inscripcion -> examen_extra = $request -> examen_extra[$i];
             $inscripcion -> numero_inasistencias = $request -> numero_inasistencias[$i];
             $inscripcion -> save();
+
         }
 
         return redirect()->back()->with('info','Calificaciones guardadas con éxito.');
@@ -79,7 +80,7 @@ class CalificacionController extends Controller
         $criteriosdesempenio = CriterioDesempenio::all();
         $materias = array();
 
-        $settings = DB::table('cat_grupos')
+        /*$settings = DB::table('cat_grupos')
                     ->join('cat_periodos', function ($join) use($id) {
                         $join->on('cat_grupos.id_periodo', '=', 'cat_periodos.id_periodo')
                              ->where('cat_grupos.id_grupo', '=', $id);
@@ -89,10 +90,14 @@ class CalificacionController extends Controller
 
         $trimestre = $settings[0] -> trimestre_preescolar;
         $bimestre_primaria = $settings[0] -> bimestre_primaria;
-        $bimestre_secundaria = $settings[0] -> bimestre_secundaria;
+        $bimestre_secundaria = $settings[0] -> bimestre_secundaria;*/
 
-        if(auth() -> user() -> hasRoles(['administracion_sitio', 'director'])){                  
-            $usuario = DB::select(DB::raw("select cat_roles.rol_key, materia_x_grupos.id_materia
+        $trimestre = $grupo -> periodo -> trimestre_preescolar;
+        $bimestre_primaria = $grupo -> periodo -> bimestre_primaria;
+        $bimestre_secundaria = $grupo -> periodo -> bimestre_secundaria;
+
+        if(auth() -> user() -> hasRoles(['administracion_sitio', 'direccion_general'])){                  
+            $usuario = DB::select(DB::raw("select distinct materia_x_grupos.id_materia, cat_materias.materia
                         from users
                         inner join roles_x_users
                         on users.id_user = roles_x_users.id_user
@@ -100,17 +105,22 @@ class CalificacionController extends Controller
                         on roles_x_users.id_rol = cat_roles.id_rol
                         inner join materia_x_grupos
                         on materia_x_grupos.id_trabajador = users.id_trabajador
-                        where materia_x_grupos.id_grupo = :id_grupo"), 
+                        inner join cat_materias
+                        on cat_materias.id_materia = materia_x_grupos.id_materia
+                        where materia_x_grupos.id_grupo = :id_grupo
+                        order by cat_materias.materia"), 
                                     array('id_grupo' => $id)
                                 );
+            //dd($usuario);
 
             if(count($usuario) > 0){
                 for($i = 0; $i < count($usuario) ; $i++ ){
-                    array_push($materias, $usuario[$i] -> id_materia);
+                    array_push($materias, $usuario[$i] -> id_materia.'-'.$usuario[$i] -> materia);
                 }
 
                 $inscripciones = Inscripcion::where('id_grupo', '=', $grupo -> id_grupo) 
                             -> where('bimestre_trimestre', '=', $bimestre_secundaria)
+                            -> where('mes', '=', $grupo -> periodo -> setting -> mes_secundaria)
                             -> orderBy('id_alumno')
                             -> get();
             }else{
@@ -119,7 +129,7 @@ class CalificacionController extends Controller
 
         }else{
             
-            $usuario = DB::select(DB::raw("select cat_roles.rol_key, materia_x_grupos.id_materia
+            $usuario = DB::select(DB::raw("select distinct materia_x_grupos.id_materia, cat_materias.materia
                         from users
                         inner join roles_x_users
                         on users.id_user = roles_x_users.id_user
@@ -127,19 +137,23 @@ class CalificacionController extends Controller
                         on roles_x_users.id_rol = cat_roles.id_rol
                         inner join materia_x_grupos
                         on materia_x_grupos.id_trabajador = users.id_trabajador
-                        where users.id_user = :id_user and materia_x_grupos.id_grupo = :id_grupo"), 
+                        inner join cat_materias
+                        on cat_materias.id_materia = materia_x_grupos.id_materia
+                        where users.id_user = :id_user and materia_x_grupos.id_grupo = :id_grupo
+                        order by cat_materias.materia"), 
                                     array('id_user' => auth() -> user() -> id_user, 'id_grupo' => $id)
                                 );
 
             if(count($usuario) > 0){
                 
                 for($i = 0; $i < count($usuario) ; $i++ ){
-                    array_push($materias, $usuario[$i] -> id_materia);
+                    array_push($materias, $usuario[$i] -> id_materia.'-'.$usuario[$i] -> materia);
                 }
 
                 $inscripciones = Inscripcion::where('id_grupo', '=', $grupo -> id_grupo) 
                                 -> whereIn('id_materia', $materias)
                                 -> where('bimestre_trimestre', '=', $bimestre_secundaria)
+                                -> where('mes', '=', $grupo -> periodo -> setting -> mes_secundaria)
                                 -> orderBy('id_alumno')
                                 -> get();
             }else{
@@ -148,8 +162,9 @@ class CalificacionController extends Controller
         }
 
         $numero_de_materias = count($usuario);
+        //dd($materias);
 
-        return view('Calificacion.show', compact('grupo', 'inscripciones', 'bimestre_secundaria', 'numero_de_materias', 'criteriosdesempenio'));
+        return view('Calificacion.show', compact('grupo', 'inscripciones', 'bimestre_secundaria', 'numero_de_materias', 'criteriosdesempenio', 'materias'));
     }
 
     /**

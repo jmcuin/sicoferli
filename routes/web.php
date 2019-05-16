@@ -67,6 +67,8 @@ Route::get('GrupoAsocia/{id_grupo}', ['as' => 'GrupoAsocia', 'uses' => 'GrupoCon
 Route::get('GrupoEstad/{id_grupo}', ['as' => 'GrupoEstad', 'uses' => 'GrupoController@estadistica']);
 Route::post('GrupoGuardar', ['as' => 'GrupoGuardar', 'uses' => 'GrupoController@guardarMaterias']);
 
+Route::resource('HistorialAlumno', 'HistorialAlumnoController');
+
 Route::resource('Informe', 'InformeController');
 Route::post('InformeAttention', ['as' => 'InformeAttention', 'uses' => 'InformeController@attend']);
 
@@ -128,6 +130,8 @@ Route::resource('Rol', 'RolController');
 Route::resource('Setting', 'SettingController');
 
 Route::resource('Trabajador', 'TrabajadorController');
+Route::get('createHistorial/{id_grupo}', ['as' => 'createHistorial', 'uses' =>'TrabajadorController@createHistorial']);
+Route::post('storeHistorial', ['as' => 'storeHistorial', 'uses' => 'TrabajadorController@storeHistorial']);
 
 Route::get('/ajax-getCriterio', function(){
 	$criterio = Request::get('id_criterio_desempenio');
@@ -157,9 +161,10 @@ Route::get('/ajax-getMaxTrabajador', function(){
 Route::get('/ajax-getCalificacion', function(){
 	$id_periodo = Request::get('id_periodo');
 	$id_alumno = Request::get('id_alumno');
+
 	$boletas = DB::select(DB::raw("select id_alumno, nombre, a_paterno, a_materno, curp, id_grupo, grupo, id_periodo, periodo, id_materia, materia, promediobt1, numero_inasistencias1, promediobt2, numero_inasistencias2, promediobt3, numero_inasistencias3, promediobt4, numero_inasistencias4, promediobt5, numero_inasistencias5
 from
-(select alumnos.nombre as nombre, alumnos.a_paterno as a_paterno, alumnos.a_materno as a_materno, alumnos.curp as curp, inscripciones.id_grupo as id_grupo, cat_grupos.grupo as grupo, cat_periodos.id_periodo as id_periodo, cat_periodos.periodo as periodo, inscripciones.id_materia as id_materia, cat_materias.materia as materia, inscripciones.id_alumno as id_alumno, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt1, SUM(inscripciones.numero_inasistencias) as numero_inasistencias1
+(select alumnos.nombre as nombre, alumnos.a_paterno as a_paterno, alumnos.a_materno as a_materno, alumnos.curp as curp, inscripciones.id_grupo as id_grupo, cat_grupos.grupo as grupo, cat_periodos.id_periodo as id_periodo, cat_periodos.periodo as periodo, inscripciones.id_materia as id_materia, cat_materias.materia as materia, inscripciones.id_alumno as id_alumno, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt1, SUM(inscripciones.numero_inasistencias) as numero_inasistencias1
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -168,6 +173,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -175,7 +182,7 @@ on inscripciones.id_alumno = alumnos.id_alumno
 where inscripciones.id_alumno = :id_alumno and cat_grupos.id_periodo = :id_periodo and inscripciones.bimestre_trimestre = 1
 group by inscripciones.id_alumno, inscripciones.id_grupo, cat_materias.materia, inscripciones.id_materia, cat_grupos.grupo, cat_periodos.id_periodo, cat_periodos.periodo, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno, alumnos.curp, inscripciones.bimestre_trimestre) as b1
 inner join 
-(select alumnos.curp as curp2, inscripciones.id_grupo as id_grupo2, inscripciones.id_materia as id_materia2, inscripciones.id_alumno as id_alumno2, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt2, SUM(inscripciones.numero_inasistencias) as numero_inasistencias2
+(select alumnos.curp as curp2, inscripciones.id_grupo as id_grupo2, inscripciones.id_materia as id_materia2, inscripciones.id_alumno as id_alumno2, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt2, SUM(inscripciones.numero_inasistencias) as numero_inasistencias2
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -184,6 +191,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -192,7 +201,7 @@ where inscripciones.bimestre_trimestre = 2
 group by inscripciones.id_alumno, inscripciones.id_grupo, inscripciones.id_materia, cat_grupos.grupo, cat_periodos.id_periodo, cat_periodos.periodo, cat_materias.materia, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno, alumnos.curp, inscripciones.bimestre_trimestre) as b2
 on b1.id_grupo = b2.id_grupo2 and b1.id_materia = b2.id_materia2 and b1.id_alumno = b2.id_alumno2
 inner join 
-(select alumnos.curp as curp3, inscripciones.id_grupo as id_grupo3, inscripciones.id_materia as id_materia3, inscripciones.id_alumno as id_alumno3, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt3, SUM(inscripciones.numero_inasistencias) as numero_inasistencias3
+(select alumnos.curp as curp3, inscripciones.id_grupo as id_grupo3, inscripciones.id_materia as id_materia3, inscripciones.id_alumno as id_alumno3, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt3, SUM(inscripciones.numero_inasistencias) as numero_inasistencias3
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -201,6 +210,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -209,7 +220,7 @@ where inscripciones.bimestre_trimestre = 3
 group by inscripciones.id_alumno, inscripciones.id_grupo, inscripciones.id_materia, cat_grupos.grupo, cat_periodos.id_periodo, cat_periodos.periodo, cat_materias.materia, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno, alumnos.curp, inscripciones.bimestre_trimestre) as b3
 on b1.id_grupo = b3.id_grupo3 and b1.id_materia = b3.id_materia3 and b1.id_alumno = b3.id_alumno3
 inner join 
-(select alumnos.curp as curp4, inscripciones.id_grupo as id_grupo4, inscripciones.id_materia as id_materia4, inscripciones.id_alumno as id_alumno4, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt4, SUM(inscripciones.numero_inasistencias) as numero_inasistencias4
+(select alumnos.curp as curp4, inscripciones.id_grupo as id_grupo4, inscripciones.id_materia as id_materia4, inscripciones.id_alumno as id_alumno4, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt4, SUM(inscripciones.numero_inasistencias) as numero_inasistencias4
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -218,6 +229,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -226,7 +239,7 @@ where inscripciones.bimestre_trimestre = 4
 group by inscripciones.id_alumno, inscripciones.id_grupo, inscripciones.id_materia, cat_grupos.grupo, cat_periodos.id_periodo, cat_periodos.periodo, cat_materias.materia, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno, alumnos.curp, inscripciones.bimestre_trimestre) as b4
 on b1.id_grupo = b4.id_grupo4 and b1.id_materia = b4.id_materia4 and b1.id_alumno = b4.id_alumno4
 inner join 
-(select alumnos.curp as curp5, inscripciones.id_grupo as id_grupo5, inscripciones.id_materia as id_materia5, inscripciones.id_alumno as id_alumno5, AVG((inscripciones.examen*0.4)+(inscripciones.tareas*0.2)+(inscripciones.trabajos*0.2)+(inscripciones.asistencias*0.2)+(inscripciones.puntos_extra)) as promediobt5, SUM(inscripciones.numero_inasistencias) as numero_inasistencias5
+(select alumnos.curp as curp5, inscripciones.id_grupo as id_grupo5, inscripciones.id_materia as id_materia5, inscripciones.id_alumno as id_alumno5, AVG((inscripciones.examen*(cat_criterios_desempenio.porcentaje_examen/100))+(inscripciones.tareas*(cat_criterios_desempenio.porcentaje_tareas/100))+(inscripciones.trabajos*(cat_criterios_desempenio.porcentaje_participacion/100))+(inscripciones.asistencias*(cat_criterios_desempenio.porcentaje_tomas_clase/100))+(inscripciones.puntos_extra)) as promediobt5, SUM(inscripciones.numero_inasistencias) as numero_inasistencias5
 from inscripciones
 inner join materia_x_grupos
 on materia_x_grupos.id_grupo = inscripciones.id_grupo
@@ -235,6 +248,8 @@ inner join cat_materias
 on cat_materias.id_materia = inscripciones.id_materia
 inner join cat_grupos
 on cat_grupos.id_grupo = inscripciones.id_grupo
+inner join cat_criterios_desempenio
+on cat_criterios_desempenio.id_criterio_desempenio = inscripciones.id_criterio_desempenio
 inner join cat_periodos
 on cat_periodos.id_periodo = cat_grupos.id_periodo
 inner join alumnos
@@ -251,13 +266,13 @@ Route::get('/ajax-getGruposDeTrabajador', function(){
 	$trabajador = Request::get('id_trabajador');
 	$rol = Request::get('id_rol');
 	$escolaridad = explode('-', Request::get('escolaridad'));
-	if($rol === 'dir_general'){
+	if($rol === 'administracion_sitio' || $rol === 'direccion_general'){
 		$grupos = DB::table('cat_grupos')
 	              ->join('materia_x_grupos', 'cat_grupos.id_grupo', '=', 'materia_x_grupos.id_grupo')
 	              ->join('cat_materias', 'cat_materias.id_materia', '=', 'materia_x_grupos.id_materia')
 	              ->where('cat_grupos.id_periodo', $periodo)
 	              ->select('cat_grupos.id_grupo as id_grupo', 'cat_grupos.grupo as grupo', 'cat_materias.id_materia as id_materia', 'cat_materias.materia as materia') -> distinct() -> get();
-	}else if($rol === 'director' && $escolaridad[1] !== null){
+	}else if($rol === 'direccion_nivel' && $escolaridad[1] !== null){
 		$grupos = DB::table('cat_grupos')
 	              ->join('materia_x_grupos', 'cat_grupos.id_grupo', '=', 'materia_x_grupos.id_grupo')
 	              ->join('cat_materias', 'cat_materias.id_materia', '=', 'materia_x_grupos.id_materia')
@@ -280,14 +295,14 @@ Route::get('/ajax-getAlumnosDeTrabajador', function(){
 	$trabajador = Request::get('id_trabajador');
 	$rol = Request::get('id_rol');
 	$escolaridad = explode('-', Request::get('escolaridad'));
-	if($rol === 'dir_general'){
+	if($rol === 'administracion_sitio' || $rol === 'direccion_general'){
 		$alumnos = DB::table('cat_grupos')
 	              ->join('materia_x_grupos', 'cat_grupos.id_grupo', '=', 'materia_x_grupos.id_grupo')
 	              ->join('inscripciones', 'inscripciones.id_grupo', '=', 'materia_x_grupos.id_grupo')
 	              ->join('alumnos', 'inscripciones.id_alumno', '=', 'alumnos.id_alumno')
 	              ->where('cat_grupos.id_periodo', $periodo)
 	              ->select('alumnos.id_alumno as id_alumno', 'alumnos.nombre as nombre', 'alumnos.a_paterno as a_paterno', 'alumnos.a_materno as a_materno') -> distinct() -> get();
-	}else if($rol === 'director' && $escolaridad[1] !== null && $escolaridad[0] !== 0){
+	}else if($rol === 'direccion_nivel' && $escolaridad[1] !== null && $escolaridad[0] !== 0){
 		$alumnos = DB::table('cat_grupos')
 	              ->join('materia_x_grupos', 'cat_grupos.id_grupo', '=', 'materia_x_grupos.id_grupo')
 	              ->join('inscripciones', 'inscripciones.id_grupo', '=', 'materia_x_grupos.id_grupo')
@@ -314,12 +329,10 @@ Route::get('/ajax-getTrabajadores', function(){
 	$trabajador_actual = Request::get('id_trabajador');
 	$rol = Request::get('id_rol');
 	$escolaridad = explode('-', Request::get('escolaridad'));
-	if($rol === 'director' && $escolaridad[1] !== null){
-		$trabajador = App\Trabajador::where('id_escolaridad', $escolaridad[0])
-					->where('id_trabajador', '!=', $trabajador_actual) 
-					->get();
+	if(($rol === 'administracion_sitio' || $rol === 'direccion_general') && $escolaridad[1] !== null){
+		$trabajador = App\Trabajador::where('id_trabajador', '!=', $trabajador_actual) ->get();
 	}
-	if($rol === 'dir_general' && $escolaridad[1] !== null){
+	if($rol === 'direccion_nivel' && $escolaridad[1] !== null){
 		$trabajador = App\Trabajador::where('id_escolaridad', $escolaridad[0])
 					->where('id_trabajador', '!=', $trabajador_actual) 
 					->get();

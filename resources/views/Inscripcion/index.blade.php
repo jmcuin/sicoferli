@@ -79,9 +79,12 @@
 											<a href="{{ route('Calificacion.show', $grupo -> id_grupo)}}" class="btn btn-primary">Subir Calificaciones</a>
 										</td>
 										<td>
+											<a href="{{ route('createHistorial', $grupo -> id_grupo) }}" class="btn btn-primary">Agregar Nota</a>
+										</td>
+										<td>
 											<a href="{{ route('InscripcionList', $grupo -> id_grupo)}}" class="btn btn-primary">Ver Listas</a>
 										</td>
-										@if( auth() -> user() -> hasRoles(['dir_general', 'director']) )
+										@if( auth() -> user() -> hasRoles(['administracion_sitio','direccion_general', 'direccion_nivel']) )
 											<td>
 												<a href="{{ route('InscripcionBoleta', $grupo -> id_grupo)}}" class="btn btn-primary">Generar Boleta</a>
 											</td>

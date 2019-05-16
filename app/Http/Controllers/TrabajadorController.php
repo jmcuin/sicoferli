@@ -18,6 +18,9 @@ use App\AntecedenteLaboral;
 use App\Parentesco;
 use App\Familiar_trabajador;
 use App\PrepAcademica;
+use App\Grupo;
+use App\Inscripcion;
+use App\HistorialAlumno;
 use App\Rol;
 use App\User;
 use DB;
@@ -442,5 +445,35 @@ class TrabajadorController extends Controller
         $user -> password = bcrypt(substr($request -> curp, 0, 6));
         $user -> save();
         $user -> roles() -> attach($request -> id_rol);
+    }
+
+    public function createHistorial($id_grupo)
+    {
+        //
+        $grupo = Grupo::findOrFail($id_grupo);
+        
+        $alumnos = DB::select(DB::raw("select DISTINCT alumnos.id_alumno, alumnos.nombre, alumnos.a_paterno, alumnos.a_materno
+FROM alumnos
+INNER JOIN inscripciones
+ON inscripciones.id_alumno=alumnos.id_alumno
+WHERE inscripciones.id_grupo=:id_grupo"), 
+                                        array('id_grupo' => $id_grupo));
+                //dd($alumnos);
+        return view('Trabajador.createHistorial', compact('alumnos','grupo'));
+    }
+
+    public function storeHistorial(Request $request)
+    {
+        //
+        //dd($request);
+        for($i = 0; $i < count($request -> id_alumno); $i++) {
+            $historial = new HistorialAlumno;
+            $historial -> id_grupo = $request -> id_grupo;
+            $historial -> id_alumno = $request -> id_alumno[$i];
+            $historial -> narrativa = $request -> narrativa[$i];
+            $historial -> save();
+        }
+
+        return redirect()->route('Inscripcion.index')->with('info','Comentario(s) creado(s) con éxito.');
     }
 }
