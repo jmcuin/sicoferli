@@ -61,9 +61,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         @if(Auth::user() -> id_trabajador == null)
-                            {{ Auth::user()-> matricula }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> alumno -> foto ) }}"> 
+                            {{ Auth::user()-> matricula }} <img width="20px" height="20px" @if(Auth::user() -> alumno -> foto == 'default.jpg') src="{{ URL::asset('images/default.jpg') }}" @else src="{{ Storage::url(Auth::user() -> alumno -> foto ) }}" @endif > 
                         @else
-                            {{ Auth::user()-> matricula }} <img width="20px" height="20px" src="{{ Storage::url(Auth::user() -> trabajador -> foto ) }}">
+                            {{ Auth::user()-> matricula }} <img width="20px" height="20px" @if(Auth::user() -> trabajador -> foto == 'default.jpg') src="{{ URL::asset('images/default.jpg') }}" @else src="{{ Storage::url(Auth::user() -> trabajador -> foto ) }}" @endif >
                         @endif
                         </a>
                         <ul class="dropdown-menu" role="menu">

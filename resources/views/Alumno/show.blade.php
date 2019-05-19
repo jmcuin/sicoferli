@@ -10,7 +10,7 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-lg-3 col-lg-3 " align="center"> <img width="130px" src="{{ Storage::url($alumno -> foto) }}"> 
+                <div class="col-lg-3 col-lg-3 " align="center"> <img width="130px" src="{{ URL::asset('images/'.$alumno -> foto) }}">
                 </div>
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
@@ -189,7 +189,7 @@
 							Acta de Nacimiento:
 						</td>
 						<td>
-							 @if( $expediente -> acta_nacimiento == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> acta_nacimiento == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							 @if( $expediente -> acta_nacimiento == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> acta_nacimiento == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_acta }}
@@ -200,7 +200,7 @@
 							CURP:
 						</td>
 						<td>
-							@if( $expediente -> curp == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> curp == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> curp == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> curp == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_curp }}<br>
@@ -211,7 +211,7 @@
 							Cartilla de Vacunación:
 						</td>
 						<td>
-							@if( $expediente -> cartilla_vacunacion == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> cartilla_vacunacion == 2 )<img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> cartilla_vacunacion == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> cartilla_vacunacion == 2 )<img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_cartilla }}<br>
@@ -222,7 +222,7 @@
 							Certificado Médico:
 						</td>
 						<td>
-							@if( $expediente -> certificado_medico == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> certificado_medico == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> certificado_medico == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> certificado_medico == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_cert_medico }}<br>
@@ -233,7 +233,7 @@
 							Constancia de Estudios:
 						</td>
 						<td>
-							@if( $expediente -> constancia_estudios == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> constancia_estudios == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> constancia_estudios == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> constancia_estudios == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_constancia }}<br>
@@ -244,7 +244,7 @@
 							CURP del Padre o Tutor:
 						</td>
 						<td>
-							@if( $expediente -> curp_padre == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> curp_padre == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> curp_padre == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> curp_padre == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_curp_padre }}<br>
@@ -255,7 +255,7 @@
 							CURP de l Madre o Tutora:
 						</td>
 						<td>
-							@if( $expediente -> curp_madre == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> curp_madre == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> curp_madre == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> curp_madre == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_curp_madre }}<br>
@@ -266,7 +266,7 @@
 							Copia del INE del Padre o Tutor:
 						</td>
 						<td>
-							@if( $expediente -> ife_padre == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> ife_padre == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> ife_padre == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> ife_padre == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_ife_padre }}<br>
@@ -277,7 +277,7 @@
 							Copia del INE de la Madre o Tutora:
 						</td>
 						<td>
-							@if( $expediente -> ife_madre == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> ife_madre == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> ife_madre == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> ife_madre == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_ife_madre }}<br>
@@ -288,7 +288,7 @@
 							Copia del Comprobante de Domicilio
 						</td>
 						<td>
-							@if( $expediente -> comp_domicilio == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> comp_domicilio == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> comp_domicilio == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> comp_domicilio == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_comp_domicilio }}<br>
@@ -299,7 +299,7 @@
 							Boleta del Grado Anterior:
 						</td>
 						<td>
-							@if( $expediente -> boleta_anterior == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> boleta_anterior == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> boleta_anterior == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> boleta_anterior == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_boleta_anterior }}<br>
@@ -310,7 +310,7 @@
 							Carta de Buena Conducta:
 						</td>
 						<td>
-							@if( $expediente -> carta_conducta == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> carta_conducta == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> carta_conducta == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> carta_conducta == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_carta_conducta }}<br>
@@ -321,7 +321,7 @@
 							Certificado de Primaria:
 						</td>
 						<td>
-							@if( $expediente -> cert_primaria == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> cert_primaria == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> cert_primaria == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> cert_primaria == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_cert_primaria }}<br>
@@ -332,7 +332,7 @@
 							Boletas Anteriores:
 						</td>
 						<td>
-							@if( $expediente -> boletas_anteriores == 1 ) <img src="/storage/ok.jpg" width="25px"></img> @elseif( $expediente -> boletas_anteriores == 2 ) <img src="/storage/missing.jpg" width="25px"></img> @else <img src="/storage/na.jpg" width="25px"></img> @endif
+							@if( $expediente -> boletas_anteriores == 1 ) <img src="{{ URL::asset('images/ok.jpg') }}" width="25px"></img> @elseif( $expediente -> boletas_anteriores == 2 ) <img src="{{ URL::asset('images/missing.jpg') }}" width="25px"></img> @else <img src="{{ URL::asset('images/na.jpg') }}" width="25px"></img> @endif
 						</td>
 						<td>
 							{{ $expediente -> obs_boletas_anteriores }}<br>
