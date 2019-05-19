@@ -33,6 +33,7 @@ class CreateGrupoXMaterias extends Migration
                   ->on('trabajadors')
                   ->onDelete('set null')
                   ->onUpdate('cascade');
+            $table->unique(['id_grupo', 'id_materia']);
             $table->timestamps();
         });
     }
