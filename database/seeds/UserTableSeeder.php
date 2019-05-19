@@ -38,9 +38,10 @@ class UserTableSeeder extends Seeder
             'seguro_social' => '11111',
             'id_estado_civil' => '1',
             'id_estado_municipio' => '834',
-            'telefono' => 'Administrador(a)',
+            'telefono' => '111111',
             'email' => 'direccion@lizardi.edu.mx',
-            'id_religion' => '9'
+            'id_religion' => '9',
+            'id_escolaridad' => '1'
         ]);
 
         $padecimiento = Padecimiento::create([

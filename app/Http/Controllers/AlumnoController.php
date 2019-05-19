@@ -548,7 +548,7 @@ AND historial_alumno.id_alumno=:id_alumno"),
             $grupo = Grupo::findOrFail($request -> id_grupo);
             $materias = $grupo -> materias() -> get();
             
-            if(substr( $grupo -> escolaridad -> escolaridad , 0, 4 ) === "Pres")
+            if(substr( $grupo -> escolaridad -> escolaridad , 0, 4 ) === "Pree")
                 $bimestre_o_trimestre = 4;
             else
                 $bimestre_o_trimestre = 6;

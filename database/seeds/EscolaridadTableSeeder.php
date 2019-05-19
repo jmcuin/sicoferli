@@ -17,6 +17,11 @@ class EscolaridadTableSeeder extends Seeder
 		Escolaridad::truncate();
 		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Escolaridad::create([
+            'escolaridad' => 'Administracion',
+            'nomenclatura_grupos' => 'Admin',
+            'horario' => '7:30 a 15:00 hrs.'
+        ]);
+        Escolaridad::create([
         	'escolaridad' => 'Maternal',
         	'nomenclatura_grupos' => 'M',
         	'horario' => '8:00 a 12:00 hrs.'

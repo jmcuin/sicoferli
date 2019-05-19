@@ -224,7 +224,6 @@
 					<label for="id_escolaridad">
 						Área de Adscripción<br>
 						<select name="id_escolaridad">
-							<option value="0">Todas</option>
 							<@foreach($escolaridades as $escolaridad)
 								<option value="{{ $escolaridad -> id_escolaridad }}" @if( $trabajador -> id_escolaridad == $escolaridad -> id_escolaridad ) selected @endif>{{ $escolaridad -> escolaridad}}
 								</option>	
