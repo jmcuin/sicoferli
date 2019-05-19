@@ -27,7 +27,7 @@ class InformeController extends Controller
 
         global $criterio;
         $criterio = \Request::get('search');
-        if(Auth::user() -> roles[0] -> rol_key == 'dir_general'){
+        if(Auth::user() -> roles[0] -> rol_key == 'administracion_sitio'){
             $informes = Informe::where('nombre', 'like', '%'.$criterio.'%')
                 ->orwhere('email', 'like', '%'.$criterio.'%')
                 ->orwhere('telefono', 'like', '%'.$criterio.'%')
@@ -36,7 +36,7 @@ class InformeController extends Controller
                 ->sortable()
                 ->orderBy('id')
                 ->paginate(10);
-        }else if(Auth::user() -> roles[0] -> rol_key == 'director'){
+        }else if(Auth::user() -> roles[0] -> rol_key == 'direccion_general' || Auth::user() -> roles[0] -> rol_key == 'profesor'){
             $informes = Informe::where('id_escolaridad', $id_escolaridad)
             ->where(function($query){
                 global $criterio;

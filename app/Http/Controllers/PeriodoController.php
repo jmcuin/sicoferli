@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\PeriodoRequest;
 use App\Periodo;
+use App\Setting;
 
 class PeriodoController extends Controller
 {
@@ -111,6 +112,14 @@ class PeriodoController extends Controller
         $periodo -> termino = $request -> termino;
 
         $guardado = $periodo -> save();
+
+        $setting = Setting::findOrFail($periodo -> setting -> id);
+        $setting -> mes_preescolar = $request -> mes_preescolar;
+        $setting -> mes_primaria = $request -> mes_primaria;
+        $setting -> mes_secundaria = $request -> mes_secundaria;
+
+        $guardado = $setting -> save();
+
         if($guardado)
             return redirect()->route('Periodo.index')->with('info','Periodo actualizado con éxito.');
         else

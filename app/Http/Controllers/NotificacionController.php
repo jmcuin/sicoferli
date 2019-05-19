@@ -26,15 +26,16 @@ class NotificacionController extends Controller
         //
         global $criterio;
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
+        $notificaciones = null;
 
-        if(Auth::user() -> roles[0] -> rol_key == 'dir_general'){
+        if(Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' || Auth::user() -> roles[0] -> rol_key == 'direccion_general'){
             $notificaciones = Notificacion::where('id_notificacion', 'like', '%'.$criterio.'%')
             ->orwhere('id_trabajador_emisor', 'like', '%'.$criterio.'%')
             ->orwhere('mensaje', 'like', '%'.$criterio.'%')
             ->sortable()
             ->orderBy('id_notificacion')
             ->paginate(10);
-        }else if(Auth::user() -> roles[0] -> rol_key == 'director'){
+        }else if(Auth::user() -> roles[0] -> rol_key == 'direccion_nivel'){
             $notificaciones = Notificacion::where('id_notificacion', 'like', '%'.$criterio.'%')
             ->orwhere('id_trabajador_emisor', 'like', '%'.$criterio.'%')
             ->orwhere('mensaje', 'like', '%'.$criterio.'%')

@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label for="trimestre_preescolar">
-							Trimestre Preescolar<br>
+							Bimestre Vigente para Preescolar<br>
 							<select name="trimestre_preescolar" id="trimestre_preescolar">
 								<option value="1" @if( $periodo -> trimestre_preescolar == 1 ) selected @endif>1er Trimestre</option>
 								<option value="2" @if( $periodo -> trimestre_preescolar == 2 ) selected @endif>2do Trimestre</option>
@@ -41,7 +41,7 @@
 					</div>
 					<div class="col-sm-4 form-group">
 						<label for="bimestre_primaria">
-							Bimestre Primaria<br>
+							Bimestre Vigente para Primaria<br>
 							<select name="bimestre_primaria" id="bimestre_primaria">
 								<option value="1" @if( $periodo -> bimestre_primaria == 1 ) selected @endif>1er Bimestre</option>
 								<option value="2" @if( $periodo -> bimestre_primaria == 2 ) selected @endif>2do Bimestre</option>
@@ -54,7 +54,7 @@
 					</div>
 					<div class="col-sm-4 form-group">
 						<label for="bimestre_secundaria">
-							Bimestre secundaria<br>
+							Bimestre Vigente para Secundaria<br>
 							<select name="bimestre_secundaria" id="bimestre_secundaria">
 								<option value="1" @if( $periodo -> bimestre_secundaria == 1 ) selected @endif>1er Bimestre</option>
 								<option value="2" @if( $periodo -> bimestre_secundaria == 2 ) selected @endif>2do Bimestre</option>
@@ -67,6 +67,38 @@
 					</div>
 				</div>
 			</div>
+			<div class="row">
+					<div class="col-sm-4 form-group">
+						<label for="mes_preescolar">
+							Mes Activo en Preescolar<br>
+							<select name="mes_preescolar" id="mes_preescolar">
+								<option value="1" @if( $periodo -> setting -> mes_preescolar == 1 ) selected @endif>1er Mes</option>
+								<option value="2" @if( $periodo -> setting -> mes_preescolar == 2 ) selected @endif>2do Mes</option>
+							</select>
+							{{ $errors -> first('mes_preescolar') }}
+						</label>
+					</div>
+					<div class="col-sm-4 form-group">
+						<label for="bimestre_primaria">
+							Mes Activo en Primaria<br>
+							<select name="mes_primaria" id="mes_primaria">
+								<option value="1" @if( $periodo -> setting -> mes_primaria == 1 ) selected @endif>1er Mes</option>
+								<option value="2" @if( $periodo -> setting -> mes_primaria == 2 ) selected @endif>2do Mes</option>
+							</select>
+							{{ $errors -> first('mes_primaria') }}
+						</label>
+					</div>
+					<div class="col-sm-4 form-group">
+						<label for="bimestre_secundaria">
+							Mes Activo en Secundaria<br>
+							<select name="mes_secundaria" id="mes_secundaria">
+								<option value="1" @if( $periodo -> setting -> mes_secundaria == 1 ) selected @endif>1er Mes</option>
+								<option value="2" @if( $periodo -> setting -> mes_secundaria == 2 ) selected @endif>2do Mes</option>
+							</select>
+							{{ $errors -> first('mes_secundaria') }}
+						</label>
+					</div>
+				</div>
 			<div class="row">
 				<div class="form-group pull-right">
 					<input type="submit" value="Enviar" class="btn btn-primary">
