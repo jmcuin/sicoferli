@@ -19,17 +19,6 @@ class UserTableSeeder extends Seeder
         //DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		//User::truncate();
 		//DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-        $user = User::create([
-        	'matricula' => 'coferli',
-        	'email' => 'direccion@lizardi.edu.mx',
-        	'password' => bcrypt('coferli')
-        ]);
-
-        DB::table('roles_x_users')->insert([
-            'id_user' => $user -> id_user,
-            'id_rol' => '1'
-        ]);
-
         $trabajador = Trabajador::create([
             'nombre' => 'coferli',
             'a_paterno' => 'coferli',
@@ -42,6 +31,18 @@ class UserTableSeeder extends Seeder
             'email' => 'direccion@lizardi.edu.mx',
             'id_religion' => '9',
             'id_escolaridad' => '1'
+        ]);
+
+        $user = User::create([
+            'id_trabajador' => $trabajador -> id_trabajador,
+        	'matricula' => 'coferli',
+        	'email' => 'direccion@lizardi.edu.mx',
+        	'password' => bcrypt('coferli')
+        ]);
+
+        DB::table('roles_x_users')->insert([
+            'id_user' => $user -> id_user,
+            'id_rol' => '1'
         ]);
 
         $padecimiento = Padecimiento::create([
