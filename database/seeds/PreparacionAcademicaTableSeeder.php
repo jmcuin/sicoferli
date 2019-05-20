@@ -13,9 +13,9 @@ class PreparacionAcademicaTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		PrepAcademica::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
         PrepAcademica::create([
         	'grado_academico' => 'Ninguno'
         ]);

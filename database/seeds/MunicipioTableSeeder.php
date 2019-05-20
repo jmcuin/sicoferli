@@ -13,9 +13,9 @@ class MunicipioTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		Municipio::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
         Municipio::create(['id_estado' => ' 1', 'id_municipio' => '33','municipio' => 'Aguascalientes']);
 		Municipio::create(['id_estado' => ' 1', 'id_municipio' => '34','municipio' => 'Asientos']);
 		Municipio::create(['id_estado' => ' 1', 'id_municipio' => '35','municipio' => 'Calvillo']);

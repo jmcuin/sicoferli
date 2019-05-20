@@ -13,9 +13,9 @@ class PaginaTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		Pagina::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
         Pagina::create([
         	'descripcion' => 'Configuarción inicial.',
         	'banner_principal_texto' => 'Colegio Fernández de Lizardi',

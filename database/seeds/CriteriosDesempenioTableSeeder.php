@@ -13,9 +13,9 @@ class CriteriosDesempenioTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		CriterioDesempenio::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
         CriterioDesempenio::create([
         	'criterio' => 'Excelencia',
         	'descripcion' => 'Alumnos destacados en todos los campos.',

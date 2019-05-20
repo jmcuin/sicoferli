@@ -13,9 +13,9 @@ class RolTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		Rol::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
         Rol::create([
         	'rol_key' => 'administracion_sitio',
         	'rol' => 'Administrador(a)',

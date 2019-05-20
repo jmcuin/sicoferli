@@ -13,9 +13,9 @@ class EscolaridadTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        /*DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 		Escolaridad::truncate();
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+		DB::statement('SET FOREIGN_KEY_CHECKS=1;');*/
         Escolaridad::create([
             'escolaridad' => 'Administracion',
             'nomenclatura_grupos' => 'Admin',
