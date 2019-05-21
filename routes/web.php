@@ -102,7 +102,7 @@ Route::post('storeInforme', ['as' => 'storeInforme', 'uses' => 'PaginaController
 Route::get('PaginaUse/{id}', ['as' => 'PaginaUse', 'uses' =>'PaginaController@utilize']);
 Route::get('paginaEstadistica', ['as' => 'paginaEstadistica', 'uses' => 'PaginaController@estadistica']);
 
-Route::resource('Panel', 'PanelController')->middleware('roles');;
+Route::resource('Panel', 'PanelController');
 
 Route::resource('Parentesco', 'ParentescoController');
 

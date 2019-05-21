@@ -4,7 +4,6 @@
 	<div class="col-sm-8" style="overflow: auto;"> 
 		<h1>
 			Informes
-			<a href="{{ route('Informe.create') }}" class="btn btn-primary pull-right">Nuevo</a>
 		</h1>
 		@if (session('info'))
     		<strong>

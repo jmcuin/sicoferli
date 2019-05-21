@@ -32,8 +32,8 @@ class AgendaController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
         
         $eventos = Agenda::where('evento', 'like', '%'.$criterio.'%')
-        ->orwhere('id_periodo',$criterio)
-        ->orwhere('id_escolaridad',$criterio)
+        ->orwhere('id_periodo','=', $criterio)
+        ->orwhere('id_escolaridad', '=',$criterio)
         ->orwhere('descripcion',$criterio)
         ->orwhere('fecha_evento','like','%'.$criterio.'%')
         ->sortable()

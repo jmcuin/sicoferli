@@ -11,8 +11,11 @@
 				<div class="row">
 					<div class="form-group" align="center">
 						<label for="foto">
-							<img width="130px" src="{{ Storage::url($trabajador -> foto) }}"><input type="file" name="foto" value="{{old('foto')}}"  placeholder="foto(s) del Alumno" accept="image/*">
+							<img width="130px" @if($trabajador -> foto == 'default.jpg') src="{{ URL::asset('images/'.$trabajador -> foto) }}" @else src="{{ Storage::url($trabajador -> foto) }}" @endif><input type="file" name="foto" value="{{old('foto')}}"  placeholder="foto(s) del Alumno" accept="image/*">
 							{{ $errors -> first('foto') }} 
+
+
+							
 						</label>
 					</div>
 				</div>

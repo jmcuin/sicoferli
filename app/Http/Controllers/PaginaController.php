@@ -33,9 +33,7 @@ class PaginaController extends Controller
         //
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
-        $paginas = Pagina::where('desde', 'like', '%'.$criterio.'%')
-        ->orwhere('hasta', $criterio)
-        ->orwhere('descripcion', 'like','%'.$criterio.'%')
+        $paginas = Pagina::where('descripcion', 'like','%'.$criterio.'%')
         ->sortable()
         ->orderBy('desde', 'desc')
         ->paginate(10);
@@ -678,7 +676,7 @@ class PaginaController extends Controller
             from informes
             inner join cat_escolaridads
             on informes.id_escolaridad = cat_escolaridads.id_escolaridad
-            group by informes.id_escolaridad"));
+            group by informes.id_escolaridad, cat_escolaridads.escolaridad"));
             
         $etiquetas = array_column($informes, 'escolaridad');
         $cantidad = array_column($informes, 'cantidad');

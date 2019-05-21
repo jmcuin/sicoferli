@@ -31,7 +31,7 @@ class InscripcionController extends Controller
             || auth()->user()->roles[0]->rol_key === 'administracion_sitio'){
             $grupos = DB::table('cat_grupos')
                     ->join('settings', 'cat_grupos.id_periodo', '=', 'settings.id_periodo')
-                    ->where('id_grupo', $criterio)
+                    ->where('id_grupo', '=', $criterio)
                     ->orwhere('grupo','like', '%'.$criterio.'%')
                     ->select('cat_grupos.*')
                     ->paginate(10);
@@ -42,7 +42,7 @@ class InscripcionController extends Controller
                         $join->on('materia_x_grupos.id_grupo', '=', 'cat_grupos.id_grupo')
                          ->where('materia_x_grupos.id_trabajador', '=',auth()->user()->id_trabajador);
                     })
-                    ->where('cat_grupos.id_grupo', $criterio)
+                    ->where('cat_grupos.id_grupo', '=', $criterio)
                     ->orwhere('grupo','like', '%'.$criterio.'%')
                     ->select('cat_grupos.*')
                     ->groupBy('cat_grupos.id_grupo')
@@ -60,7 +60,7 @@ class InscripcionController extends Controller
                      ->groupBy('id_grupo')
                      ->get();     
           
-        $inscripciones = Inscripcion::where('id_grupo', 'like', '%'.$criterio.'%')
+        $inscripciones = Inscripcion::where('id_grupo', '=', $criterio)
                         ->sortable()
                         ->orderBy('id_grupo')
                         ->paginate(10);
