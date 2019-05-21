@@ -75,7 +75,7 @@ class AlumnoController extends Controller
         $municipios = Municipio::orderBy('id_estado_municipio') -> paginate(50);
         $religiones = Religion::orderBy('id_religion') -> paginate(50);
         
-        return view('Alumno.create', compact('trabajadoresactivos','estadosciviles', 'municipios', 'estados', 'religiones','areasdetrabajo'));
+        return view('Alumno.create', compact('trabajadoresactivos','municipios', 'estados', 'religiones'));
     }
 
     /**
