@@ -59,7 +59,7 @@ class AlumnoController extends Controller
         ->orderBy('nombre')
         ->paginate(10);
         
-        return view('Alumno.index', compact('alumnos', 'estados', 'municipios', 'religiones', 'areasdetrabajo'));
+        return view('Alumno.index', compact('alumnos', 'estados', 'municipios', 'religiones'));
     } 
 
     /**
