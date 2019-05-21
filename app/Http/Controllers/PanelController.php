@@ -87,15 +87,14 @@ class PanelController extends Controller
                                 ->get();
         }
 
-        dd($mensajes_individuales);
-
         if(Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' ||
-            Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' ||
             Auth::user() -> roles[0] -> rol_key == 'direccion_general' || 
             Auth::user() -> roles[0] -> rol_key == 'direccion_nivel'){
             $colaboradores = DB::table('trabajadors')
                             ->select(DB::raw('count(id_trabajador) as trabajadores')) 
-                            ->first(); 
+                            ->first();
+
+            dd($colaboradores); 
 
             return view('Panel.index', compact('matricula', 'grupos', 'periodo', 'mensajes_individuales', 'mensajes_roles', 'colaboradores'));
         }else if(Auth::user() -> roles[0] -> rol_key == 'profesor'){
