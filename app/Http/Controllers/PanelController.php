@@ -94,8 +94,6 @@ class PanelController extends Controller
                             ->select(DB::raw('count(id_trabajador) as trabajadores')) 
                             ->first();
 
-            dd($colaboradores); 
-
             return view('Panel.index', compact('matricula', 'grupos', 'periodo', 'mensajes_individuales', 'mensajes_roles', 'colaboradores'));
         }else if(Auth::user() -> roles[0] -> rol_key == 'profesor'){
             return view('Panel.index_profesor', compact('matricula', 'grupos', 'periodo', 'mensajes_grupales', 'mensajes_individuales', 'mensajes_alumnos', 'mensajes_roles'));
