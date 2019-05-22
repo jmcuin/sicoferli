@@ -34,7 +34,7 @@ class AgendaController extends Controller
         $eventos = Agenda::where('evento', 'like', '%'.$criterio.'%')
         //->orwhere('id_periodo','=', $criterio)
         //->orwhere('id_escolaridad', '=',$criterio)
-        ->orwhere('descripcion',$criterio)
+        ->orwhere('descripcion', 'like', '%'.$criterio.'%')
         ->orwhere('fecha_evento','like','%'.$criterio.'%')
         ->sortable()
         ->orderBy('id_agenda')
