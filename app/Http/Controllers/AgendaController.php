@@ -35,7 +35,7 @@ class AgendaController extends Controller
         //->orwhere('id_periodo','=', $criterio)
         //->orwhere('id_escolaridad', '=',$criterio)
         ->orwhere('descripcion', 'like', '%'.$criterio.'%')
-        ->orwhere('fecha_evento','like','%'.$criterio.'%')
+        //->orwhere('fecha_evento','like','%'.$criterio.'%')
         ->sortable()
         ->orderBy('id_agenda')
         ->paginate(10);
