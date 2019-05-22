@@ -23,7 +23,7 @@
                 		<td><form method="POST" action="{{ route('Periodo.destroy', $periodo -> id_periodo)}}">
 								{!! method_field('DELETE') !!}
 							 	{!! csrf_field() !!}
-								<button type="submit" class="btn btn-primary">Eliminar</button>
+								<button type="submit" class="btn btn-danger">Eliminar</button>
 							</form>
                 		</td>
                 		<td>
@@ -40,6 +40,26 @@
           </div>
         </div>
     </div>
+
+    <div id="testmodal" class="modal fade" data-backdrop="false">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Confirmación</h4>
+              </div>
+              <div class="modal-body">
+                  <p><b>Atención:</b></p>
+                  <p>Borrar esté registro ocasionará que se elimine toda la información asociada al mismo.</p>
+                  <p>¿Está seguro(a) de que desea continuar?</p>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" id="cancelado" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-warning borrar-municipio" id="continuado">Continuar</button>
+              </div>
+          </div>
+      </div>
+  </div>
 <style type="text/css">
 	.btn-primary{
 		background-color: #20193D !important;

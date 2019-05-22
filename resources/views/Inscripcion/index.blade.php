@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-	<div class="col-sm-8" style="overflow: auto;"> 
+	<div class="col-sm-12"> 
 		<h1>
 			Catálogo de Inscripciones
 			<!--<a href="{{ route('Inscripcion.create') }}" class="btn btn-primary pull-right">Nuevo</a>-->
@@ -99,7 +99,8 @@
 				@endif
 			</tbody>
 		</table>
-		{!! $grupos->appends(\Request::except('page'))->render() !!}		
+		{!! $grupos->appends(\Request::except('page'))->render() !!}
+		
 <style type="text/css">
 	.btn-primary{
 		background-color: #20193D !important;

@@ -41,11 +41,11 @@ class TrabajadorController extends Controller
         //
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
-        $estadosciviles = EstadoCivil::orderBy('id_estado_civil')->paginate(50);
-        $estados = Estado::orderBy('id_estado') -> paginate(50);
-        $municipios = Municipio::orderBy('id_estado_municipio')->paginate(10);
-        $religiones = Religion::orderBy('id_religion')->paginate(10);
-        $roles = Rol::orderBy('id_rol')->paginate(10);
+        $estadosciviles = EstadoCivil::orderBy('id_estado_civil') -> get();
+        $estados = Estado::orderBy('id_estado') -> get();
+        $municipios = Municipio::orderBy('id_estado_municipio') -> get();
+        $religiones = Religion::orderBy('id_religion') -> get();
+        $roles = Rol::orderBy('id_rol') -> get();
         
         $trabajadores = Trabajador::where('nombre', 'like', '%'.$criterio.'%')
         //->orwhere('id_trabajador',$criterio)
@@ -80,7 +80,7 @@ class TrabajadorController extends Controller
         $parentescos = Parentesco::orderBy('id_parentesco') -> get();
         $escolaridades = Escolaridad::orderBy('escolaridad') -> get();
         $prep_academicas = PrepAcademica::orderBy('grado_academico') -> get();
-        
+
         return view('Trabajador.create', compact('trabajadoresactivos','estadosciviles', 'municipios', 'estados', 'religiones','roles', 'parentescos', 'escolaridades','prep_academicas'));
     }
 
@@ -213,7 +213,7 @@ class TrabajadorController extends Controller
         $trabajador = Trabajador::findOrFail($id);
         $padecimiento = Padecimiento::where('id_trabajador', '=', $id)->first();
         $antecedente = AntecedenteLaboral::where('id_trabajador', '=', $id)->first();
-        $familiares = Familiar_trabajador::where('id_trabajador', '=' ,$id)->get();
+        $familiares = Familiar_trabajador::where('id_trabajador', '=' ,$id) -> get();
 
         $conyuge_x_trabajador = conyuge_x_trabajador::where('id_trabajador', '=' ,$id)->first();   
         if($conyuge_x_trabajador == null){
@@ -241,19 +241,18 @@ class TrabajadorController extends Controller
     public function edit($id)
     {
         //
-        $conyuge = null;        
-        $trabajadoresactivos = Trabajador::orderBy('id_trabajador')->paginate(50);
-        $estadosciviles = EstadoCivil::orderBy('id_estado_civil')->paginate(50);
-        $estados = Estado::orderBy('id_estado')->paginate(50);
-        $municipios = Municipio::orderBy('id_estado_municipio')->paginate(50);
-        $religiones = Religion::orderBy('id_religion')->paginate(50);
-        $parentescos = Parentesco::orderBy('id_parentesco')->paginate(50);
-        $roles = Rol::orderBy('id_rol')->paginate(50);
-        $familiares = Familiar_trabajador::where('id_trabajador', '=' ,$id)->get();
-        $escolaridades = Escolaridad::orderBy('escolaridad') -> paginate(50);
-        $prep_academicas = PrepAcademica::orderBy('grado_academico') -> paginate(50);
-
-        $trabajador = Trabajador::findOrFail($id);
+        $conyuge = null;    
+        $trabajador = Trabajador::findOrFail($id);    
+        $trabajadoresactivos = Trabajador::orderBy('id_trabajador') -> get();
+        $estadosciviles = EstadoCivil::orderBy('id_estado_civil') -> get();
+        $estados = Estado::orderBy('id_estado') -> get();
+        $municipios = Municipio::where('id_estado', '=', $trabajador -> municipio -> estado -> id_estado) -> orderBy('id_estado_municipio') -> get();
+        $religiones = Religion::orderBy('id_religion') -> get();
+        $parentescos = Parentesco::orderBy('id_parentesco') -> get();
+        $roles = Rol::orderBy('id_rol') -> get();
+        $familiares = Familiar_trabajador::where('id_trabajador', '=' ,$id) -> get();
+        $escolaridades = Escolaridad::orderBy('escolaridad') -> get();
+        $prep_academicas = PrepAcademica::orderBy('grado_academico') -> get();
 
         $conyuge_x_trabajador = conyuge_x_trabajador::where('id_trabajador', '=' ,$id)->first();
         $padecimiento = Padecimiento::where('id_trabajador', '=' ,$trabajador -> id_trabajador)->first(); 
@@ -262,6 +261,8 @@ class TrabajadorController extends Controller
         if(($conyuge_x_trabajador != null) && ($conyuge_x_trabajador -> es_trabajador == 0)){
             $conyuge = Conyuge::findOrFail($conyuge_x_trabajador -> id_conyuge);
         }
+
+        //dd($estados[0]);
 
         return view('Trabajador.edit', compact('trabajador', 'trabajadoresactivos', 'estadosciviles', 'estados', 'municipios', 'religiones', 'roles', 'conyuge_x_trabajador', 'conyuge', 'padecimiento', 'antecedente', 'familiares', 'parentescos', 'escolaridades', 'prep_academicas'));
     }
@@ -276,7 +277,6 @@ class TrabajadorController extends Controller
     public function update(TrabajadorRequest $request, $id)
     {
         //
-        //dd($request);
         $trabajador = Trabajador::findOrFail($id);
         $trabajador -> nombre = $request -> nombre;
         $trabajador -> a_paterno = $request -> a_paterno;
@@ -395,7 +395,7 @@ class TrabajadorController extends Controller
     }
 
     public function deleteFamiliares($id){
-        $familiares_temporales = Familiar_trabajador::where('id_trabajador', '=', $id)->get();
+        $familiares_temporales = Familiar_trabajador::where('id_trabajador', '=', $id) -> get();
         if($familiares_temporales != null){
             foreach ($familiares_temporales as $familiar_temporal) {
                 $familiar_temporal -> delete();

@@ -30,8 +30,8 @@ class GrupoController extends Controller
     {
         //
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
-        $periodos = Periodo::orderBy('id_periodo')->paginate(10);
-        $escolaridades = Escolaridad::orderBy('id_escolaridad')->paginate(10);
+        $periodos = Periodo::orderBy('id_periodo') -> get();
+        $escolaridades = Escolaridad::orderBy('id_escolaridad') -> get();
         $setting = Setting::find(1);
         
         $grupos = Grupo::where('id_periodo', $setting -> id_periodo)
@@ -58,7 +58,7 @@ class GrupoController extends Controller
         //
         $periodo_actual = Setting::all()->pluck('id_periodo');
         $periodo = Periodo::findOrFail($periodo_actual[0]);
-        $escolaridades = Escolaridad::orderBy('id_escolaridad')->paginate(50);
+        $escolaridades = Escolaridad::orderBy('id_escolaridad') -> get();
         return view('Grupo.create', compact('periodo', 'escolaridades'));
     }
 
@@ -109,7 +109,7 @@ class GrupoController extends Controller
         //
         $periodo_actual = Setting::all()->pluck('id_periodo');
         $periodo = Periodo::findOrFail($periodo_actual[0]);
-        $escolaridades = Escolaridad::orderBy('id_escolaridad')->paginate(10);
+        $escolaridades = Escolaridad::orderBy('id_escolaridad') -> get();
         $grupo = Grupo::findOrFail($id);
         return view('Grupo.edit', compact('grupo', 'periodo', 'escolaridades'));
     }
@@ -177,8 +177,8 @@ class GrupoController extends Controller
                 on users.id_user = roles_x_users.id_user
                 inner join cat_roles
                 on cat_roles.id_rol = roles_x_users.id_rol
-                and cat_roles.rol_key = :rol"), 
-                array('rol' => 'profesor'));
+                and (cat_roles.rol_key = :rol or cat_roles.rol_key = :rol2 or cat_roles.rol_key = :rol3 or cat_roles.rol_key = :rol4)"), 
+                array('rol' => 'profesor', 'rol2' => 'direccion_general', 'rol3' => 'direccion_nivel', 'rol4' => 'administracion_sitio'));
       
         return view('Grupo.asociar', compact('grupo', 'materias', 'trabajadores', 'profesores_asignados'));
     }

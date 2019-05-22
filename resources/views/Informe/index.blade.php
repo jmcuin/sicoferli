@@ -97,7 +97,8 @@
 				@endif
 			</tbody>
 		</table>
-		{!! $informes -> appends(\Request::except('page'))->render() !!}		
+		{!! $informes -> appends(\Request::except('page'))->render() !!}	
+
 <style type="text/css">
 	.btn-primary{
 		background-color: #20193D !important;

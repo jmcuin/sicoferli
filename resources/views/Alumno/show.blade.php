@@ -10,7 +10,8 @@
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-lg-3 col-lg-3 " align="center"> <img width="130px" src="{{ URL::asset('images/'.$alumno -> foto) }}">
+                <div class="col-lg-3 col-lg-3 " align="center"> 
+                	<img width="130px" @if($alumno -> foto == 'default.jpg') src="{{ URL::asset('images/'.$alumno -> foto) }}" @else src="{{ Storage::url($alumno -> foto) }}" @endif>
                 </div>
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
@@ -380,10 +381,10 @@
                 		@if( auth() -> user() -> hasRoles(['administracion_sitio','direccion_general', 'direccion_nivel']) )
                 		<td><a href="{{ route('Alumno.edit', $alumno-> id_alumno) }}" class="btn btn-primary">Editar</a>
                 		</td>
-                		<td><form method="POST" action="{{ route('Alumno.destroy', $alumno -> id_alumno)}}">
+                		<td><form method="POST" action="{{ route('Alumno.destroy', $alumno -> id_alumno)}}" class="delete" id="{{ $alumno -> id_alumno }}">
 								{!! method_field('DELETE') !!}
 				 				{!! csrf_field() !!}
-								<button type="submit" class="btn btn-primary">Eliminar</button>
+								<button type="submit" class="btn btn-danger">Eliminar</button>
 							</form>
                 		</td>
                 		<td>
@@ -402,6 +403,26 @@
           </div>
         </div>
     </div>
+
+    <div id="testmodal" class="modal fade" data-backdrop="false">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">Confirmación</h4>
+	            </div>
+	            <div class="modal-body">
+	                <p><b>Atención:</b></p>
+	                <p>Borrar esté registro ocasionará que se elimine toda la información asociada al mismo.</p>
+	                <p>¿Está seguro(a) de que desea continuar?</p>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" id="cancelado" data-dismiss="modal">Cancelar</button>
+	                <button type="button" class="btn btn-warning borrar-municipio" id="continuado">Continuar</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 <style type="text/css">
 	.btn-primary{
 		background-color: #20193D !important;
@@ -441,5 +462,22 @@
 			$('#panel-historial').slideToggle( "slow" );
 		});
 	});
+</script>
+<script>
+    $(".delete").on("submit", function(e){
+        $("#testmodal").modal('show');
+        var boton_id = $(this).closest("form").attr('id'); 
+
+        e.preventDefault();
+        boton_id = "#"+boton_id;
+        $('#testmodal .modal-footer button').on('click', function(event) {
+  			var $button = $(event.target);
+      		if($button[0].id == 'continuado')
+  				$(boton_id).submit();
+  			else
+  				$("#testmodal").modal('hide');		
+		});
+		//return confirm("Are you sure?");
+    });
 </script>
 @endsection

@@ -76,7 +76,7 @@ class SettingController extends Controller
     {
         //
         $setting = Setting::findOrFail($id);
-        $periodos = Periodo::orderBy('id_periodo')->paginate(50);
+        $periodos = Periodo::orderBy('id_periodo') -> get();
         return view('Setting.edit', compact('setting', 'periodos'));
     }
 

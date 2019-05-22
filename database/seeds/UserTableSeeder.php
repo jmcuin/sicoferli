@@ -29,6 +29,7 @@ class UserTableSeeder extends Seeder
             'id_estado_municipio' => '834',
             'telefono' => '111111',
             'email' => 'direccion@lizardi.edu.mx',
+            'id_prep_academica' => '9',
             'id_religion' => '9',
             'id_escolaridad' => '1'
         ]);

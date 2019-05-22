@@ -55,7 +55,7 @@
 				</div>
 			<div class="row">
 				<div class="form-group pull-right">
-					<input type="submit" value="Enviar" class="btn btn-primary">
+					<input type="submit" value="Guardar" class="btn btn-primary">
 					<a href="{{ route('Periodo.index') }}" class="btn btn-primary">Regresar</a>
 				</div>
 			</div>

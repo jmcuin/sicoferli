@@ -11,7 +11,8 @@
 			<div class="row">
 				<div class="form-group" align="center">
 					<label for="foto">
-						<img width="130px" src="{{ Storage::url($alumno -> foto) }}"><input type="file" name="foto" value="{{ old('foto') }}" accept="image/*">
+						<img width="130px" @if($alumno -> foto == 'default.jpg') src="{{ URL::asset('images/'.$alumno -> foto) }}" @else src="{{ Storage::url($alumno -> foto) }}" @endif>
+						<input type="file" name="foto" value="{{ old('foto') }}" accept="image/*"> 
 						{{ $errors -> first('foto') }}
 					</label>
 				</div>

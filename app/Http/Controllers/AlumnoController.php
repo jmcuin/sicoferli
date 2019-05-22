@@ -45,9 +45,9 @@ class AlumnoController extends Controller
         //
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
-        $estados = Estado::orderBy('id_estado') -> paginate(50);
-        $municipios = Municipio::orderBy('id_estado_municipio')->paginate(10);
-        $religiones = Religion::orderBy('id_religion')->paginate(10);
+        $estados = Estado::orderBy('id_estado') -> get();
+        $municipios = Municipio::orderBy('id_estado_municipio') -> get();
+        $religiones = Religion::orderBy('id_religion') -> get();
         
         $alumnos = Alumno::where('nombre', 'like', '%'.$criterio.'%')
         //->orwhere('id_alumno',$criterio)
@@ -70,10 +70,10 @@ class AlumnoController extends Controller
     public function create()
     {
         //
-        $trabajadoresactivos = Trabajador::orderBy('nombre') -> paginate(50);
-        $estados = Estado::orderBy('id_estado') -> paginate(50);
-        $municipios = Municipio::orderBy('id_estado_municipio') -> paginate(50);
-        $religiones = Religion::orderBy('id_religion') -> paginate(50);
+        $trabajadoresactivos = Trabajador::orderBy('nombre') -> get();
+        $estados = Estado::orderBy('id_estado') -> get();
+        $municipios = Municipio::orderBy('id_estado_municipio') -> get();
+        $religiones = Religion::orderBy('id_religion') -> get();
         
         return view('Alumno.create', compact('trabajadoresactivos','municipios', 'estados', 'religiones'));
     }
@@ -269,10 +269,10 @@ AND historial_alumno.id_alumno=:id_alumno"),
         $papa_externo = array();
         $mama_externa = array();
 
-        $trabajadores = Trabajador::orderBy('nombre') -> paginate(50);
-        $estados = Estado::orderBy('id_estado') -> paginate(50);
-        $municipios = Municipio::orderBy('id_estado_municipio') -> paginate(50);
-        $religiones = Religion::orderBy('id_religion') -> paginate(50);
+        $trabajadores = Trabajador::orderBy('nombre') -> get();
+        $estados = Estado::orderBy('id_estado') -> get();
+        $municipios = Municipio::orderBy('id_estado_municipio') -> get();
+        $religiones = Religion::orderBy('id_religion') -> get();
         $alumno = Alumno::findOrFail($id);
 
         $padres_x_alumno = padres_x_alumno::where('id_alumno', '=' ,$id) -> get();  
@@ -310,6 +310,7 @@ AND historial_alumno.id_alumno=:id_alumno"),
      */
     public function update(AlumnoRequest $request, $id)
     {
+        dd($request);
         $alumno = Alumno::findOrFail($id);
         $alumno -> nombre = $request -> nombre;
         $alumno -> a_paterno = $request -> a_paterno;
@@ -491,7 +492,7 @@ AND historial_alumno.id_alumno=:id_alumno"),
         $ya_inscrito = false;
         $periodo_actual = Setting::all()->pluck('id_periodo');
         $periodo = Periodo::findOrFail($periodo_actual);
-        $escolaridades = Escolaridad::orderBy('escolaridad') -> paginate(50);
+        $escolaridades = Escolaridad::orderBy('escolaridad') -> get();
         $grupos = Grupo::where('id_periodo', '=', $periodo_actual) -> get();
         $alumno = Alumno::findOrFail($id);
 

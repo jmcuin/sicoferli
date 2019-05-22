@@ -41,7 +41,7 @@ class MunicipioController extends Controller
     public function create()
     {
         //
-        $estados = Estado::orderBy('id_estado')->paginate(50);
+        $estados = Estado::orderBy('id_estado')-> get();
         return view('Municipio.create', compact('estados'));
     }
 
@@ -88,7 +88,7 @@ class MunicipioController extends Controller
     public function edit($id)
     {
         //
-        $estados = Estado::orderBy('id_estado')->paginate(50);
+        $estados = Estado::orderBy('id_estado') -> get();
         $municipio = Municipio::findOrFail($id);
         return view('Municipio.edit', compact('municipio','estados'));
     }

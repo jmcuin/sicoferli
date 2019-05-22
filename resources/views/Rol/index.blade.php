@@ -76,10 +76,10 @@
 								<a href="{{ route('Rol.edit', $rol -> id_rol)}}" class="btn btn-primary">Editar</a>
 							</td>
 							<td>
-								<form method="POST" action="{{ route('Rol.destroy', $rol-> id_rol)}}">
+								<form method="POST" action="{{ route('Rol.destroy', $rol-> id_rol)}}" class="delete" id="{{ $rol -> id_rol }}">
 									{!! method_field('DELETE') !!}
 								 	{!! csrf_field() !!}
-									<button type="submit" class="btn btn-primary">Eliminar</button>
+									<button type="submit" class="btn btn-danger">Eliminar</button>
 								</form>
 							</td>
 						</tr>
@@ -87,9 +87,47 @@
 				@endif
 			</tbody>
 		</table>
-		{!! $roles->appends(\Request::except('page'))->render() !!}		
+		{!! $roles->appends(\Request::except('page'))->render() !!}	
+
+		<div id="testmodal" class="modal fade" data-backdrop="false">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                <h4 class="modal-title">Confirmación</h4>
+	            </div>
+	            <div class="modal-body">
+	                <p><b>Atención:</b></p>
+	                <p>Borrar esté registro ocasionará que se elimine toda la información asociada al mismo.</p>
+	                <p>¿Está seguro(a) de que desea continuar?</p>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" id="cancelado" data-dismiss="modal">Cancelar</button>
+	                <button type="button" class="btn btn-warning borrar-municipio" id="continuado">Continuar</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>	
 <style type="text/css">
 			.btn-primary{
 				background-color: #20193D !important;
 			}
-		</style>@endsection
+		</style>
+<script>
+    $(".delete").on("submit", function(e){
+        $("#testmodal").modal('show');
+        var boton_id = $(this).closest("form").attr('id'); 
+
+        e.preventDefault();
+        boton_id = "#"+boton_id;
+        $('#testmodal .modal-footer button').on('click', function(event) {
+  			var $button = $(event.target);
+      		if($button[0].id == 'continuado')
+  				$(boton_id).submit();
+  			else
+  				$("#testmodal").modal('hide');		
+		});
+		//return confirm("Are you sure?");
+    });
+</script>
+@endsection

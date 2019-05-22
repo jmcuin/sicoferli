@@ -50,11 +50,7 @@
                       </form>
                     </td>
                 		<td>
-                      <form method="POST" action="{{ route('Informe.destroy', $informe -> id) }}">
-        								{!! method_field('DELETE') !!}
-        							 	{!! csrf_field() !!}
-        								<button type="submit" class="btn btn-primary">Eliminar</button>
-        							</form>
+                      <div style="width: 80px"></div>
                 		</td>
                 		<td>
 		           			<div style="width: 280px"></div>

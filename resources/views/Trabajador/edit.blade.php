@@ -13,9 +13,6 @@
 						<label for="foto">
 							<img width="130px" @if($trabajador -> foto == 'default.jpg') src="{{ URL::asset('images/'.$trabajador -> foto) }}" @else src="{{ Storage::url($trabajador -> foto) }}" @endif><input type="file" name="foto" value="{{old('foto')}}"  placeholder="foto(s) del Alumno" accept="image/*">
 							{{ $errors -> first('foto') }} 
-
-
-							
 						</label>
 					</div>
 				</div>
@@ -88,7 +85,7 @@
 						<select name="id_estado" id="id_estado">
 							<option value="0">Seleccione un Estado</option>
 							@foreach($estados as $estado)
-								<option value="{{ $estado -> id_estado }}" @if(($trabajador -> id_estado_municipio == $estado -> municipios[0] -> id_estado_municipio)) selected @endif>{{ $estado -> estado}}	
+								<option value="{{ $estado -> id_estado }}" @if($trabajador -> id_estado_municipio == $estado -> municipios[0] -> id_estado_municipio) selected @endif>{{ $estado -> estado }}	
 								</option>			
 							@endforeach
 						</select>
@@ -207,7 +204,7 @@
 					<select name="id_prep_academica">
 						<option value="0">Seleccione una Grado</option>
 						<@foreach($prep_academicas as $prep_academica)
-							<option value="{{ $prep_academica -> id_prep_academica }}" @if($trabajador -> id_prep_academica == $prep_academica -> id_prep_academica ) selected @endif>{{ $prep_academica -> grado_academico}}
+							<option value="{{ $prep_academica -> id_prep_academica }}" @if($trabajador -> id_prep_academica == $prep_academica -> id_prep_academica ) selected @endif>{{ $prep_academica -> grado_academico }}
 							</option>	
 						@endforeach
 					</select>
@@ -613,7 +610,7 @@
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="form-group pull-right">
-				<input type="submit" value="Enviar" class="btn btn-primary">
+				<input type="submit" value="Guardar" class="btn btn-primary">
 				<a href="{{ route('Trabajador.index') }}" class="btn btn-primary">Regresar</a>
 			</div>
 		</div>

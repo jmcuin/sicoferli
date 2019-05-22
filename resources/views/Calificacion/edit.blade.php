@@ -15,7 +15,7 @@
 		{{ $errors -> first('capacidad') }}
 	</label></p>
 	<p>
-		<input type="submit" value="Enviar" class="btn btn-primary">
+		<input type="submit" value="Guardar" class="btn btn-primary">
 	</p>
 </form>
 <a href="{{ route('Grupo.index') }}" class="btn btn-primary">Regresar</a>

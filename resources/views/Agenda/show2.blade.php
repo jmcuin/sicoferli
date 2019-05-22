@@ -25,7 +25,7 @@
                       <form method="POST" action="{{ route('Agenda.destroy', $evento -> id_agenda)}}">
                         {!! method_field('DELETE') !!}
                         {!! csrf_field() !!}
-                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
                       </form>
                     </td>
                     <td>

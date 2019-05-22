@@ -715,7 +715,7 @@
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="form-group pull-right">
-				<button type="submit" id="boton_registrar_alumno" class="btn btn-primary">Enviar<i class="fa fa-paper-plane-o ml-2"></i></button>
+				<button type="submit" id="boton_registrar_alumno" class="btn btn-primary">Enviar</button>
 				<a href="{{ route('Alumno.index') }}" class="btn btn-primary">Regresar</a>
 			</div>
 		</div>		

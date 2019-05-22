@@ -90,7 +90,7 @@
 		<div class="col-lg-12 well">
 			<div class="row">
 				<div class="form-group pull-right">
-					<input type="submit" value="Enviar" class="btn btn-primary">
+					<input type="submit" value="Guardar" class="btn btn-primary">
 					<a href="{{ route('Pagina.show', $id) }}" class="btn btn-primary">Regresar</a>
 				</div>
 			</div>

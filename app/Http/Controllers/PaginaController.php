@@ -163,11 +163,11 @@ class PaginaController extends Controller
         //
         $pagina = Pagina::findOrFail($id);
         $banner_principal_texto = explode('&', $pagina -> banner_principal_texto);
-        $pagina_convenios = Pagina_convenios::where('id_pagina', $id)->get();
-        $pagina_horarios = Pagina_horarios::where('id_pagina', $id)->get();
-        $pagina_instalaciones = Pagina_instalaciones::where('id_pagina', $id)->get();
-        $pagina_oferta = Pagina_oferta::where('id_pagina', $id)->get();
-        $pagina_talleres = Pagina_talleres::where('id_pagina', $id)->get();
+        $pagina_convenios = Pagina_convenios::where('id_pagina', $id) -> get();
+        $pagina_horarios = Pagina_horarios::where('id_pagina', $id) -> get();
+        $pagina_instalaciones = Pagina_instalaciones::where('id_pagina', $id) -> get();
+        $pagina_oferta = Pagina_oferta::where('id_pagina', $id) -> get();
+        $pagina_talleres = Pagina_talleres::where('id_pagina', $id) -> get();
 
         return view('Pagina.show', compact('pagina','banner_principal_texto', 'pagina_convenios', 'pagina_horarios', 'pagina_instalaciones', 'pagina_oferta', 'pagina_talleres'));
     }
