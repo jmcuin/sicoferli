@@ -23,7 +23,7 @@ class EscolaridadController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $escolaridades = Escolaridad::where('escolaridad', 'like', '%'.$criterio.'%')
-        ->orwhere('id_escolaridad', $criterio)
+        //->orwhere('id_escolaridad', $criterio)
         ->sortable()
         ->orderBy('id_escolaridad')
         ->paginate(10);

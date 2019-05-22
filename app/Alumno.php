@@ -57,4 +57,9 @@ class Alumno extends Model
     {
         return $this->hasMany(Notificacion::class,'id_notificacion');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class,'id_alumno');
+    }
 }

@@ -5,7 +5,7 @@
 	{!! csrf_field() !!}
 	{!! method_field('PUT') !!}
 <div class="container">
-    <h1 align="center">Registro de Trabajador(a)</h1>
+    <h1 align="center">Edición de Trabajador(a)</h1>
 		<div class="col-lg-12 well">
 			<div class="col-sm-12">
 				<div class="row">

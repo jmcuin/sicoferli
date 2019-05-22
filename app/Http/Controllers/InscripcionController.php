@@ -31,8 +31,8 @@ class InscripcionController extends Controller
             || auth()->user()->roles[0]->rol_key === 'administracion_sitio'){
             $grupos = DB::table('cat_grupos')
                     ->join('settings', 'cat_grupos.id_periodo', '=', 'settings.id_periodo')
-                    ->where('id_grupo', '=', $criterio)
-                    ->orwhere('grupo','like', '%'.$criterio.'%')
+                    //->where('id_grupo', '=', $criterio)
+                    ->where('grupo','like', '%'.$criterio.'%')
                     ->select('cat_grupos.*')
                     ->paginate(10);
         }else{

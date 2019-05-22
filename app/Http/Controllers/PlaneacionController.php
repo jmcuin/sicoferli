@@ -39,9 +39,9 @@ class PlaneacionController extends Controller
             $planeaciones = Planeacion::where('enviar', 1)
             ->where(function($query){
                 global $criterio;
-                $query->where('id_planeacion', 'like', '%'.$criterio.'%');
-                $query->orwhere('id_trabajador', 'like', '%'.$criterio.'%');
-                $query->orwhere('comentarios', 'like', '%'.$criterio.'%');
+                //$query->where('id_planeacion', 'like', '%'.$criterio.'%');
+                //$query->orwhere('id_trabajador', 'like', '%'.$criterio.'%');
+                $query->where('comentarios', 'like', '%'.$criterio.'%');
                 $query->orwhere('enviado_el', 'like', '%'.$criterio.'%');
              })
             ->sortable()
@@ -51,9 +51,9 @@ class PlaneacionController extends Controller
             $planeaciones = Planeacion::where('enviar', 1)
             ->where(function($query){
                 global $criterio;
-                $query->where('id_planeacion', 'like', '%'.$criterio.'%');
-                $query->orwhere('id_trabajador', 'like', '%'.$criterio.'%');
-                $query->orwhere('comentarios', 'like', '%'.$criterio.'%');
+                //$query->where('id_planeacion', 'like', '%'.$criterio.'%');
+                //$query->orwhere('id_trabajador', 'like', '%'.$criterio.'%');
+                $query->where('comentarios', 'like', '%'.$criterio.'%');
                 $query->orwhere('enviado_el', 'like', '%'.$criterio.'%');
             })
             ->sortable()

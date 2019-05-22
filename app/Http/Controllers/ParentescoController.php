@@ -23,7 +23,7 @@ class ParentescoController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $parentescos = Parentesco::where('parentesco', 'like', '%'.$criterio.'%')
-        ->orwhere('id_parentesco', $criterio)
+        //->orwhere('id_parentesco', $criterio)
         ->sortable()
         ->orderBy('id_parentesco')
         ->paginate(10);

@@ -36,9 +36,9 @@ class GrupoController extends Controller
         
         $grupos = Grupo::where('id_periodo', $setting -> id_periodo)
         ->where('grupo', 'like', '%'.$criterio.'%')
-        ->orwhere('id_grupo', $criterio)
-        ->orwhere('id_periodo', $criterio)
-        ->orwhere('id_escolaridad', $criterio)
+        //->orwhere('id_grupo', $criterio)
+        //->orwhere('id_periodo', $criterio)
+        //->orwhere('id_escolaridad', $criterio)
         ->sortable()
         ->orderBy('id_periodo')
         ->orderBy('id_escolaridad')

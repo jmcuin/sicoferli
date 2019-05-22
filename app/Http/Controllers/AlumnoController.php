@@ -50,7 +50,7 @@ class AlumnoController extends Controller
         $religiones = Religion::orderBy('id_religion')->paginate(10);
         
         $alumnos = Alumno::where('nombre', 'like', '%'.$criterio.'%')
-        ->orwhere('id_alumno',$criterio)
+        //->orwhere('id_alumno',$criterio)
         ->orwhere('a_paterno','like','%'.$criterio.'%')
         ->orwhere('a_materno','like','%'.$criterio.'%')
         ->orwhere('curp','like','%'.$criterio.'%')

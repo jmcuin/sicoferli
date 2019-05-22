@@ -688,8 +688,13 @@ class PaginaController extends Controller
         $etiquetas_contacto = array_column($medios, 'medio');
         $cantidad_contacto = array_column($medios, 'cantidad');
 
-        $visitas = DB::select(DB::raw("select count(id) as cantidad, MONTHNAME(created_at) as fecha from visitas 
-            group by MONTH(created_at)"));
+        //MySQL
+        /*$visitas = DB::select(DB::raw("select count(id) as cantidad, MONTHNAME(created_at) as fecha from visitas 
+            group by MONTH(created_at)"));*/
+
+        //Postgresql
+        $visitas = DB::select(DB::raw("select count(id) as cantidad, to_char(created_at, 'Month') as fecha from visitas 
+            group by to_char(created_at, 'Month')"));
 
         $etiquetas_visitas = array_column($visitas, 'fecha');
         $cantidad_visitas = array_column($visitas, 'cantidad');

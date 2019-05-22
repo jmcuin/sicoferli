@@ -23,7 +23,7 @@ class ReligionController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $religiones = Religion::where('religion', 'like', '%'.$criterio.'%')
-        ->orwhere('id_religion', $criterio)
+        //->orwhere('id_religion', $criterio)
         ->sortable()
         ->orderBy('id_religion')
         ->paginate(10);

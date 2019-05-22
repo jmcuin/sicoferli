@@ -48,7 +48,7 @@ class TrabajadorController extends Controller
         $roles = Rol::orderBy('id_rol')->paginate(10);
         
         $trabajadores = Trabajador::where('nombre', 'like', '%'.$criterio.'%')
-        ->orwhere('id_trabajador',$criterio)
+        //->orwhere('id_trabajador',$criterio)
         ->orwhere('a_paterno','like','%'.$criterio.'%')
         ->orwhere('a_materno','like','%'.$criterio.'%')
         ->orwhere('curp','like','%'.$criterio.'%')
@@ -71,15 +71,15 @@ class TrabajadorController extends Controller
         //PENDIENTE VALIDAR TRABAJADORES YA COMPROMETIDOS
         //$trabajadores_comprometidos = Trabajador::where('id_trabajador', )
         
-        $trabajadoresactivos = Trabajador::orderBy('nombre') -> paginate(50);
-        $estadosciviles = EstadoCivil::orderBy('id_estado_civil') -> paginate(50);
-        $estados = Estado::orderBy('id_estado') -> paginate(50);
-        $municipios = Municipio::orderBy('id_estado_municipio') -> paginate(50);
-        $religiones = Religion::orderBy('id_religion') -> paginate(50);
-        $roles = Rol::orderBy('id_rol') -> paginate(50);
-        $parentescos = Parentesco::orderBy('id_parentesco') -> paginate(50);
-        $escolaridades = Escolaridad::orderBy('escolaridad') -> paginate(50);
-        $prep_academicas = PrepAcademica::orderBy('grado_academico') -> paginate(50);
+        $trabajadoresactivos = Trabajador::orderBy('nombre') -> get();
+        $estadosciviles = EstadoCivil::orderBy('id_estado_civil') -> get();
+        $estados = Estado::orderBy('id_estado') -> get();
+        $municipios = Municipio::orderBy('id_estado_municipio') -> get();
+        $religiones = Religion::orderBy('id_religion') -> get();
+        $roles = Rol::orderBy('id_rol') -> get();
+        $parentescos = Parentesco::orderBy('id_parentesco') -> get();
+        $escolaridades = Escolaridad::orderBy('escolaridad') -> get();
+        $prep_academicas = PrepAcademica::orderBy('grado_academico') -> get();
         
         return view('Trabajador.create', compact('trabajadoresactivos','estadosciviles', 'municipios', 'estados', 'religiones','roles', 'parentescos', 'escolaridades','prep_academicas'));
     }
@@ -276,6 +276,7 @@ class TrabajadorController extends Controller
     public function update(TrabajadorRequest $request, $id)
     {
         //
+        //dd($request);
         $trabajador = Trabajador::findOrFail($id);
         $trabajador -> nombre = $request -> nombre;
         $trabajador -> a_paterno = $request -> a_paterno;
@@ -375,6 +376,8 @@ class TrabajadorController extends Controller
         }
         $antecedente -> save();
 
+        $this -> updateUserRole($id, $request -> id_rol);
+
         if($guardado)
             return redirect()->route('Trabajador.index')->with('info','Trabajador actualizado con éxito.');
         else
@@ -437,14 +440,20 @@ class TrabajadorController extends Controller
     }
 
     public function addUser(Request $request){
-        $user = new User;
         $trabajador = Trabajador::find(DB::table('trabajadors')->max('id_trabajador'));
+        $user = new User;
         $user -> id_trabajador = $trabajador -> id_trabajador;
         $user -> matricula = 'EFELI'.$trabajador -> id_trabajador;
         $user -> email = $request -> email;
         $user -> password = bcrypt(substr($request -> curp, 0, 6));
         $user -> save();
         $user -> roles() -> attach($request -> id_rol);
+    }
+
+    public function updateUserRole($id, $id_rol)
+    {
+        $user = User::where('id_trabajador', '=', $id) -> first();
+        $user -> roles() -> sync($id_rol);
     }
 
     public function createHistorial($id_grupo)

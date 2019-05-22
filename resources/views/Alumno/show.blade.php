@@ -16,6 +16,10 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
+                        <td>Matrícula:</td>
+                        <td>{{ $alumno -> user -> matricula }}</td>
+                      </tr>
+                      <tr>
                         <td>CURP:</td>
                         <td>{{ $alumno -> curp }}</td>
                       </tr>

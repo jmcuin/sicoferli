@@ -24,13 +24,13 @@ class CreateInscripcionesTable extends Migration
             $table->integer('id_grupo')->nullable()->unsigned();
             $table->foreign('id_grupo')
                   ->references('id_grupo')
-                  ->on('materia_x_grupos')
+                  ->on('cat_grupos')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->integer('id_materia')->nullable()->unsigned();
             $table->foreign('id_materia')
                   ->references('id_materia')
-                  ->on('materia_x_grupos')
+                  ->on('cat_materias')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->integer('id_alumno')->nullable()->unsigned();

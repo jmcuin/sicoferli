@@ -23,7 +23,7 @@ class PrepAcademicaController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $prepacademicas = PrepAcademica::where('grado_academico', 'like', '%'.$criterio.'%')
-        ->orwhere('id_prep_academica', $criterio)
+        //->orwhere('id_prep_academica', $criterio)
         ->sortable()
         ->orderBy('id_prep_academica')
         ->paginate(10);

@@ -25,7 +25,7 @@ class EstadoController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $estados = Estado::where('estado', 'like', '%'.$criterio.'%')
-        ->orwhere('id_estado', $criterio)
+        //->orwhere('id_estado', $criterio)
         ->sortable()
         ->orderBy('id_estado')
         ->paginate(10);

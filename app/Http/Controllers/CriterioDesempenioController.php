@@ -23,7 +23,7 @@ class CriterioDesempenioController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $criterios = CriterioDesempenio::where('criterio', 'like', '%'.$criterio.'%')
-        ->orwhere('id_criterio_desempenio', $criterio)
+        //->orwhere('id_criterio_desempenio', $criterio)
         ->sortable()
         ->orderBy('id_criterio_desempenio')
         ->paginate(10);

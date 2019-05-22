@@ -25,7 +25,7 @@ class RolController extends Controller
 
         $roles = Rol::where('rol_key', 'like', '%'.$criterio.'%')
         ->orwhere('rol', $criterio)
-        ->orwhere('id_rol', $criterio)
+        //->orwhere('id_rol', $criterio)
         ->sortable()
         ->orderBy('id_rol')
         ->paginate(10);

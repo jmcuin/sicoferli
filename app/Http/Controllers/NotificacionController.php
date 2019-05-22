@@ -29,21 +29,24 @@ class NotificacionController extends Controller
         $notificaciones = null;
 
         if(Auth::user() -> roles[0] -> rol_key == 'administracion_sitio' || Auth::user() -> roles[0] -> rol_key == 'direccion_general'){
-            $notificaciones = Notificacion::where('id_notificacion', '=', $criterio)
-            ->orwhere('id_trabajador_emisor', '=', $criterio)
+            $notificaciones = Notificacion::where('mensaje', 'like', '%'.$criterio.'%')
+            //where('id_notificacion', '=', $criterio)
+            //->orwhere('id_trabajador_emisor', '=', $criterio)
             ->orwhere('mensaje', 'like', '%'.$criterio.'%')
             ->sortable()
             ->orderBy('id_notificacion')
             ->paginate(10);
         }else if(Auth::user() -> roles[0] -> rol_key == 'direccion_nivel'){
-            $notificaciones = Notificacion::where('id_notificacion', '=', $criterio)
-            ->orwhere('id_trabajador_emisor', '=', $criterio)
+            $notificaciones = Notificacion::where('mensaje', 'like', '%'.$criterio.'%')
+            //where('id_notificacion', '=', $criterio)
+            //->orwhere('id_trabajador_emisor', '=', $criterio)
             ->orwhere('mensaje', 'like', '%'.$criterio.'%')
             ->sortable()
             ->orderBy('id_notificacion')
             ->paginate(10);
         }else if(Auth::user() -> roles[0] -> rol_key == 'profesor'){
-            $notificaciones = Notificacion::where('id_trabajador_emisor', Auth::user() -> id_trabajador)
+            $notificaciones = Notificacion::where('mensaje', 'like', '%'.$criterio.'%')
+            //where('id_trabajador_emisor', Auth::user() -> id_trabajador)
             ->where(function($query){
                 global $criterio;
                 $query->where('mensaje', 'like', '%'.$criterio.'%');  

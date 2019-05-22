@@ -23,7 +23,7 @@ class EstadoCivilController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $estados_civiles = EstadoCivil::where('estado_civil', 'like', '%'.$criterio.'%')
-        ->orwhere('id_estado_civil', $criterio)
+        //->orwhere('id_estado_civil', $criterio)
         ->sortable()
         ->orderBy('id_estado_civil')
         ->paginate(10);

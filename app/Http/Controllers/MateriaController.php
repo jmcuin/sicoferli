@@ -23,7 +23,7 @@ class MateriaController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $materias = Materia::where('materia', 'like', '%'.$criterio.'%')
-        ->orwhere('id_materia', $criterio)
+        //->orwhere('id_materia', $criterio)
         ->sortable()
         ->orderBy('id_materia')
         ->paginate(10);

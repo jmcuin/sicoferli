@@ -15,13 +15,13 @@ class CreateGrupoXMaterias extends Migration
     {
         //
         Schema::create('materia_x_grupos', function (Blueprint $table) {
-            $table->integer('id_grupo')->nullable()->unsigned()->unique();
+            $table->integer('id_grupo')->nullable()->unsigned();
             $table->foreign('id_grupo')
                   ->references('id_grupo')
                   ->on('cat_grupos')
                   ->onDelete('set null')
                   ->onUpdate('cascade');
-            $table->integer('id_materia')->nullable()->unsigned()->unique();
+            $table->integer('id_materia')->nullable()->unsigned();
             $table->foreign('id_materia')
                   ->references('id_materia')
                   ->on('cat_materias')

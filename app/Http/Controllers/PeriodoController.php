@@ -24,7 +24,7 @@ class PeriodoController extends Controller
         $criterio = \Request::get('search'); //<-- we use global request to get the param of URI
 
         $periodos = Periodo::where('periodo', 'like', '%'.$criterio.'%')
-                    ->orwhere('id_periodo', $criterio)
+                    //->orwhere('id_periodo', $criterio)
                     ->sortable()
                     ->orderBy('id_periodo')
                     ->paginate(10);

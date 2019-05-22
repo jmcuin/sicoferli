@@ -36,7 +36,7 @@
 			<thead>
 				<tr>
 					<th>
-						@sortablelink('id_trabajador')
+						Matrícula
 					</th>
 					<th>
 						@sortablelink('nombre')
@@ -76,7 +76,7 @@
 					@foreach($trabajadores as $trabajador)
 						<tr>
 							<td>
-								{{ $trabajador -> id_trabajador }}
+								{{ $trabajador -> user -> matricula }}
 							</td>
 							<td>
 								{{ $trabajador -> nombre }}

@@ -16,6 +16,10 @@
                   <table class="table table-user-information">
                     <tbody>
                       <tr>
+                        <td>Matrícula:</td>
+                        <td>{{ $trabajador -> user -> matricula }}</td>
+                      </tr>
+                      <tr>
                         <td>CURP:</td>
                         <td>{{ $trabajador -> curp }}</td>
                       </tr>
@@ -247,6 +251,7 @@
                 </table>         
             </div>       
         </div>
+      </div>
     </div>
 <style type="text/css">
 	.btn-primary{
