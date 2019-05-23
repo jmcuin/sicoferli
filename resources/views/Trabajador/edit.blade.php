@@ -418,14 +418,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-6 form-group">
+			<div class="col-sm-4 form-group">
 				<label for="nombre_referencia1">
 					Nombre de una Segunda Referencia Personal
 						<input type="text" name="nombre_referencia2" id="nombre_referencia1" value="{{ $padecimiento -> ref2_nombre }}" class="form-control" placeholder="Referencia 2">
 						{{ $errors -> first('nombre_referencia2') }}
 					</label>
 			</div>
-			<div class="col-sm-6 form-group">
+			<div class="col-sm-4 form-group">
 				<label for="telefono_referencia1">
 					Teléfono de una Segunda Referencia Personal
 						<input type="text" name="telefono_referencia2" id="telefono_referencia1" value="{{ $padecimiento -> ref2_tel }}" class="form-control" placeholder="Teléfono de Referencia 2">
