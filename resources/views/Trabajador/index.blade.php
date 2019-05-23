@@ -103,10 +103,14 @@
 								{{ $trabajador -> user -> roles[0] -> rol }}
 							</td>
 							<td>
+								@if( $trabajador -> user -> matricula != 'coferli' )
 								<a href="{{ route('Trabajador.show', $trabajador -> id_trabajador) }}" class="btn btn-primary">Ver</a>
+								@endif
 							</td>
 							<td>
+								@if( $trabajador -> user -> matricula != 'coferli' )
 								<a href="{{ route('Trabajador.edit', $trabajador -> id_trabajador) }}" class="btn btn-primary">Editar</a>
+								@endif
 							</td>
 							<td>
 								@if( $trabajador -> user -> matricula != 'coferli' )
