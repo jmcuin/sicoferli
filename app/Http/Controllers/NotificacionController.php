@@ -86,6 +86,8 @@ class NotificacionController extends Controller
     public function store(NotificacionRequest $request)
     {
         //
+        dd($request);
+
         $numero_guardado = 0;
         $total_a_guardar = 0;
         if( count($request -> grupos) > 0 ){
@@ -163,6 +165,26 @@ class NotificacionController extends Controller
             }
         }
         
+        /*if(count($request -> num_copias) > 0){
+            for($i = 0; $i < count($request -> num_copias); $i++){
+                if($request -> num_copias[$i] != null && $request -> fecha_de_uso[$i] != null){
+                    $anexo = new Anexo;
+                    $anexo -> id_planeacion = $maxid;
+                    if($request -> hasFile('anexo.'.key($request -> anexo))){
+                        if($request -> anual == 0){
+                            $anexo -> archivo = $request -> anexo[$i] -> storeAs('public/anexos/'.$setting -> periodo -> periodo.'/'.$grupo -> grupo, $maxid.'_'.explode('.',$request -> anexo[$i] -> getClientOriginalName())[0].'_anexo_'.($i+1).'.'.$request -> anexo[$i] -> extension());
+                        }else{
+                            $anexo -> archivo = $request -> anexo[$i] -> storeAs('public/anexosAnual/'.$setting -> periodo -> periodo.'/'.$grupo -> grupo, $maxid.'_'.explode('.',$request -> anexo[$i] -> getClientOriginalName())[0].'_anexo_'.($i+1).'.'.$request -> anexo[$i] -> extension());
+                        }
+                    }    
+                    $anexo -> numero_copias = $request -> num_copias[$i];
+                    $anexo -> fecha_de_uso = $request -> fecha_de_uso[$i];
+                    $anexo -> save();
+                }
+            }
+            $guardado = true;
+        }*/
+
         if($total_a_guardar == $numero_guardado)
             return redirect()->route('Notificacion.index')->with('info','Notificación creada con éxito.');
         else

@@ -142,7 +142,7 @@
                     </tbody>
                   </table>
                 </div>
-                <h3 class="panel-title" id="titulo-padecimientos" align="center">Padecimientos</h3>
+                <h3 class="panel-title" id="titulo-padecimientos" align="center">Padecimientos Físicos</h3>
                 <div id="panel-padecimientos"> 
                   <table class="table table-user-information">
                     <tbody>
@@ -179,12 +179,20 @@
                         <td>{{ $padecimiento -> ref1_tel }}</td>
                       </tr>
                       <tr>
+                        <td>Relación Referencia 1:</td>
+                        <td>{{ $padecimiento -> ref1_relacion }}</td>
+                      </tr>
+                      <tr>
                         <td>Referencia Dos:</td>
                         <td>{{ $padecimiento -> ref2_nombre }}</td>
                       </tr>
                       <tr>
                         <td>Tel. Referencia Dos:</td>
                         <td>{{ $padecimiento -> ref2_tel }}</td>
+                      </tr>
+                      <tr>
+                        <td>Relación Referencia 2:</td>
+                        <td>{{ $padecimiento -> ref2_relacion }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -228,6 +236,8 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
             <div class="panel-footer">
                 <table>
                 	<tr>

@@ -10,6 +10,15 @@
 	    <input type="text" name="id_rol" id="id_rol" hidden="hidden" value="{{ $usuario -> roles[0] -> rol_key }}">
 	    <input type="text" name="escolaridad" id="escolaridad" hidden="hidden" value="{{ $id_escolaridad }}-{{ $escolaridad }}">
 		<div class="col-lg-12 well">
+			<!--div class="row">
+				<div class="col-sm-12 form-group" align="center">
+					<label for="archivos" class="label-archivos">
+						Archivo(s) Adjunto(s)
+						<input type="file" id="archivos" name="archivos[]" multiple="multiple">
+						{{ $errors -> first('nombre_familiar[]') }}
+					</label>
+				</div>
+			</div-->
 			<div class="col-sm-12">
 				<div class="row" align="center">
 					<label for="mensaje">
@@ -34,18 +43,18 @@
 						Destinatario<br>
 						<select name="destinatario" id="destinatario">
 							<option value="0" @if(old('destinatario') == 0 ) selected @endif>Seleccione una opción</option>
-							@if( substr( $usuario -> roles[0] -> rol_key , 0, 4 ) === "dir_" ) )
+							@if( $usuario -> roles[0] -> rol_key === "administracion_sitio" || $usuario -> roles[0] -> rol_key === "direccion_general" )
 								<option value="1" @if(old('destinatario') == 1 ) selected @endif>Grupo</option>
 								<option value="2" @if(old('destinatario') == 2 ) selected @endif>Alumno</option>
 								<option value="3" @if(old('destinatario') == 3 ) selected @endif>Trabajador</option>
 								<option value="4" @if(old('destinatario') == 4 ) selected @endif>Rol</option>
 							@endif
-							@if( substr( $usuario -> roles[0] -> rol_key , 0, 4 ) === "dire" ) )
+							@if( $usuario -> roles[0] -> rol_key === "direccion_nivel" )
 								<option value="1" @if(old('destinatario') == 1 ) selected @endif>Grupo</option>
 								<option value="2" @if(old('destinatario') == 2 ) selected @endif>Alumno</option>
 								<option value="3" @if(old('destinatario') == 3 ) selected @endif>Trabajador</option>
 							@endif
-							@if( substr( $usuario -> roles[0] -> rol_key , 0, 4 ) === "prof" ) )
+							@if( $usuario -> roles[0] -> rol_key === "profesor" )
 								<option value="1" @if(old('destinatario') == 1 ) selected @endif>Grupo</option>
 								<option value="2" @if(old('destinatario') == 2 ) selected @endif>Alumno</option>
 							@endif

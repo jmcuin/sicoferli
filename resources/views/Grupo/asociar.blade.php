@@ -34,7 +34,7 @@
 													<?php $seleccionado = true; ?>
 												@endif
 											@endfor
-											<option value="{{ $trabajador -> id_trabajador }}" @if($seleccionado) selected @endif id='trabajador-{{ $trabajador -> id_trabajador }}'>{{ $trabajador -> nombre }}{{ $trabajador -> a_paterno }}{{ $trabajador -> a_materno }}
+											<option value="{{ $trabajador -> id_trabajador }}" @if($seleccionado) selected @endif id='trabajador-{{ $trabajador -> id_trabajador }}'>{{ $trabajador -> nombre }} {{ $trabajador -> a_paterno }} {{ $trabajador -> a_materno }}
 											</option>
 											<?php $seleccionado = false; ?>
 										@endforeach

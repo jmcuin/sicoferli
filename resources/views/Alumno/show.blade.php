@@ -131,7 +131,7 @@
                     </tbody>
                   </table>
                 </div>
-                <h3 class="panel-title" id="titulo-padecimientos" align="center">Padecimientos</h3>
+                <h3 class="panel-title" id="titulo-padecimientos" align="center">Padecimientos Físicos</h3>
                 <div id="panel-padecimientos"> 
                   <table class="table table-user-information">
                     <tbody>
@@ -175,12 +175,20 @@
                         <td>{{ $padecimiento -> ref1_tel }}</td>
                       </tr>
                       <tr>
+                        <td>Relación Referencia 1:</td>
+                        <td>{{ $padecimiento -> ref1_relacion }}</td>
+                      </tr>
+                      <tr>
                         <td>Referencia 2:</td>
                         <td>{{ $padecimiento -> ref2_nombre }}</td>
                       </tr>
                       <tr>
                         <td>Tel. Referencia 2:</td>
                         <td>{{ $padecimiento -> ref2_tel }}</td>
+                      </tr>
+                      <tr>
+                        <td>Relación Referencia 2:</td>
+                        <td>{{ $padecimiento -> ref2_relacion }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -189,6 +197,11 @@
                 <div  id="panel-expediente"> 
                   <table class="table table-user-information">
                     <tbody>
+                      <tr>
+                      	<td colspan="2" align="center">
+                      		<img src="{{ URL::asset('images/ok.jpg') }}" width="25px"> = Entregó</img>&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{ URL::asset('images/missing.jpg') }}" width="25px"> = Pendiente</img>&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{ URL::asset('images/na.jpg') }}" width="25px"> = No aplica o no entregó</img>
+                      	</td>
+                      </tr>
                       <tr>
 						<td>
 							Acta de Nacimiento:

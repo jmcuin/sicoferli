@@ -69,7 +69,7 @@
                         <ul class="dropdown-menu" role="menu">
                             @if(Auth::user() -> id_trabajador != null)
                                 <li>
-                                    <li class="active"><a href="{{ route('Trabajador.edit', Auth::user() -> id_trabajador) }}">Configurar</a></li>
+                                    <li class="link"><a href="{{ route('Trabajador.edit', Auth::user() -> id_trabajador) }}">Configurar</a></li>
                                 </li>
                             @endif
                             <li>
@@ -82,12 +82,12 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-                    <li class="active"><a href="{{route('Panel.index')}}">Inicio</a></li>
+                    <li class="link"><a href="{{route('Panel.index')}}">Inicio</a></li>
                     @if( auth() -> user() -> hasRoles(['administracion_sitio','direccion_general','direccion_general']) )
-                        <li class="active"><a href="{{ route('Alumno.index') }}">Alumnos</a></li>
-                        <li class="active"><a href="{{ route('Trabajador.index') }}">Trabajadores</a></li>
-                        <li class="active"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>
-                        <li class="active"><a href="{{ route('Informe.index') }}">Informes - {{ Auth::user()->roles->count() }}</a></li>
+                        <li class="link"><a href="{{ route('Alumno.index') }}">Alumnos</a></li>
+                        <li class="link"><a href="{{ route('Trabajador.index') }}">Trabajadores</a></li>
+                        <li class="link"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>
+                        <li class="link"><a href="{{ route('Informe.index') }}">Informes @if(Auth::user() -> informes() > 0)<sup style="color: #0F0;">{{ Auth::user() -> informes() }}</sup>@endif</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos</a>
                             <ul class="dropdown-menu">
@@ -115,18 +115,18 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('Pagina.index') }}">Configuración</a></li>
                                 <li><a href="{{ route('paginaEstadistica') }}">Estadísticas</a></li>
-                                <li class="active"><a href="{{ route('Notificacion.index') }}">Notificaciones</a></li>
-                                <li class="active"><a href="{{ route('Agenda.index') }}">Agenda</a></li>
+                                <li class="link"><a href="{{ route('Notificacion.index') }}">Notificaciones</a></li>
+                                <li class="link"><a href="{{ route('Agenda.index') }}">Agenda</a></li>
                             </ul>
                         </li>
-                        <!--li class="active"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li-->
-                        <li class="active"><a href="{{ route('Setting.index') }}">Configuración</a></li>
+                        <!--li class="link"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li-->
+                        <li class="link"><a href="{{ route('Setting.index') }}">Configuración</a></li>
                     @endif
                     @if( auth() -> user() -> hasRoles(['profesor']) )
-                        <li class="active"><a href="{{ route('Alumno.index') }}">Alumnos</a></li>
-                        <li class="active"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>
-                        <li class="active"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
-                        <li class="active"><a href="{{ route('Calendario') }}">Calendario</a></li>
+                        <li class="link"><a href="{{ route('Alumno.index') }}">Alumnos</a></li>
+                        <li class="link"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>
+                        <li class="link"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
+                        <li class="link"><a href="{{ route('Calendario') }}">Calendario</a></li>
                     @endif
                 </ul>
                 @endguest
@@ -247,6 +247,12 @@
         alert($('tbody tr').find('td:eq(0)').text());
         //window.location.href = 'Estado/'+$(this).find('td:eq(0)').text()+'/edit';
     } );*/
+
+    $('.link').on( 'click', function () {
+        $('.link').removeClass("active");
+        $(this).addClass("active");
+    } );
+
     $('#tablaEstado').on( 'click', 'tbody tr td a', function () {
         link = $(this).closest('tr').find('td:eq(0)').text();
         clase = $(this).text();

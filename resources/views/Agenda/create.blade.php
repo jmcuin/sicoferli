@@ -51,7 +51,7 @@
 							<div class="row" align="center">
 								<label for="hora_inicio">
 									Hora de Incio<br>
-									<input type="time" name="hora_inicio[]" id="hora_inicio" value="{{ old('hora_inicio[]') }}">	
+									<input type="text" name="hora_inicio[]" id="hora_inicio" value="{{ old('hora_inicio[]') }}">	
 								</label>
 								<span class="help-block">
 									@if ($errors->has('hora_inicio.*'))
@@ -60,7 +60,7 @@
 								</span>
 								<label for="hora_fin">
 									Hora de Término<br>
-									<input type="time" name="hora_fin[]" id="hora_fin" value="{{ old('hora_fin[]') }}">
+									<input type="text" name="hora_fin[]" id="hora_fin" value="{{ old('hora_fin[]') }}">
 								</label>
 								<span class="help-block">
 									@if ($errors->has('hora_fin.*'))

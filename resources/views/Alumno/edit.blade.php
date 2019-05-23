@@ -414,14 +414,14 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-4 form-group">
+			<div class="col-sm-6 form-group">
 				<label for="medico">
 					Médico que le Atiende
 						<input type="text" name="medico" id="medico" value="{{ $padecimiento -> medico }}" class="form-control" placeholder="Médico que le atiende">
 						{{ $errors -> first('medico') }}
 					</label>
 			</div>
-			<div class="col-sm-4 form-group">
+			<div class="col-sm-6 form-group">
 				<label for="telefono_medico">
 					Teléfono del Médico que le Atiende
 						<input type="text" name="telefono_medico" id="telefono_medico" value="{{ $padecimiento -> tel_medico }}" class="form-control" placeholder="Teléfono del Médico que le atiende">
@@ -430,35 +430,49 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-6 form-group">
+			<div class="col-sm-4 form-group">
 				<label for="nombre_referencia1">
 					Nombre de Alguna Referencia Personal
 						<input type="text" name="nombre_referencia1" id="nombre_referencia1" value="{{ $padecimiento -> ref1_nombre }}" class="form-control" placeholder="Referencia 1">
 						{{ $errors -> first('nombre_referencia1') }}
 					</label>
 			</div>
-			<div class="col-sm-6 form-group">
+			<div class="col-sm-4 form-group">
 				<label for="telefono_referencia1">
 					Teléfono de Alguna Referencia Personal
 						<input type="text" name="telefono_referencia1" id="telefono_referencia1" value="{{ $padecimiento -> ref1_tel }}" class="form-control" placeholder="Teléfono de Referencia 1">
 						{{ $errors -> first('telefono_referencia1') }}
 					</label>
 			</div>
+			<div class="col-sm-4 form-group">
+				<label for="relacion_referencia1">
+					Relación con su Referencia Personal
+					<input type="text" name="relacion_referencia1" id="relacion_referencia1" value="{{ $padecimiento -> ref1_relacion }}" class="form-control" placeholder="Relación con Referencia 1">
+					{{ $errors -> first('relacion_referencia1') }}
+				</label>
+			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-6 form-group">
+			<div class="col-sm-4 form-group">
 				<label for="nombre_referencia2">
 					Nombre de una Segunda Referencia Personal
 						<input type="text" name="nombre_referencia2" id="nombre_referencia2" value="{{ $padecimiento -> ref2_nombre }}" class="form-control" placeholder="Referencia 1">
 						{{ $errors -> first('ref2_nombre') }}
 					</label>
 			</div>
-			<div class="col-sm-6 form-group">
+			<div class="col-sm-4 form-group">
 				<label for="telefono_referencia2">
 					Teléfono de una Segunda Referencia Personal
 						<input type="text" name="telefono_referencia2" id="telefono_referencia2" value="{{ $padecimiento -> ref2_tel }}" class="form-control" placeholder="Teléfono de Referencia 1">
 						{{ $errors -> first('ref2_tel') }}	
 					</label>	
+			</div>
+			<div class="col-sm-4 form-group">
+				<label for="relacion_referencia2">
+					Relación con su Referencia Personal
+					<input type="text" name="relacion_referencia2" id="relacion_referencia2" value="{{ $padecimiento -> ref2_relacion }}" class="form-control" placeholder="Relación con Referencia 2">
+					{{ $errors -> first('relacion_referencia2') }}
+				</label>
 			</div>
 		</div>
 	</div>

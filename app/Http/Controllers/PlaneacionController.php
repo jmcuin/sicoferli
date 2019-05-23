@@ -47,7 +47,7 @@ class PlaneacionController extends Controller
             ->sortable()
             ->orderBy('enviado_el', 'desc')
             ->paginate(10);
-        }else if(Auth::user() -> roles[0] -> rol_key == 'direccion_nivels'){
+        }else if(Auth::user() -> roles[0] -> rol_key == 'direccion_nivel'){
             $planeaciones = Planeacion::where('enviar', 1)
             ->where(function($query){
                 global $criterio;

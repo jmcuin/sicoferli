@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Alumno::class,'id_alumno');
     }
+
+    public function informes()
+    {
+        return Informe::where('atendido', '=', 0) -> count();
+    }
 }

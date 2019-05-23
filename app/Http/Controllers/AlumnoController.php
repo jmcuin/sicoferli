@@ -172,8 +172,10 @@ class AlumnoController extends Controller
             $padecimiento -> tel_medico = $request -> telefono_medico;
             $padecimiento -> ref1_nombre = $request -> nombre_referencia1;
             $padecimiento -> ref1_tel = $request -> telefono_referencia1;
+            $padecimiento -> ref1_relacion = $request -> relacion_referencia1;
             $padecimiento -> ref2_nombre = $request -> nombre_referencia2;
             $padecimiento -> ref2_tel = $request -> telefono_referencia2;
+            $padecimiento -> ref2_relacion = $request -> relacion_referencia2;
             $padecimiento -> save();
 
             $expediente = new Expediente_alumno;
@@ -398,8 +400,10 @@ AND historial_alumno.id_alumno=:id_alumno"),
         $padecimiento -> tel_medico = $request -> telefono_medico;
         $padecimiento -> ref1_nombre = $request -> nombre_referencia1;
         $padecimiento -> ref1_tel = $request -> telefono_referencia1;
-        $padecimiento -> ref1_nombre = $request -> nombre_referencia1;
-        $padecimiento -> ref1_tel = $request -> telefono_referencia1;
+        $padecimiento -> ref1_relacion = $request -> relacion_referencia1;
+        $padecimiento -> ref2_nombre = $request -> nombre_referencia2;
+        $padecimiento -> ref2_tel = $request -> telefono_referencia2;
+        $padecimiento -> ref2_relacion = $request -> relacion_referencia2;
         $padecimiento -> save();
 
         $expediente = Expediente_alumno::where('id_alumno', '=', $id) -> first();

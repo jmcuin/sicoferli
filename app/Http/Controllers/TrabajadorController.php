@@ -155,8 +155,10 @@ class TrabajadorController extends Controller
         $padecimiento -> tel_medico = $request -> telefono_medico;
         $padecimiento -> ref1_nombre = $request -> nombre_referencia1;
         $padecimiento -> ref1_tel = $request -> telefono_referencia1;
+        $padecimiento -> ref1_relacion = $request -> relacion_referencia1;
         $padecimiento -> ref2_nombre = $request -> nombre_referencia2;
         $padecimiento -> ref2_tel = $request -> telefono_referencia2;
+        $padecimiento -> ref2_relacion = $request -> relacion_referencia2;
         $padecimiento -> save();
 
         $maxid = DB::table('trabajadors')->max('id_trabajador');
@@ -341,8 +343,10 @@ class TrabajadorController extends Controller
         $padecimiento -> tel_medico = $request -> telefono_medico;
         $padecimiento -> ref1_nombre = $request -> nombre_referencia1;
         $padecimiento -> ref1_tel = $request -> telefono_referencia1;
-        $padecimiento -> ref1_nombre = $request -> nombre_referencia1;
-        $padecimiento -> ref1_tel = $request -> telefono_referencia1;
+        $padecimiento -> ref2_relacion = $request -> relacion_referencia2;
+        $padecimiento -> ref2_nombre = $request -> nombre_referencia2;
+        $padecimiento -> ref2_tel = $request -> telefono_referencia2;
+        $padecimiento -> ref2_relacion = $request -> relacion_referencia2;
         $padecimiento -> save();
 
         $this -> deleteFamiliares($id);
@@ -467,7 +471,7 @@ INNER JOIN inscripciones
 ON inscripciones.id_alumno=alumnos.id_alumno
 WHERE inscripciones.id_grupo=:id_grupo"), 
                                         array('id_grupo' => $id_grupo));
-                //dd($alumnos);
+        
         return view('Trabajador.createHistorial', compact('alumnos','grupo'));
     }
 
