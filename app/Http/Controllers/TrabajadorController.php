@@ -214,7 +214,7 @@ class TrabajadorController extends Controller
         $conyuge = null;
         $trabajador = Trabajador::findOrFail($id);
         $padecimiento = Padecimiento::where('id_trabajador', '=', $id)->first();
-        dd($trabajador -> padecimiento);
+        dd($padecimiento);
         $antecedente = AntecedenteLaboral::where('id_trabajador', '=', $id)->first();
         $familiares = Familiar_trabajador::where('id_trabajador', '=' ,$id) -> get();
 
