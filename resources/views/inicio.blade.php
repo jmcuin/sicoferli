@@ -1,6 +1,5 @@
 @extends('menu')
 
-
 @section('contenido')
 <!--Home Sections-->
 <!DOCTYPE html>
@@ -115,7 +114,6 @@
                 echo count($pagina_oferta);
                 $oferta_por_iteracion = 3;
                 $total_iteraciones = 0;
-                echo $iteraciones;
             ?>
             <!--Featured Section-->
             <section id="features" class="features">

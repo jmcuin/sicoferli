@@ -67,7 +67,7 @@
                         @endif
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            @if(Auth::user() -> id_trabajador != null)
+                            @if(Auth::user() -> id_trabajador != null && auth() -> user() -> hasRoles(['direccion_general','direccion_general','profesor']))
                                 <li>
                                     <li class="link"><a href="{{ route('Trabajador.edit', Auth::user() -> id_trabajador) }}">Configurar</a></li>
                                 </li>

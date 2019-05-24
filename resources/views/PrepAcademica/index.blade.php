@@ -64,7 +64,7 @@
 								<a href="{{ route('PrepAcademica.edit', $prepacademica -> id_prep_academica)}}" class="btn btn-primary">Editar</a>
 							</td>
 							<td>
-								<form method="POST" action="{{ route('PrepAcademica.destroy', $prepacademica-> id_prep_academica)}}" class="delete" id="{{ prepacademica -> id_prep_academica }}">
+								<form method="POST" action="{{ route('PrepAcademica.destroy', $prepacademica-> id_prep_academica)}}" class="delete" id="{{ $prepacademica -> id_prep_academica }}">
 									{!! method_field('DELETE') !!}
 								 	{!! csrf_field() !!}
 									<button type="submit" class="btn btn-danger">Eliminar</button>
