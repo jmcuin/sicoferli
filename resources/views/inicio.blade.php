@@ -111,7 +111,6 @@
             <?php
                 $iteraciones = 0;
                 $iteraciones = ceil(count($pagina_oferta)/3);   
-                echo count($pagina_oferta);
                 $oferta_por_iteracion = 3;
                 $total_iteraciones = 0;
             ?>
