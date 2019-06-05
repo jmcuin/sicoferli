@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-		<div class="col-sm-8"> 
+		<div class="col-med-8" style="overflow: auto;"> 
 		<h1>
 			Catálogo de Planeaciones
 			<a href="{{ route('Planeacion.create') }}" class="btn btn-primary pull-right">Nuevo</a>

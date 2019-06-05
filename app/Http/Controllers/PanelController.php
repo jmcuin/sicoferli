@@ -61,7 +61,7 @@ class PanelController extends Controller
                     ->groupBy('trabajadors.nombre')
                     ->groupBy('trabajadors.a_paterno')
                     ->orderBy('notificaciones.created_at')
-                    ->select('notificaciones.mensaje', 'trabajadors.nombre as nombre', 'trabajadors.a_paterno as a_paterno')
+                    ->select('notificaciones.mensaje', 'notificaciones.archivos', 'trabajadors.nombre as nombre', 'trabajadors.a_paterno as a_paterno')
                     ->distinct()
                     ->get();
 

@@ -26,7 +26,19 @@
                       <strong>
                         <div class="alert alert-warning alert-dismissable fade in">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                           <i>{{ $mensaje_grupal -> nombre }} {{ $mensaje_grupal -> a_paterno }} te ha notificado que:</i><br> {{ $mensaje_grupal -> mensaje }}
+                            <i>{{ $mensaje_grupal -> nombre }} {{ $mensaje_grupal -> a_paterno }} te ha notificado que:</i><br> {{ $mensaje_grupal -> mensaje }}<br>
+                           <?php 
+                            $adjuntos = null;
+                            if($mensaje_grupal -> archivos != 'ninguno')
+                              $adjuntos = explode('&', $mensaje_grupal -> archivos);
+                           ?>
+                           @if($adjuntos != null)
+                            @if(count($adjuntos) > 1)
+                              @for($i=1; $i < count($adjuntos); $i++)
+                                <a href="{{ Storage::url('public/notificaciones/'. $adjuntos[$i]) }}" target="_blank"><img src="{{ URL::asset('images/clip.png') }}" width="20px" height="20px"> {{ $adjuntos[$i] }}</a><br>
+                              @endfor
+                            @endif
+                           @endif
                            <div align="right" style="font-size: 10px;"><i>Mensaje grupal</i></div>
                         </div>
                       </strong>

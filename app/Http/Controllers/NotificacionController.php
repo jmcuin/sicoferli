@@ -6,6 +6,7 @@ use App\Notificacion;
 use Illuminate\Http\Request;
 use App\Http\Requests\NotificacionRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Setting;
 use App\Trabajador;
 use DB;
@@ -86,8 +87,8 @@ class NotificacionController extends Controller
     public function store(NotificacionRequest $request)
     {
         //
-        dd($request);
-
+        $statement = DB::select("SHOW TABLE STATUS LIKE 'notificaciones'");
+        $maxnotif = $statement[0]->Auto_increment;
         $numero_guardado = 0;
         $total_a_guardar = 0;
         if( count($request -> grupos) > 0 ){
@@ -100,6 +101,17 @@ class NotificacionController extends Controller
                 $notificacion -> id_materia = $grupos_individuales[1];
                 $notificacion -> mensaje = $request -> mensaje;
                 $notificacion -> caducidad = $request -> caducidad;
+                $archivos = "";
+                if($request -> hasFile('archivos')){
+                    foreach ($request -> archivos as $archivo) {
+                        $filename = $maxnotif.'_'.$archivo -> getClientOriginalName();
+                        $archivo -> storeAs('public/notificaciones/', $filename);
+                        $archivos = $archivos.'&'.$filename;
+                    }
+                }else
+                    $archivos = 'ninguno';
+                $notificacion -> archivos = $archivos;
+                $archivos = "";
                 $notificacion -> publicar = 0;
                 $notificacion -> save();
                 $numero_guardado++;
@@ -116,6 +128,17 @@ class NotificacionController extends Controller
                             $notificacion -> id_alumno = $alumno;
                             $notificacion -> mensaje = $request -> mensaje;
                             $notificacion -> caducidad = $request -> caducidad;
+                            $archivos = "";
+                            if($request -> hasFile('archivos')){
+                                foreach ($request -> archivos as $archivo) {
+                                    $filename = $maxnotif.'_'.$archivo -> getClientOriginalName();
+                                    $archivo -> storeAs('public/notificaciones/', $filename);
+                                    $archivos = $archivos.'&'.$filename;
+                                }
+                            }else
+                                $archivos = 'ninguno';
+                            $notificacion -> archivos = $archivos;
+                            $archivos = "";
                             $notificacion -> publicar = 0;
                             $notificacion -> save();
                         }
@@ -125,6 +148,17 @@ class NotificacionController extends Controller
                         $notificacion -> id_alumno = $alumno;
                         $notificacion -> mensaje = $request -> mensaje;
                         $notificacion -> caducidad = $request -> caducidad;
+                        $archivos = "";
+                        if($request -> hasFile('archivos')){
+                            foreach ($request -> archivos as $archivo) {
+                                $filename = $maxnotif.'_'.$archivo -> getClientOriginalName();
+                                $archivo -> storeAs('public/notificaciones/', $filename);
+                                    $archivos = $archivos.'&'.$filename;
+                            }
+                        }else
+                            $archivos = 'ninguno';
+                        $notificacion -> archivos = $archivos;
+                        $archivos = "";
                         $notificacion -> publicar = 0;
                         $notificacion -> save();
                     }
@@ -134,6 +168,17 @@ class NotificacionController extends Controller
                         $notificacion -> id_alumno = $alumno;
                         $notificacion -> mensaje = $request -> mensaje;
                         $notificacion -> caducidad = $request -> caducidad;
+                        $archivos = "";
+                        if($request -> hasFile('archivos')){
+                            foreach ($request -> archivos as $archivo) {
+                                $filename = $maxnotif.'_'.$archivo -> getClientOriginalName();
+                                $archivo -> storeAs('public/notificaciones/', $filename);
+                                $archivos = $archivos.'&'.$filename;
+                            }
+                        }else
+                            $archivos = 'ninguno';
+                        $notificacion -> archivos = $archivos;
+                        $archivos = "";
                         $notificacion -> publicar = 0;
                         $notificacion -> save();
                 }
@@ -147,6 +192,17 @@ class NotificacionController extends Controller
                 $notificacion -> id_trabajador_destino = $trabajador;
                 $notificacion -> mensaje = $request -> mensaje;
                 $notificacion -> caducidad = $request -> caducidad;
+                $archivos = "";
+                if($request -> hasFile('archivos')){
+                    foreach ($request -> archivos as $archivo) {
+                        $filename = $maxnotif.'_'.$archivo -> getClientOriginalName();
+                        $archivo -> storeAs('public/notificaciones/', $filename);
+                        $archivos = $archivos.'&'.$filename;
+                    }
+                }else
+                    $archivos = 'ninguno';
+                $notificacion -> archivos = $archivos;
+                $archivos = "";
                 $notificacion -> publicar = 0;
                 $notificacion -> save();
                 $numero_guardado++;
@@ -159,32 +215,23 @@ class NotificacionController extends Controller
                 $notificacion -> id_rol = $rol;
                 $notificacion -> mensaje = $request -> mensaje;
                 $notificacion -> caducidad = $request -> caducidad;
+                $archivos = "";
+                if($request -> hasFile('archivos')){
+                    foreach ($request -> archivos as $archivo) {
+                        $filename = $maxnotif.'_'.$archivo -> getClientOriginalName();
+                        $archivo -> storeAs('public/notificaciones/', $filename);
+                        $archivos = $archivos.'&'.$filename;
+                    }
+                }else
+                    $archivos = 'ninguno';
+                $notificacion -> archivos = $archivos;
+                $archivos = "";
                 $notificacion -> publicar = 0;
                 $notificacion -> save();
                 $numero_guardado++;
             }
         }
         
-        /*if(count($request -> num_copias) > 0){
-            for($i = 0; $i < count($request -> num_copias); $i++){
-                if($request -> num_copias[$i] != null && $request -> fecha_de_uso[$i] != null){
-                    $anexo = new Anexo;
-                    $anexo -> id_planeacion = $maxid;
-                    if($request -> hasFile('anexo.'.key($request -> anexo))){
-                        if($request -> anual == 0){
-                            $anexo -> archivo = $request -> anexo[$i] -> storeAs('public/anexos/'.$setting -> periodo -> periodo.'/'.$grupo -> grupo, $maxid.'_'.explode('.',$request -> anexo[$i] -> getClientOriginalName())[0].'_anexo_'.($i+1).'.'.$request -> anexo[$i] -> extension());
-                        }else{
-                            $anexo -> archivo = $request -> anexo[$i] -> storeAs('public/anexosAnual/'.$setting -> periodo -> periodo.'/'.$grupo -> grupo, $maxid.'_'.explode('.',$request -> anexo[$i] -> getClientOriginalName())[0].'_anexo_'.($i+1).'.'.$request -> anexo[$i] -> extension());
-                        }
-                    }    
-                    $anexo -> numero_copias = $request -> num_copias[$i];
-                    $anexo -> fecha_de_uso = $request -> fecha_de_uso[$i];
-                    $anexo -> save();
-                }
-            }
-            $guardado = true;
-        }*/
-
         if($total_a_guardar == $numero_guardado)
             return redirect()->route('Notificacion.index')->with('info','Notificación creada con éxito.');
         else
@@ -236,6 +283,19 @@ class NotificacionController extends Controller
         $notificacion = Notificacion::findOrFail($id);
         $notificacion -> mensaje = $request -> mensaje;
         $notificacion -> caducidad = $request -> caducidad;
+        if($notificacion -> archivos == 'ninguno')
+            $archivos = "";
+        else
+            $archivos = $notificacion -> archivos;
+        if($request -> hasFile('archivos')){
+            foreach ($request -> archivos as $archivo) {
+                $filename = $id.'_'.$archivo -> getClientOriginalName();
+                $archivo -> storeAs('public/notificaciones/', $filename);
+                $archivos = $archivos.'&'.$filename;
+            }
+        }
+        $notificacion -> archivos = $archivos;
+        $archivos = "";
         $guardado = $notificacion -> save();
         
         if($guardado)
@@ -279,5 +339,23 @@ class NotificacionController extends Controller
             return redirect()->route('Notificacion.index')->with('info','Su Notificación ha sido suspendida.');
         else if($estatus == 1)
             return redirect()->route('Notificacion.index')->with('info','Su Notificación ha sido publicada.');
+    }
+
+    public function deleteAttachment(Request $request)
+    {
+        //
+        $archivos = "";
+        $archivos_borrables = explode("-",$request -> attachment);
+        $notificacion = Notificacion::findOrFail($archivos_borrables[0]);
+        $adjuntos = explode('&', $notificacion -> archivos);
+        Storage::delete('public/notificaciones/'.$adjuntos[$archivos_borrables[1]]);
+        for($i = 1; $i < count($adjuntos); $i++){
+            if($i != $archivos_borrables[1])
+                $archivos = $archivos.'&'.$adjuntos[$i];
+        }
+        $notificacion -> archivos = $archivos;
+        $notificacion -> save();
+
+        return redirect()->route('Notificacion.show', $archivos_borrables[0]);
     }
 }

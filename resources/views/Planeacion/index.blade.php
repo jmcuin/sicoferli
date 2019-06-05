@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-		<div class="col-sm-8" style="overflow: auto;"> 
+		<div class="col-med-8" style="overflow: auto;"> 
 		<h1>
 			Catálogo de Planeaciones
 			@if( auth() -> user() -> hasRoles(['profesor']) )

@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form method="POST" action="{{ route('Notificacion.update', $notificacion -> id_notificacion) }}">
+<form method="POST" action="{{ route('Notificacion.update', $notificacion -> id_notificacion) }}" enctype="multipart/form-data">
 	{!! csrf_field() !!}
 	{!! method_field('PUT') !!}
 	<div class="container">
@@ -21,9 +21,18 @@
 			</div>
 			<div class="col-sm-12">
 				<div class="row" align="center">
+					<label for="archivos" class="label-archivos">
+						Archivo(s) Adjunto(s)
+						<input type="file" id="archivos" name="archivos[]" multiple="multiple">
+						{{ $errors -> first('archivos[]') }}
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row" align="center">
 					<label for="caducidad">
 						Caducidad del Mensaje<br>
-						<input type="date" name="caducidad" id="caducidad" value="{{ $notificacion -> caducidad }}">	
+						<input type="date" name="caducidad" id="caducidad" value="{{ $notificacion -> caducidad }}" min="{{ date("Y-m-d") }}">	
 						{{ $errors -> first('caducidad') }}
 					</label>
 				</div>

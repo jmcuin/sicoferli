@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-<form method="POST" action="{{ route('Notificacion.store') }}">
+<form method="POST" action="{{ route('Notificacion.store') }}" enctype="multipart/form-data">
 	{!! csrf_field() !!}
 	<div class="container">
 	    <h1 align="center">Registro de Notificaciones</h1>
@@ -10,21 +10,21 @@
 	    <input type="text" name="id_rol" id="id_rol" hidden="hidden" value="{{ $usuario -> roles[0] -> rol_key }}">
 	    <input type="text" name="escolaridad" id="escolaridad" hidden="hidden" value="{{ $id_escolaridad }}-{{ $escolaridad }}">
 		<div class="col-lg-12 well">
-			<!--div class="row">
-				<div class="col-sm-12 form-group" align="center">
-					<label for="archivos" class="label-archivos">
-						Archivo(s) Adjunto(s)
-						<input type="file" id="archivos" name="archivos[]" multiple="multiple">
-						{{ $errors -> first('nombre_familiar[]') }}
-					</label>
-				</div>
-			</div-->
 			<div class="col-sm-12">
 				<div class="row" align="center">
 					<label for="mensaje">
 						Mensaje<br>
 						<textarea name="mensaje" id="mensaje" rows="4" cols="50" placeholder="Escriba aquí su mensaje...">{{ old('mensaje') }}</textarea>	
 						{{ $errors -> first('mensaje') }}
+					</label>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="row" align="center">
+					<label for="archivos" class="label-archivos">
+						Archivo(s) Adjunto(s)
+						<input type="file" id="archivos" name="archivos[]" multiple="multiple">
+						{{ $errors -> first('archivos[]') }}
 					</label>
 				</div>
 			</div>

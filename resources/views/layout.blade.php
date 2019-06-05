@@ -108,6 +108,7 @@
                                 <li><a href="{{ route('Grupo.index') }}">Grupos</a></li>
                                 <li><a href="{{ route('Materia.index') }}">Materias</a></li>
                                 <li><a href="{{ route('Periodo.index') }}">Periodos</a></li>
+                                <li class="link"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -125,6 +126,7 @@
                     @if( auth() -> user() -> hasRoles(['profesor']) )
                         <li class="link"><a href="{{ route('Alumno.index') }}">Alumnos</a></li>
                         <li class="link"><a href="{{ route('Inscripcion.index') }}">Grupos</a></li>
+                        <li class="link"><a href="{{ route('Notificacion.index') }}">Notificaciones</a></li>
                         <li class="link"><a href="{{ route('Planeacion.index') }}">Planeaciones</a></li>
                         <li class="link"><a href="{{ route('Calendario') }}">Calendario</a></li>
                     @endif

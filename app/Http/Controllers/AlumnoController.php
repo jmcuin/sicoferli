@@ -312,7 +312,6 @@ AND historial_alumno.id_alumno=:id_alumno"),
      */
     public function update(AlumnoRequest $request, $id)
     {
-        dd($request);
         $alumno = Alumno::findOrFail($id);
         $alumno -> nombre = $request -> nombre;
         $alumno -> a_paterno = $request -> a_paterno;

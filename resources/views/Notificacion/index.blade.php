@@ -135,7 +135,7 @@
 									<button type="submit" class="btn btn-danger">Eliminar</button>
 								</form>
 							</td>
-							@if( auth() -> user() -> hasRoles(['dir_general', 'director']) )
+							@if( auth() -> user() -> hasRoles(['administracion_sitio', 'direccion_nivel']) )
 								<td>
 									<form method="POST" action="{{ route('NotificacionPublish') }}">
 										{!! method_field('POST') !!}

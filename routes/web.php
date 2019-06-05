@@ -84,6 +84,7 @@ Route::resource('Municipio', 'MunicipioController');
 
 Route::resource('Notificacion', 'NotificacionController');
 Route::post('NotificacionPublish', ['as' => 'NotificacionPublish', 'uses' => 'NotificacionController@publish']);
+Route::post('deleteAttachment', ['as' => 'deleteAttachment', 'uses' => 'NotificacionController@deleteAttachment']);
 
 Route::resource('Pagina', 'PaginaController');
 Route::get('editPagina/{id}', ['as' => 'editPagina', 'uses' =>'PaginaController@editarPagina']);
