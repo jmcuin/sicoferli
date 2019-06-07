@@ -45,13 +45,5 @@ class UserTableSeeder extends Seeder
             'id_user' => $user -> id_user,
             'id_rol' => '1'
         ]);
-
-        $padecimiento = Padecimiento::create([
-            'id_trabajador' => '1'
-        ]);
-
-        $antecedente_laboral = AntecedenteLaboral::create([
-            'id_trabajador' => '1'
-        ]);
     }
 }

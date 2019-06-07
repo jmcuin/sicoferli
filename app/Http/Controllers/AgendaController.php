@@ -108,7 +108,6 @@ class AgendaController extends Controller
 
         $grupos = DB::table('cat_grupos')
                   ->join('cat_periodos', 'cat_grupos.id_periodo', '=', 'cat_periodos.id_periodo')
-                  
                   ->select(DB::raw('COUNT(cat_grupos.id_grupo) as count, cat_periodos.periodo')) -> groupBy('cat_periodos.periodo') -> get() -> toArray();
         
         $etiquetas = array_column($grupos, 'periodo');
@@ -185,7 +184,6 @@ class AgendaController extends Controller
         -> where('fecha_evento', '>=', date('Y-m-d H:i:s'))
         -> orderBy('fecha_evento') 
         -> get();
-        
         
         return view('Agenda.calendario', compact('eventos'));
     }
